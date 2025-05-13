@@ -1,0 +1,709 @@
+/* CSS cho Tour Detail */
+
+/* Container chung */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    background-color: #f8f9fa;
+    padding: 10px 0;
+    margin-bottom: 30px;
+}
+
+.breadcrumb ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.breadcrumb li {
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.breadcrumb li:not(:last-child)::after {
+    content: ">";
+    margin: 0 10px;
+    color: #6c757d;
+}
+
+.breadcrumb a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+/* Tour Gallery */
+.tour-gallery {
+    margin-bottom: 30px;
+}
+
+.main-image {
+    width: 100%;
+    height: 500px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.main-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.thumbnails {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+}
+
+.thumbnails img {
+    width: 120px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.thumbnails img:hover {
+    transform: translateY(-5px);
+}
+
+.thumbnails img.active {
+    border: 3px solid #4CAF50;
+}
+
+/* Tour Content */
+.tour-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+/* Tour Info */
+.tour-info h1 {
+    font-size: 28px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.tour-rating {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.stars {
+    color: #ffc107;
+    margin-right: 10px;
+}
+
+.rating-count {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.review-count {
+    color: #6c757d;
+}
+
+.tour-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 25px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+}
+
+.meta-item i {
+    margin-right: 8px;
+    color: #4CAF50;
+}
+
+.tour-price {
+    margin-bottom: 25px;
+}
+
+.price-box {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.current-price {
+    font-size: 24px;
+    font-weight: bold;
+    color: #e91e63;
+    margin-right: 15px;
+}
+
+.old-price {
+    text-decoration: line-through;
+    color: #6c757d;
+    margin-right: 10px;
+}
+
+.discount {
+    background-color: #e91e63;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.price-note {
+    color: #6c757d;
+    font-size: 14px;
+}
+
+.booking-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.btn-book-now {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-book-now:hover {
+    background-color: #3e8e41;
+}
+
+.btn-add-wishlist, .btn-share {
+    background-color: #f8f9fa;
+    color: #333;
+    border: 1px solid #ddd;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-add-wishlist:hover, .btn-share:hover {
+    background-color: #e9ecef;
+}
+
+/* Tour Booking Summary */
+.tour-booking-summary {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.tour-booking-summary h3 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+.booking-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-weight: 500;
+    color: #333;
+}
+
+.input-icon {
+    position: relative;
+}
+
+.input-icon i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
+}
+
+.input-icon input {
+    width: 100%;
+    padding: 12px 15px 12px 40px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+.quantity-selector {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.qty-btn {
+    background-color: #f8f9fa;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.qty-btn:hover {
+    background-color: #e9ecef;
+}
+
+.quantity-selector input {
+    width: 60px;
+    text-align: center;
+    border: none;
+    padding: 10px 0;
+    font-size: 15px;
+}
+
+.total-price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-top: 1px solid #ddd;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.btn-checkout {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+}
+
+.btn-checkout:hover {
+    background-color: #3e8e41;
+}
+
+/* Tour Tabs */
+.tour-tabs {
+    margin-bottom: 50px;
+}
+
+.tab-header {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    gap: 5px;
+}
+
+.tab-btn {
+    padding: 15px 25px;
+    background: none;
+    border: none;
+    font-size: 16px;
+    font-weight: 500;
+    color: #6c757d;
+    cursor: pointer;
+    transition: all 0.3s;
+    white-space: nowrap;
+}
+
+.tab-btn:hover {
+    color: #333;
+}
+
+.tab-btn.active {
+    color: #4CAF50;
+    border-bottom: 3px solid #4CAF50;
+}
+
+.tab-content {
+    min-height: 300px;
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+.tab-pane h3 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.tab-pane p {
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: #444;
+}
+
+/* Highlight Box */
+.highlight-box {
+    background-color: #f8f9fa;
+    border-left: 5px solid #4CAF50;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 0 8px 8px 0;
+}
+
+.highlight-box h4 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.highlight-box ul {
+    padding-left: 20px;
+}
+
+.highlight-box li {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+/* Timeline trong lịch trình */
+.day-plan {
+    margin-bottom: 30px;
+}
+
+.day-plan h4 {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.timeline {
+    position: relative;
+    padding-left: 40px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 0;
+    height: 100%;
+    width: 2px;
+    background-color: #ddd;
+}
+
+.time-point {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.time-point::before {
+    content: '';
+    position: absolute;
+    left: -40px;
+    top: 5px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #4CAF50;
+    border: 3px solid white;
+    box-shadow: 0 0 0 2px #4CAF50;
+}
+
+.time-point .time {
+    font-weight: bold;
+    color: #4CAF50;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.time-point h5 {
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.time-point p {
+    margin: 0;
+    color: #666;
+}
+
+/* Bổ sung CSS cho tab Dịch vụ bao gồm */
+.included-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.included-column h4 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.included-column h4 .fa-check-circle {
+    color: #4CAF50;
+}
+
+.included-column h4 .fa-times-circle {
+    color: #f44336;
+}
+
+.included-column ul {
+    padding-left: 0;
+    list-style-type: none;
+}
+
+.included-column ul li {
+    padding: 8px 0;
+    border-bottom: 1px dotted #ddd;
+}
+
+.included-column ul li i {
+    margin-right: 10px;
+    color: #4CAF50;
+}
+
+.included-column ul li .fa-times-circle {
+    color: #f44336;
+}
+
+/* Đánh giá */
+.review-summary {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 40px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.rating-overview {
+    text-align: center;
+    padding-right: 30px;
+    border-right: 1px solid #ddd;
+}
+
+.rating-big {
+    font-size: 48px;
+    font-weight: bold;
+    color: #333;
+    line-height: 1;
+}
+
+.rating-overview .stars {
+    margin: 10px 0;
+}
+
+.review-count {
+    color: #6c757d;
+    font-size: 14px;
+}
+
+.rating-breakdown {
+    flex-grow: 1;
+}
+
+.rating-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.rating-label {
+    width: 60px;
+}
+
+.rating-bar {
+    flex-grow: 1;
+    height: 8px;
+    background-color: #e9ecef;
+    border-radius: 4px;
+    margin: 0 15px;
+}
+
+.rating-fill {
+    height: 100%;
+    background-color: #ffc107;
+    border-radius: 4px;
+}
+
+.rating-percent {
+    width: 40px;
+    text-align: right;
+}
+
+.review-list {
+    margin-bottom: 40px;
+}
+
+.review-item {
+    padding: 20px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+}
+
+.reviewer-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.reviewer-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 15px;
+}
+
+.reviewer-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.reviewer-details h4 {
+    margin: 0 0 5px 0;
+}
+
+.review-date {
+    color: #6c757d;
+    font-size: 13px;
+}
+
+.review-rating {
+    margin-bottom: 10px;
+}
+
+.review-form {
+    background-color: #f8f9fa;
+    padding: 25px;
+    border-radius: 8px;
+}
+
+.review-form h4 {
+    margin-bottom: 20px;
+}
+
+.rate-stars {
+    font-size: 24px;
+    color: #ffc107;
+    cursor: pointer;
+}
+
+.rate-stars i {
+    margin-right: 5px;
+}
+
+.btn-submit-review {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-submit-review:hover {
+    background-color: #3e8e41;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+    .tour-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .main-image {
+        height: 400px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-image {
+        height: 300px;
+    }
+    
+    .booking-actions {
+        flex-wrap: wrap;
+    }
+    
+    .btn-book-now {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    .btn-add-wishlist, .btn-share {
+        flex: 1;
+    }
+    
+    .tab-header {
+        overflow-x: auto;
+    }
+    
+    .included-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .review-summary {
+        flex-direction: column;
+    }
+    
+    .rating-overview {
+        padding-right: 0;
+        padding-bottom: 20px;
+        border-right: none;
+        border-bottom: 1px solid #ddd;
+    }
+}
+
+@media (max-width: 576px) {
+    .main-image {
+        height: 250px;
+    }
+    
+    .tour-meta {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .tour-info h1 {
+        font-size: 24px;
+    }
+}

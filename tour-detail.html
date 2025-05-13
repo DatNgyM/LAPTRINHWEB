@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đà Lạt - Thành phố ngàn hoa - EasyTrips</title>    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/tour-detail.css">
+    <link rel="stylesheet" href="assets/css/tour-tabs.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <h1>EasyTrips</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#" class="active">Tour</a></li>
+                <li><a href="#">Destination</a></li>
+                <li><a href="#">Evaluate</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="search-icon">
+            <i class="fas fa-search"></i>
+        </div>
+    </header>
+
+    <!-- Tour Detail Section -->
+    <section class="tour-detail">
+        <div class="container">
+            <div class="tour-gallery">
+                <div class="main-image">
+                    <img src="/assets/img/gioi-thieu-ve-da-lat-1.jpg" alt="Đà Lạt - Thành phố ngàn hoa">
+                </div>
+                <div class="thumbnails">
+                    <img src="/assets/img/gioi-thieu-ve-da-lat-1.jpg" alt="Đà Lạt" class="active">
+                    <img src="/assets/img/ho_xuan_huong_da_lat_05.jpg" alt="Hồ Xuân Hương">
+                    <img src="/assets/img/top-nhung-nha-thodep-nhat-da-lat-nam-20241-2315.png" alt="Nhà thờ Đà Lạt">
+                    <img src="/assets/img/doi che cau dat (4).jpg" alt="Đồi chè">
+                </div>
+            </div>
+
+            <div class="tour-content">
+                <div class="tour-info">
+                    <h1>Đà Lạt - Thành phố ngàn hoa</h1>
+                    <div class="tour-rating">
+                        <span class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </span>
+                        <span class="rating-count">4.5/5</span>
+                        <span class="review-count">(124 đánh giá)</span>
+                    </div>
+
+                    <div class="tour-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Thời gian: 3 ngày 2 đêm</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-users"></i>
+                            <span>Số người: 2-20 khách</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Điểm đến: Đà Lạt, Lâm Đồng</span>
+                        </div>
+                    </div>
+
+                    <div class="tour-price">
+                        <div class="price-box">
+                            <span class="current-price">2.990.000 VND</span>
+                            <span class="old-price">3.500.000 VND</span>
+                            <span class="discount">-15%</span>
+                        </div>
+                        <p class="price-note">Giá/người</p>
+                    </div>
+
+                    <div class="booking-actions">
+                        <button class="btn-book-now">Đặt ngay</button>
+                        <button class="btn-add-wishlist"><i class="far fa-heart"></i> Lưu</button>
+                        <button class="btn-share"><i class="fas fa-share-alt"></i> Chia sẻ</button>
+                    </div>
+                </div>
+
+                <div class="tour-booking-summary">
+                    <h3>Đặt chỗ nhanh</h3>
+                    <form class="booking-form" id="booking-form" action="payment.html" method="get">
+                        <div class="form-group">
+                            <label>Ngày khởi hành</label>
+                            <div class="input-icon">
+                                <i class="far fa-calendar"></i>
+                                <input type="date" name="departure_date" id="departure-date" required min="2025-05-14">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Số người</label>
+                            <div class="quantity-selector">
+                                <button type="button" class="qty-btn minus"><i class="fas fa-minus"></i></button>
+                                <input type="number" name="quantity" id="quantity-input" value="2" min="1" max="20" required>
+                                <button type="button" class="qty-btn plus"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
+                        
+                        <!-- Thông tin khách hàng -->
+                        <div class="customer-info">
+                            <h4>Thông tin liên hệ</h4>
+                            <div class="form-group">
+                                <label>Họ và tên</label>
+                                <input type="text" name="customer_name" placeholder="Nhập họ và tên" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Số điện thoại</label>
+                                <input type="tel" name="phone" placeholder="Nhập số điện thoại" pattern="[0-9]{10}" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" name="email" placeholder="Nhập email" required>
+                            </div>
+                        </div>
+                        
+                        <div class="total-price">
+                            <span>Tổng cộng:</span>
+                            <span class="price">5.980.000 VND</span>
+                            <input type="hidden" name="total_price" id="total-price-input" value="5980000">
+                            <input type="hidden" name="tour_name" value="Đà Lạt - Thành phố ngàn hoa">
+                            <input type="hidden" name="tour_id" value="DLAT0325">
+                        </div>
+                        <button type="submit" class="btn-checkout" id="checkout-btn">Tiến hành đặt tour</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="tour-tabs">
+                <div class="tab-nav">
+                    <button class="tab-btn active" data-tab="overview">Tổng quan</button>
+                    <button class="tab-btn" data-tab="itinerary">Lịch trình</button>
+                    <button class="tab-btn" data-tab="includes">Bao gồm</button>
+                    <button class="tab-btn" data-tab="reviews">Đánh giá</button>
+                </div>
+                
+                <div class="tab-content">
+                    <div class="tab-pane active" id="overview">
+                        <h3>Tổng quan về tour</h3>
+                        <p>Đà Lạt – thành phố ngàn hoa, thành phố sương mù, thành phố tình yêu… Từ những cái tên ấy đã phần nào cho bạn cảm nhận về một thành phố nhỏ xinh, lãng mạn, đẹp như một bức tranh thủy mặc. Nằm ngay giữa đồi thông xanh mướt, rộng khắp cả 4 mùa xuân, hạ, thu, đông, Đà Lạt hiện lên trong trẻo, tinh khôi, bình yên đến lạ thường với những quán cà phê nhỏ xinh, những khu vườn hoa đủ màu sắc, những rừng thông xanh thắm hay những dãy đồi chè bát ngát.</p>
+                        <!-- Thêm nội dung tổng quan -->
+                    </div>
+                    
+                    <div class="tab-pane" id="itinerary">
+                        <h3>Lịch trình tour</h3>
+                        <div class="day-itinerary">
+                            <h4>Ngày 1: TP.HCM - ĐÀ LẠT</h4>
+                            <p>05h00: Xe và HDV đón quý khách tại điểm hẹn, khởi hành đi Đà Lạt. Ăn sáng tại Đồng Nai.</p>
+                            <p>11h30: Ăn trưa tại nhà hàng. Tiếp tục hành trình đến Đà Lạt.</p>
+                            <p>16h00: Đến Đà Lạt. Nhận phòng khách sạn, nghỉ ngơi.</p>
+                            <p>18h00: Ăn tối tại nhà hàng. Tự do khám phá Đà Lạt về đêm.</p>
+                        </div>
+                        
+                        <div class="day-itinerary">
+                            <h4>Ngày 2: KHÁM PHÁ ĐÀ LẠT</h4>
+                            <p>07h00: Dùng điểm tâm sáng tại khách sạn.</p>
+                            <p>08h00: Tham quan Vườn hoa thành phố, Nhà thờ Domain De Marie, Thiền Viện Trúc Lâm...</p>
+                            <p>12h00: Dùng cơm trưa tại nhà hàng.</p>
+                            <p>14h00: Tham quan Thác Datanla, mua sắm đặc sản Đà Lạt.</p>
+                            <p>18h00: Dùng cơm tối. Tự do khám phá chợ đêm Đà Lạt.</p>
+                        </div>
+                        
+                        <div class="day-itinerary">
+                            <h4>Ngày 3: ĐÀ LẠT - TP.HCM</h4>
+                            <p>07h00: Dùng điểm tâm sáng tại khách sạn. Làm thủ tục trả phòng.</p>
+                            <p>08h30: Tham quan Dinh Bảo Đại, Quảng trường Lâm Viên.</p>
+                            <p>11h30: Dùng cơm trưa. Khởi hành về TP.HCM.</p>
+                            <p>19h00: Về đến TP.HCM. Kết thúc chương trình tour.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-pane" id="includes">
+                        <h3>Dịch vụ bao gồm</h3>
+                        <ul class="includes-list">
+                            <li><i class="fas fa-check"></i> Xe du lịch đời mới máy lạnh đưa đón theo chương trình</li>
+                            <li><i class="fas fa-check"></i> Khách sạn tiêu chuẩn 3 sao (2 người/phòng, lẻ ghép ngủ 3)</li>
+                            <li><i class="fas fa-check"></i> Các bữa ăn theo chương trình</li>
+                            <li><i class="fas fa-check"></i> Vé tham quan tại các điểm du lịch theo chương trình</li>
+                            <li><i class="fas fa-check"></i> Hướng dẫn viên chuyên nghiệp, nhiệt tình</li>
+                            <li><i class="fas fa-check"></i> Bảo hiểm du lịch (mức đền bù tối đa 30 triệu đồng/trường hợp)</li>
+                            <li><i class="fas fa-check"></i> Nước uống: 1 chai/người/ngày</li>
+                        </ul>
+                        
+                        <h3>Dịch vụ không bao gồm</h3>
+                        <ul class="not-includes-list">
+                            <li><i class="fas fa-times"></i> Chi phí cá nhân, giặt ủi, điện thoại...</li>
+                            <li><i class="fas fa-times"></i> Tiền tip cho hướng dẫn viên và tài xế</li>
+                            <li><i class="fas fa-times"></i> Thuế VAT</li>
+                            <li><i class="fas fa-times"></i> Các dịch vụ không được đề cập trong mục "Dịch vụ bao gồm"</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tab-pane" id="reviews">
+                        <div class="review-summary">
+                            <div class="rating-overview">
+                                <div class="review-count">Dựa trên 124 đánh giá</div>
+                            </div>
+                            
+                            <div class="rating-breakdown">
+                                <div class="rating-row">
+                                    <div class="rating-label">5 sao</div>
+                                    <div class="rating-bar">
+                                        <div class="rating-fill" style="width: 75%"></div>
+                                    </div>
+                                    <div class="rating-percent">75%</div>
+                                </div>
+                                <div class="rating-row">
+                                    <div class="rating-label">4 sao</div>
+                                    <div class="rating-bar">
+                                        <div class="rating-fill" style="width: 15%"></div>
+                                    </div>
+                                    <div class="rating-percent">15%</div>
+                                </div>
+                                <div class="rating-row">
+                                    <div class="rating-label">3 sao</div>
+                                    <div class="rating-bar">
+                                        <div class="rating-fill" style="width: 7%"></div>
+                                    </div>
+                                    <div class="rating-percent">7%</div>
+                                </div>
+                                <div class="rating-row">
+                                    <div class="rating-label">2 sao</div>
+                                    <div class="rating-bar">
+                                        <div class="rating-fill" style="width: 2%"></div>
+                                    </div>
+                                    <div class="rating-percent">2%</div>
+                                </div>
+                                <div class="rating-row">
+                                    <div class="rating-label">1 sao</div>
+                                    <div class="rating-bar">
+                                        <div class="rating-fill" style="width: 1%"></div>
+                                    </div>
+                                    <div class="rating-percent">1%</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="review-list">
+                            <div class="review-item">
+                                <div class="reviewer-info">
+                                    <div class="reviewer-avatar">
+                                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Nguyễn Văn A">
+                                    </div>
+                                    <div class="reviewer-details">
+                                        <h4>Nguyễn Văn A</h4>
+                                        <div class="review-date">Đã đánh giá vào 15/04/2025</div>
+                                    </div>
+                                </div>
+                                <div class="review-rating">
+                                    <span class="stars">★★★★★</span>
+                                </div>
+                                <div class="review-content">
+                                    <p>Tour rất tuyệt vời! Hướng dẫn viên nhiệt tình, lịch trình hợp lý. Đặc biệt là khách sạn rất sạch sẽ và thoải mái. Sẽ quay lại lần sau!</p>
+                                </div>
+                            </div>
+                            
+                            <div class="review-item">
+                                <div class="reviewer-info">
+                                    <div class="reviewer-avatar">
+                                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Trần Thị B">
+                                    </div>
+                                    <div class="reviewer-details">
+                                        <h4>Trần Thị B</h4>
+                                        <div class="review-date">Đã đánh giá vào 02/04/2025</div>
+                                    </div>
+                                </div>
+                                <div class="review-rating">
+                                    <span class="stars">★★★★☆</span>
+                                </div>
+                                <div class="review-content">
+                                    <p>Tour khá tốt, thức ăn ngon, khách sạn sạch sẽ. Tuy nhiên, lịch trình hơi gấp rút, không có nhiều thời gian để tham quan kỹ từng điểm.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>About Company</h3>
+                <p>We're dedicated to delivering innovative solutions that empower businesses to thrive in the digital
+                    age.</p>
+            </div>
+
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Products</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Community</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Newsletter</h3>
+                <p>Subscribe to our newsletter for updates, news, and exclusive offers.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email">
+                    <button type="submit">Subscribe</button>
+                </form>
+                <p class="privacy-note">By subscribing, you agree to our Privacy Policy and consent to receive updates.
+                </p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 Your Company. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/tour.js"></script>
+</body>
+
+</html>

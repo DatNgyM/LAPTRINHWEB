@@ -1,0 +1,175 @@
+/* Cập nhật phần tour tabs */
+
+.tour-tabs {
+    margin-top: 30px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.tab-nav {
+    display: flex;
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #e0e0e0;
+    overflow-x: auto; /* Cho phép cuộn ngang nếu nhiều tab */
+}
+
+.tab-btn {
+    padding: 15px 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    color: #555;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+}
+
+.tab-btn:hover {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.tab-btn.active {
+    color: #4CAF50;
+    border-bottom: 3px solid #4CAF50;
+    background-color: #fff;
+}
+
+.tab-content {
+    padding: 20px;
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Styles cho phần nội dung các tab */
+.day-itinerary {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px dashed #e0e0e0;
+}
+
+.day-itinerary h4 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.day-itinerary p {
+    margin: 5px 0;
+    color: #555;
+}
+
+.includes-list li, .not-includes-list li {
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.includes-list i {
+    color: #4CAF50;
+    margin-right: 10px;
+}
+
+.not-includes-list i {
+    color: #FF5722;
+    margin-right: 10px;
+}
+
+/* Review styles */
+.review-summary {
+    margin-bottom: 30px;
+}
+
+.rating-breakdown {
+    margin-top: 15px;
+}
+
+.rating-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.rating-label {
+    width: 50px;
+    margin-right: 10px;
+}
+
+.rating-bar {
+    flex: 1;
+    height: 10px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.rating-fill {
+    height: 100%;
+    background-color: #4CAF50;
+}
+
+.rating-percent {
+    width: 40px;
+    margin-left: 10px;
+    text-align: right;
+}
+
+/* Review list */
+.review-item {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.reviewer-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.reviewer-avatar {
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.reviewer-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.reviewer-details h4 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.review-date {
+    font-size: 13px;
+    color: #888;
+}
+
+.review-rating {
+    margin-bottom: 10px;
+    color: #FFC107;
+}
+
+.review-content p {
+    margin: 0;
+    color: #555;
+}

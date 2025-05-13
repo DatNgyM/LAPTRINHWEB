@@ -1,0 +1,145 @@
+/* CSS bổ sung để sửa lỗi tab trên trang tour-detail */
+
+/* Đảm bảo tab hoạt động đúng */
+.tour-tabs {
+    margin-top: 30px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.tab-nav {
+    display: flex;
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #e0e0e0;
+    overflow-x: auto;
+}
+
+.tab-btn {
+    padding: 15px 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    color: #555;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+}
+
+.tab-btn:hover {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.tab-btn.active {
+    color: #4CAF50;
+    border-bottom: 3px solid #4CAF50;
+    background-color: #fff;
+}
+
+.tab-content {
+    padding: 20px;
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Review styles */
+.review-summary {
+    margin-bottom: 30px;
+}
+
+.rating-breakdown {
+    margin-top: 15px;
+}
+
+.rating-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.rating-label {
+    width: 50px;
+    margin-right: 10px;
+}
+
+.rating-bar {
+    flex: 1;
+    height: 10px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.rating-fill {
+    height: 100%;
+    background-color: #4CAF50;
+}
+
+.rating-percent {
+    width: 40px;
+    margin-left: 10px;
+    text-align: right;
+}
+
+/* Day itinerary styles */
+.day-itinerary {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px dashed #e0e0e0;
+}
+
+.day-itinerary:last-child {
+    border-bottom: none;
+}
+
+.day-itinerary h4 {
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.day-itinerary p {
+    margin: 6px 0;
+    color: #555;
+    font-size: 15px;
+}
+
+/* Includes styles */
+.includes-list, .not-includes-list {
+    padding-left: 0;
+    list-style: none;
+}
+
+.includes-list li, .not-includes-list li {
+    margin-bottom: 8px;
+    display: flex;
+    align-items: flex-start;
+    line-height: 1.5;
+}
+
+.includes-list i, .not-includes-list i {
+    margin-right: 10px;
+    margin-top: 3px;
+}
+
+.includes-list i {
+    color: #4CAF50;
+}
+
+.not-includes-list i {
+    color: #FF5722;
+}
