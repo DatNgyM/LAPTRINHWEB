@@ -1,0 +1,6 @@
+<!-- filepath: /Users/baodiepgia/LAPTRINHWEB/LAPTRINHWEB.csproj -->
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+  </PropertyGroup>
+</Project> 

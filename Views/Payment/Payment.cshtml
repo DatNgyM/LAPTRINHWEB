@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Thanh toán - EasyTrips</title>    <link rel="stylesheet" href="assets/css/styles.css">
-    <link rel="stylesheet" href="assets/css/payment.css">
-    <link rel="stylesheet" href="assets/css/payment-fix.css">
+    <title>Thanh toán - EasyTrips</title>    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/payment.css">
+    <link rel="stylesheet" href="/css/payment-fix.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* Đảm bảo font chữ rõ ràng */
@@ -46,8 +46,8 @@
         </div>
         <nav>
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="tours.html" class="active">Tour</a></li>
+                <li><a asp-controller="Home" asp-action="HomePage">Home</a></li>
+                <li><a asp-controller="Tour" asp-action="Index" class="active">Tour</a></li>
                 <li><a href="#">Destination</a></li>
                 <li><a href="#">Evaluate</a></li>
                 <li><a href="#">Contact</a></li>
@@ -67,7 +67,7 @@
                     <h3>Thông tin đặt tour</h3>
                     <div class="booking-details">
                         <div class="tour-image">
-                            <img src="assets/img/gioi-thieu-ve-da-lat-1.jpg" alt="Đà Lạt" id="tour-image">
+                            <img src="/img/gioi-thieu-ve-da-lat-1.jpg" alt="Đà Lạt" id="tour-image">
                         </div>
                         <div class="tour-info">
                             <h4 id="tour-name">Đà Lạt - Thành phố ngàn hoa</h4>
@@ -211,6 +211,6 @@
         </div>
     </footer>
 
-    <script src="assets/js/payment.js"></script>
+    <script src="/js/payment.js"></script>
 </body>
 </html>
