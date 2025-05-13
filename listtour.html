@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EasyTrips - Du lịch khắp Việt Nam</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/tour-listing.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <div id="header-placeholder"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Let's make a tour</h2>
+            <h3>Discover the beauty</h3>
+
+            <div class="search-form">
+                <div class="form-row">
+                    <div class="input-group">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <input type="text" placeholder="From where">
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <input type="text" placeholder="To where">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="input-group">
+                        <i class="far fa-calendar"></i>
+                        <input type="text" placeholder="mm/dd/yyyy">
+                    </div>
+                    <div class="input-group">
+                        <i class="far fa-calendar"></i>
+                        <input type="text" placeholder="mm/dd/yyyy">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sau phần search form -->
+    <section class="tour-listing">
+        <div class="container">
+            <div class="tour-listing-header">
+                <h2>Danh sách Tour</h2>
+                <div class="tour-listing-results">
+                    <span>Showing <strong>4</strong> results</span>
+                    <div class="view-options">
+                        <button class="grid-view active"><i class="fas fa-th-large"></i></button>
+                        <button class="list-view"><i class="fas fa-list"></i></button>
+                    </div>
+                    <div class="sort-options">
+                        <select id="sort-by">
+                            <option value="featured">Sort by: Featured</option>
+                            <option value="price-low-high">Price: Low to High</option>
+                            <option value="price-high-low">Price: High to Low</option>
+                            <option value="newest">Newest First</option>
+                            <option value="popularity">Best Selling</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tour-listing-content">
+                <!-- Phần lọc bên trái -->
+                <div class="tour-filters">
+                    <div class="filter-header">
+                        <h3>Filters</h3>
+                        <button class="clear-all">Clear all</button>
+                    </div>
+
+                    <!-- Lọc theo mùa -->
+                    <div class="filter-group">
+                        <h4>Mùa</h4>
+                        <div class="filter-options">
+                            <div class="filter-option">
+                                <input type="checkbox" id="season-spring" name="season" value="spring">
+                                <label for="season-spring">Mùa xuân</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="season-summer" name="season" value="summer">
+                                <label for="season-summer">Mùa hè</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="season-autumn" name="season" value="autumn">
+                                <label for="season-autumn">Mùa thu</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="season-winter" name="season" value="winter">
+                                <label for="season-winter">Mùa đông</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lọc theo loại tour -->
+                    <div class="filter-group">
+                        <h4>Loại tour</h4>
+                        <div class="filter-options">
+                            <div class="filter-option">
+                                <input type="checkbox" id="type-individual" name="type" value="individual">
+                                <label for="type-individual">Đi cá nhân</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="type-group" name="type" value="group">
+                                <label for="type-group">Đi theo đoàn</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lọc theo khoảng giá -->
+                    <div class="filter-group">
+                        <h4>Price Range</h4>
+                        <div class="price-slider">
+                            <div class="slider-container">
+                                <input type="range" min="0" max="10000000" value="5000000" class="price-range" id="price-range">
+                            </div>
+                            <div class="price-inputs">
+                                <input type="number" id="min-price" placeholder="0" min="0">
+                                <span>to</span>
+                                <input type="number" id="max-price" placeholder="10000000" max="10000000">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Danh sách tour bên phải -->
+                <div class="tour-list">
+                    <!-- Tour item 1 -->
+                    <div class="tour-item">
+                        <div class="tour-image">
+                            <img src="assets/img/gioi-thieu-ve-da-lat-1.jpg" alt="Đà Lạt - Thành phố ngàn hoa">
+                            <span class="tour-badge">Bestseller</span>
+                        </div>
+                        <div class="tour-content">
+                            <h3><a href="tour-detail.html">Đà Lạt - Thành phố ngàn hoa</a></h3>
+                            <div class="tour-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span>(120 đánh giá)</span>
+                            </div>
+                            <div class="tour-meta">
+                                <span><i class="fas fa-clock"></i> 3 ngày 2 đêm</span>
+                                <span><i class="fas fa-users"></i> Tối đa 20 người</span>
+                            </div>
+                            <div class="tour-price">
+                                <div class="price">
+                                    <span class="original">3,500,000₫</span>
+                                    <span class="current">2,990,000₫</span>
+                                </div>
+                                <a href="tour-detail.html" class="btn-view-details">Xem chi tiết</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tour item 2 -->
+                    <div class="tour-item">
+                        <div class="tour-image">
+                            <img src="assets/img/dao-binh-lap-03.jpg" alt="Nha Trang - Biển xanh cát trắng">
+                        </div>
+                        <div class="tour-content">
+                            <h3><a href="tour-detail.html">Nha Trang - Biển xanh cát trắng</a></h3>
+                            <div class="tour-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <span>(85 đánh giá)</span>
+                            </div>
+                            <div class="tour-meta">
+                                <span><i class="fas fa-clock"></i> 4 ngày 3 đêm</span>
+                                <span><i class="fas fa-users"></i> Tối đa 25 người</span>
+                            </div>
+                            <div class="tour-price">
+                                <div class="price">
+                                    <span class="current">3,990,000₫</span>
+                                </div>
+                                <a href="tour-detail.html" class="btn-view-details">Xem chi tiết</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tour item 3 -->
+                    <div class="tour-item">
+                        <div class="tour-image">
+                            <img src="assets/img/anh-dong-phong-nha-ke-bang-dep-ngat-ngay.jpg" alt="Phong Nha - Kẻ Bàng">
+                            <span class="tour-badge">Mới</span>
+                        </div>
+                        <div class="tour-content">
+                            <h3><a href="tour-detail.html">Phong Nha - Kẻ Bàng</a></h3>
+                            <div class="tour-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span>(42 đánh giá)</span>
+                            </div>
+                            <div class="tour-meta">
+                                <span><i class="fas fa-clock"></i> 5 ngày 4 đêm</span>
+                                <span><i class="fas fa-users"></i> Tối đa 15 người</span>
+                            </div>
+                            <div class="tour-price">
+                                <div class="price">
+                                    <span class="original">5,500,000₫</span>
+                                    <span class="current">4,790,000₫</span>
+                                </div>
+                                <a href="tour-detail.html" class="btn-view-details">Xem chi tiết</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tour item 4 -->
+                    <div class="tour-item">
+                        <div class="tour-image">
+                            <img src="assets/img/OIP.jpg" alt="Hạ Long - Kỳ quan thiên nhiên">
+                        </div>
+                        <div class="tour-content">
+                            <h3><a href="tour-detail.html">Hạ Long - Kỳ quan thiên nhiên</a></h3>
+                            <div class="tour-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span>(156 đánh giá)</span>
+                            </div>
+                            <div class="tour-meta">
+                                <span><i class="fas fa-clock"></i> 3 ngày 2 đêm</span>
+                                <span><i class="fas fa-users"></i> Tối đa 20 người</span>
+                            </div>
+                            <div class="tour-price">
+                                <div class="price">
+                                    <span class="current">3,690,000₫</span>
+                                </div>
+                                <a href="tour-detail.html" class="btn-view-details">Xem chi tiết</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <script src="assets/js/tour.js"></script>
+
+    <script>
+        // Fetch header
+        fetch('layout/header.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('header-placeholder').innerHTML = data;
+            })
+            .catch(error => {
+                console.error('Error fetching header:', error);
+                document.getElementById('header-placeholder').innerHTML = '<p>Error loading header. Please check the console.</p>';
+            });
+
+        // Fetch footer
+        fetch('layout/footer.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            })
+            .catch(error => {
+                console.error('Error fetching footer:', error);
+                document.getElementById('footer-placeholder').innerHTML = '<p>Error loading footer. Please check the console.</p>';
+            });
+    </script>
+
+    <script>
+        // Script xử lý lỗi ảnh
+        document.addEventListener('DOMContentLoaded', function() {
+            const tourImages = document.querySelectorAll('.tour-image img');
+            
+            // Đặt lại đường dẫn cho tất cả ảnh (thêm ./ vào đầu)
+            tourImages.forEach(img => {
+                let currentSrc = img.getAttribute('src');
+                // Đảm bảo đường dẫn bắt đầu với ./
+                if (!currentSrc.startsWith('./') && !currentSrc.startsWith('/')) {
+                    img.src = './' + currentSrc;
+                }
+                
+                // Xử lý lỗi tải ảnh
+                img.onerror = function() {
+                    console.log('Không thể tải hình:', this.src);
+                    // Thay thế bằng ảnh mặc định
+                    this.src = 'https://placehold.co/600x400?text=Tour';
+                    // Gỡ bỏ sự kiện lỗi để tránh vòng lặp
+                    this.onerror = null;
+                };
+            });
+        });
+    </script>
+</body>
+
+</html>

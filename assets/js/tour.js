@@ -93,6 +93,27 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+
+    // Xử lý thay đổi hình ảnh khi click vào thumbnail
+    const thumbnails = document.querySelectorAll('.thumbnails img');
+    const mainImage = document.querySelector('.main-image img');
+    
+    // Thêm sự kiện click cho mỗi thumbnail
+    thumbnails.forEach(thumbnail => {
+        thumbnail.addEventListener('click', function() {
+            // Thay đổi hình ảnh chính
+            mainImage.src = this.src;
+            mainImage.alt = this.alt;
+            
+            // Loại bỏ class active khỏi tất cả thumbnail
+            thumbnails.forEach(thumb => {
+                thumb.classList.remove('active');
+            });
+            
+            // Thêm class active cho thumbnail được click
+            this.classList.add('active');
+        });
+    });
 });
 
 // Hàm định dạng tiền tệ
