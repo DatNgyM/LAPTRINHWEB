@@ -15,6 +15,6 @@ namespace LAPTRINHWEB.Models
         public int NumberOfPeople { get; set; }
         public int NumberOfDays { get; set; }
         public int NumberOfNights { get; set; }
-        public int Type_Tour { get; set; }
+        public String Type_Tour { get; set; }
     }
 }

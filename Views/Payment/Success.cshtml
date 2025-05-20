@@ -154,49 +154,45 @@
     </section>
 
     <!-- Footer -->
-    <footer>
-        <div class="footer-container">
-            <div class="footer-column">
-                <h3>About Company</h3>
-                <p>We're dedicated to delivering innovative solutions that empower businesses to thrive in the digital age.</p>
-            </div>
+    <!-- Footer placeholder -->
+    <div id="footer-placeholder"></div>
 
-            <div class="footer-column">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">Products</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-            </div>
+    <script src="assets/js/tour.js"></script>
 
-            <div class="footer-column">
-                <h3>Support</h3>
-                <ul>
-                    <li><a href="#">Help Center</a></li>
-                    <li><a href="#">Community</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
-                    <li><a href="#">Cookie Policy</a></li>
-                </ul>
-            </div>
+    <script>
+        // Fetch header
+        fetch('layout/header.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('header-placeholder').innerHTML = data;
+            })
+            .catch(error => {
+                console.error('Error fetching header:', error);
+                document.getElementById('header-placeholder').innerHTML = '<p>Error loading header. Please check the console.</p>';
+            });
 
-            <div class="footer-column">
-                <h3>Newsletter</h3>
-                <p>Subscribe to our newsletter for updates, news, and exclusive offers.</p>
-                <form class="newsletter-form">
-                    <input type="email" placeholder="Your email">
-                    <button type="submit">Subscribe</button>
-                </form>
-                <p class="privacy-note">By subscribing, you agree to our Privacy Policy and consent to receive updates.</p>
-            </div>
-        </div>
-        <div class="copyright">
-            <p>&copy; 2025 EasyTrips. All rights reserved.</p>
-        </div>
-    </footer>
+        // Fetch footer
+        fetch('layout/footer.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            })
+            .catch(error => {
+                console.error('Error fetching footer:', error);
+                document.getElementById('footer-placeholder').innerHTML = '<p>Error loading footer. Please check the console.</p>';
+            });
+    </script>
+    
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

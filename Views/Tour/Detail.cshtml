@@ -1,3 +1,4 @@
+@model LAPTRINHWEB.Models.Tour
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -35,10 +36,10 @@
         <div class="container">
             <div class="tour-gallery">
                 <div class="main-image">
-                    <img src="/img/gioi-thieu-ve-da-lat-1.jpg" alt="Đà Lạt - Thành phố ngàn hoa">
+                    <img src="/img/gioi-thieu-ve-da-lat-1.jpg" alt=""@Model.Name_Tour>
                 </div>
                 <div class="thumbnails">
-                    <img src="/img/gioi-thieu-ve-da-lat-1.jpg" alt="Đà Lạt" class="active">
+                    <img src="/img/gioi-thieu-ve-da-lat-1.jpg" alt="@Model.Name_Tour" class="active">
                     <img src="/img/ho_xuan_huong_da_lat_05.jpg" alt="Hồ Xuân Hương">
                     <img src="/img/top-nhung-nha-thodep-nhat-da-lat-nam-20241-2315.png" alt="Nhà thờ Đà Lạt">
                     <img src="/img/doi che cau dat (4).jpg" alt="Đồi chè">
@@ -47,7 +48,7 @@
 
             <div class="tour-content">
                 <div class="tour-info">
-                    <h1>Đà Lạt - Thành phố ngàn hoa</h1>
+                    <h1>@Model.Name_Tour</h1>
                     <div class="tour-rating">
                         <span class="stars">
                             <i class="fas fa-star"></i>
@@ -63,23 +64,21 @@
                     <div class="tour-meta">
                         <div class="meta-item">
                             <i class="fas fa-clock"></i>
-                            <span>Thời gian: 3 ngày 2 đêm</span>
+                            <span>Ngày: @Model.NumberOfDays - Đêm: @Model.NumberOfDays</span>
                         </div>
                         <div class="meta-item">
                             <i class="fas fa-users"></i>
-                            <span>Số người: 2-20 khách</span>
+                            <span>Số người: @Model.NumberOfPeople </span>
                         </div>
                         <div class="meta-item">
                             <i class="fas fa-map-marker-alt"></i>
-                            <span>Điểm đến: Đà Lạt, Lâm Đồng</span>
+                            <span>Điểm đến: @Model.Name_Tour </span>
                         </div>
                     </div>
 
                     <div class="tour-price">
                         <div class="price-box">
-                            <span class="current-price">2.990.000 VND</span>
-                            <span class="old-price">3.500.000 VND</span>
-                            <span class="discount">-15%</span>
+                            <span class="current-price">@Model.Price VND</span>
                         </div>
                         <p class="price-note">Giá/người</p>
                     </div>
@@ -291,54 +290,48 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-container">
-            <div class="footer-column">
-                <h3>About Company</h3>
-                <p>We're dedicated to delivering innovative solutions that empower businesses to thrive in the digital
-                    age.</p>
-            </div>
+    <!-- Footer placeholder -->
+    <div id="footer-placeholder"></div>
 
-            <div class="footer-column">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">Products</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-column">
-                <h3>Support</h3>
-                <ul>
-                    <li><a href="#">Help Center</a></li>
-                    <li><a href="#">Community</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
-                    <li><a href="#">Cookie Policy</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-column">
-                <h3>Newsletter</h3>
-                <p>Subscribe to our newsletter for updates, news, and exclusive offers.</p>
-                <form class="newsletter-form">
-                    <input type="email" placeholder="Your email">
-                    <button type="submit">Subscribe</button>
-                </form>
-                <p class="privacy-note">By subscribing, you agree to our Privacy Policy and consent to receive updates.
-                </p>
-            </div>
-        </div>
-        <div class="copyright">
-            <p>&copy; 2025 Your Company. All rights reserved.</p>
-        </div>
-    </footer>
-
+<<<<<<< HEAD:Views/Tour/Detail.cshtml
     <script src="/js/tour.js"></script>
+=======
+    <script src="assets/js/tour.js"></script>
+
+    <script>
+        // Fetch header
+        fetch('layout/header.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('header-placeholder').innerHTML = data;
+            })
+            .catch(error => {
+                console.error('Error fetching header:', error);
+                document.getElementById('header-placeholder').innerHTML = '<p>Error loading header. Please check the console.</p>';
+            });
+
+        // Fetch footer
+        fetch('layout/footer.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            })
+            .catch(error => {
+                console.error('Error fetching footer:', error);
+                document.getElementById('footer-placeholder').innerHTML = '<p>Error loading footer. Please check the console.</p>';
+            });
+    </script>
+>>>>>>> 50caa9edfaa60799f69a4126a94bd8a7cf3db4c0:tour-detail.html
 </body>
 
 </html>

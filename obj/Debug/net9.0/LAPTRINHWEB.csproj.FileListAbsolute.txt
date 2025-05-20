@@ -17,12 +17,10 @@
 /Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/compressed/dz60unqea5-ceqozlss70.gz
 /Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/compressed/4r5371cqhz-nemtqia8nj.gz
 /Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/compressed/3lby8l0z29-c9hjitln3x.gz
-/Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/compressed/d7561lx7gy-bevd34fz5v.gz
 /Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/compressed/oiie5n1szb-qa4z8y1mak.gz
 /Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/compressed/1mk1xjmecq-jfbwtfyjfh.gz
 /Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/compressed/3sinzlfqfh-0me3jcvk6k.gz
 /Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/compressed/pu4nit8yja-ln11h2o9g9.gz
-/Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/compressed/gcbpoouaxk-mesjfubdl8.gz
 /Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/staticwebassets.build.json
 /Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/staticwebassets.build.json.cache
 /Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/staticwebassets.development.json
@@ -32,3 +30,7 @@
 /Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/LAPTRINHWEB.pdb
 /Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/LAPTRINHWEB.genruntimeconfig.cache
 /Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/ref/LAPTRINHWEB.dll
+/Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/compressed/d7561lx7gy-8zqyhqf4zc.gz
+/Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/compressed/ba8wb7q2eq-qzduzs0i6s.gz
+/Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/compressed/s9j6px3845-jx4jgqjel0.gz
+/Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/compressed/gcbpoouaxk-18ylg3nxef.gz
