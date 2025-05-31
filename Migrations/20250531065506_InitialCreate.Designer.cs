@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LAPTRINHWEB.Migrations
 {
     [DbContext(typeof(TourDbContext))]
-    [Migration("20250530092340_InitialCreate")]
+    [Migration("20250531065506_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

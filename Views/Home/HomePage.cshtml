@@ -1,4 +1,3 @@
-@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -68,38 +67,45 @@
             <button class="carousel-btn prev"><i class="fas fa-chevron-left"></i></button>
 
             <div class="carousel-container">
-                <div class="deal-card">
-                    <a asp-controller="Tour" asp-action="Detail" class="tour-link">
-                        <img src="/img/gioi-thieu-ve-da-lat-1.jpg" alt="Đà Lạt">
-                        <div class="deal-info">
-                            <h3>Đà lạt</h3>
-                            <p>Thời gian: 3-4 ngày</p>
-                            <p class="price">2.990.000 VND/người</p>
+                @{
+                    var flashDeals = ViewBag.FlashDealTours as List<LAPTRINHWEB.Models.Tour>;
+                }
+                @if (flashDeals != null && flashDeals.Any())
+                {
+                    @foreach (var tour in flashDeals)
+                    {
+                        <div class="deal-card">
+                            <a asp-controller="Tour" asp-action="Detail" asp-route-id="@tour.ID_Tour" class="tour-link">
+                                <img src="@(tour.TourImages.FirstOrDefault()?.Image_URL ?? "/img/default-tour.jpg")"
+                                    alt="@tour.Name_Tour" onerror="this.src='/img/default-tour.jpg'">
+                                <div class="deal-info">
+                                    <h3>@tour.Name_Tour</h3>
+                                    <p>Thời gian: @tour.Duration ngày @(tour.Duration - 1) đêm</p>
+                                    <p class="price">@tour.FinalPrice.ToString("N0") VND/người</p>
+                                    @if (tour.Discount.HasValue && tour.Discount > 0)
+                                    {
+                                        <p class="discount">Giảm @tour.Discount.Value.ToString("N0") VND</p>
+                                        <p class="original-price">@tour.Price.ToString("N0") VND</p>
+                                    }
+                                </div>
+                            </a>
                         </div>
-                    </a>
-                </div>
-
-                <div class="deal-card">
-                    <a href="tour-detail.html?tour=danang" class="tour-link">
-                        <img src="/img/R.jpg" alt="Đà Nẵng">
-                        <div class="deal-info">
-                            <h3>Đà nẵng</h3>
-                            <p>Thời gian: 3-4 ngày</p>
-                            <p class="price">6.890.000 VND/người</p>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="deal-card">
-                    <a href="tour-detail.html?tour=halong" class="tour-link">
-                        <img src="/img/Vinh-Ha-Long-1-3.jpg" alt="Vịnh Hạ Long">
-                        <div class="deal-info">
-                            <h3>Vịnh Hạ Long</h3>
-                            <p>Thời gian: 3-4 ngày</p>
-                            <p class="price">5.890.000 VND/người</p>
-                        </div>
-                    </a>
-                </div>
+                    }
+                }
+                else
+                {
+                    <!-- Fallback static content nếu không có dữ liệu -->
+                    <div class="deal-card">
+                        <a asp-controller="Tour" asp-action="Detail" class="tour-link">
+                            <img src="/img/gioi-thieu-ve-da-lat-1.jpg" alt="Đà Lạt">
+                            <div class="deal-info">
+                                <h3>Đà lạt</h3>
+                                <p>Thời gian: 3-4 ngày</p>
+                                <p class="price">2.990.000 VND/người</p>
+                            </div>
+                        </a>
+                    </div>
+                }
             </div>
 
             <button class="carousel-btn next"><i class="fas fa-chevron-right"></i></button>
@@ -110,62 +116,114 @@
     <section class="popular-places">
         <h2>Popular places</h2>
         <div class="places-grid">
-            <div class="place-item large">
-                <img src="/img/photo-1742300346757-a1d8f3d737ca.jpg" alt="Skyscraper">
-            </div>
-            <div class="place-item">
-                <img src="/img/R.png" alt="Temple">
-            </div>
-            <div class="place-item">
-                <img src="/img/pho-co-ha-noi-1698981164352290722974.png" alt="Old Quarter">
-            </div>
-            <!-- <div class="place-item">
-                <img src="/assets/img/dn2.png" alt="Night Scene">
-            </div> -->
+            @{
+                var locations = ViewBag.PopularLocations as List<LAPTRINHWEB.Models.Location>;
+            }
+            @if (locations != null && locations.Any())
+            {
+                @for (int i = 0; i < locations.Count && i < 4; i++)
+                {
+                    var location = locations[i];
+                    var cssClass = i == 0 ? "place-item large" : "place-item";
+
+                    <div class="@cssClass">
+                        <img src="/img/location-@(i + 1).jpg" alt="@location.Name"
+                            onerror="this.src='/img/default-location.jpg'">
+                        <div class="place-info">
+                            <h4>@location.Name</h4>
+                            <p>@location.Address</p>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <!-- Fallback static content -->
+                <div class="place-item large">
+                    <img src="/img/photo-1742300346757-a1d8f3d737ca.jpg" alt="Skyscraper">
+                </div>
+                <div class="place-item">
+                    <img src="/img/R.png" alt="Temple">
+                </div>
+                <div class="place-item">
+                    <img src="/img/pho-co-ha-noi-1698981164352290722974.png" alt="Old Quarter">
+                </div>
+            }
         </div>
-<button class="see-more" onclick="window.location.href='listtour.html'">Click to see more</button>    </section>
+        <button class="see-more" onclick="window.location.href='@Url.Action("ListTour", "Tour")'">Click to see
+            more</button>
+    </section>
 
     <!-- Popular Tour Section -->
     <section class="popular-tour">
         <h2>Popular tour</h2>
         <div class="tour-grid">
-            <div class="tour-item">
-                <img src="/img/unnamed.jpg" alt="River Tour">
-            </div>
-            <div class="tour-item">
-                <img src="/img/dao-binh-lap-03.jpg" alt="Cherry Blossom">
-            </div>
-            <div class="tour-item">
-                <img src="/img/OIP.jpg" alt="Beach View">
-            </div>
-            <div class="tour-item">
-                <img src="/img/anh-dong-phong-nha-ke-bang-dep-ngat-ngay.jpg" alt="Sunset">
-            </div>
+            @{
+                var popularTours = ViewBag.PopularTours as List<LAPTRINHWEB.Models.Tour>;
+            }
+            @if (popularTours != null && popularTours.Any())
+            {
+                @foreach (var tour in popularTours.Take(4))
+                {
+                    <div class="tour-item">
+                        <a asp-controller="Tour" asp-action="Detail" asp-route-id="@tour.ID_Tour">
+                            <img src="@(tour.TourImages.FirstOrDefault()?.Image_URL ?? "/img/default-tour.jpg")"
+                                alt="@tour.Name_Tour" onerror="this.src='/img/default-tour.jpg'">
+                            <div class="tour-overlay">
+                                <h4>@tour.Name_Tour</h4>
+                                <p>@tour.Duration ngày @(tour.Duration - 1) đêm</p>
+                                <p class="tour-price">@tour.FinalPrice.ToString("N0") VND/người</p>
+                                @if (tour.Discount.HasValue && tour.Discount > 0)
+                                {
+                                    <span class="discount-badge">-@tour.Discount.Value.ToString("N0") VND</span>
+                                }
+                            </div>
+                        </a>
+                    </div>
+                }
+            }
+            else
+            {
+                <!-- Fallback static content -->
+                <div class="tour-item">
+                    <img src="/img/unnamed.jpg" alt="River Tour">
+                    <div class="tour-overlay">
+                        <h4>River Tour</h4>
+                        <p>3 ngày 2 đêm</p>
+                        <p class="tour-price">2.500.000 VND/người</p>
+                    </div>
+                </div>
+                <div class="tour-item">
+                    <img src="/img/dao-binh-lap-03.jpg" alt="Cherry Blossom">
+                    <div class="tour-overlay">
+                        <h4>Cherry Blossom</h4>
+                        <p>4 ngày 3 đêm</p>
+                        <p class="tour-price">3.200.000 VND/người</p>
+                    </div>
+                </div>
+                <div class="tour-item">
+                    <img src="/img/OIP.jpg" alt="Beach View">
+                    <div class="tour-overlay">
+                        <h4>Beach View</h4>
+                        <p>2 ngày 1 đêm</p>
+                        <p class="tour-price">1.800.000 VND/người</p>
+                    </div>
+                </div>
+                <div class="tour-item">
+                    <img src="/img/anh-dong-phong-nha-ke-bang-dep-ngat-ngay.jpg" alt="Cave Tour">
+                    <div class="tour-overlay">
+                        <h4>Cave Tour</h4>
+                        <p>3 ngày 2 đêm</p>
+                        <p class="tour-price">2.800.000 VND/người</p>
+                    </div>
+                </div>
+            }
         </div>
     </section>
 
-    <!-- Footer placeholder -->
-    <div id="footer-placeholder"></div>
-
-    <script src="assets/js/tour.js"></script>
-
-    <script>
-        // Fetch header
-        fetch('layout/header.html')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok ' + response.statusText);
-                }
-                return response.text();
-            })
-            .then(data => {
-                document.getElementById('header-placeholder').innerHTML = data;
-            })
-            .catch(error => {
-                console.error('Error fetching header:', error);
-                document.getElementById('header-placeholder').innerHTML = '<p>Error loading header. Please check the console.</p>';
-            });
-
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
             <div class="footer-column">
                 <h3>Newsletter</h3>
                 <p>Subscribe to our newsletter for updates, news, and exclusive offers.</p>

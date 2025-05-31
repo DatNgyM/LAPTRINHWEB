@@ -11,20 +11,20 @@ namespace LAPTRINHWEB.Models
         [Key]
         [Column("ID_Location")]
         public int ID_Location { get; set; }
-        
+
         [Required]
         [StringLength(200)]
-        [Column("Name")]
+        [Column("Name", TypeName = "nvarchar(200)")]
         public string Name { get; set; }
-        
-        [Column("Address")]
+
+        [Column("Address", TypeName = "nvarchar(500)")]
         [DataType(DataType.Text)]
         public string Address { get; set; }
-        
-        [Column("Description")]
+
+        [Column("Description", TypeName = "ntext")]
         [DataType(DataType.Text)]
         public string Description { get; set; }
-        
+
         // Navigation properties
         public ICollection<ItineraryLocation> ItineraryLocations { get; set; } = new List<ItineraryLocation>();
     }

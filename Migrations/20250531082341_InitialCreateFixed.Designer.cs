@@ -4,6 +4,7 @@ using LAPTRINHWEB.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LAPTRINHWEB.Migrations
 {
     [DbContext(typeof(TourDbContext))]
-    partial class TourDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250531082341_InitialCreateFixed")]
+    partial class InitialCreateFixed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,7 +50,7 @@ namespace LAPTRINHWEB.Migrations
 
                     b.Property<string>("Phone")
                         .HasMaxLength(15)
-                        .HasColumnType("varchar(15)")
+                        .HasColumnType("nvarchar(15)")
                         .HasColumnName("Phone");
 
                     b.Property<int?>("Star_Rating")
@@ -129,7 +132,7 @@ namespace LAPTRINHWEB.Migrations
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(150)
-                        .HasColumnType("varchar(150)")
+                        .HasColumnType("nvarchar(150)")
                         .HasColumnName("Email");
 
                     b.Property<string>("FullName")
@@ -141,13 +144,13 @@ namespace LAPTRINHWEB.Migrations
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("varchar(255)")
+                        .HasColumnType("nvarchar(255)")
                         .HasColumnName("Password");
 
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasMaxLength(15)
-                        .HasColumnType("varchar(15)")
+                        .HasColumnType("nvarchar(15)")
                         .HasColumnName("Phone");
 
                     b.HasKey("ID_Customer");
@@ -278,7 +281,7 @@ namespace LAPTRINHWEB.Migrations
                     b.Property<int>("Status")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasDefaultValue(0)
+                        .HasDefaultValue(2)
                         .HasColumnName("Status");
 
                     b.HasKey("ID_Payment");
@@ -400,7 +403,7 @@ namespace LAPTRINHWEB.Migrations
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(150)
-                        .HasColumnType("varchar(150)")
+                        .HasColumnType("nvarchar(150)")
                         .HasColumnName("Email");
 
                     b.Property<string>("Experience")
@@ -416,7 +419,7 @@ namespace LAPTRINHWEB.Migrations
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasMaxLength(15)
-                        .HasColumnType("varchar(15)")
+                        .HasColumnType("nvarchar(15)")
                         .HasColumnName("Phone");
 
                     b.HasKey("ID_Guide");
@@ -558,7 +561,7 @@ namespace LAPTRINHWEB.Migrations
 
                     b.Property<string>("License_Plate")
                         .HasMaxLength(20)
-                        .HasColumnType("varchar(20)")
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("License_Plate");
 
                     b.Property<string>("Name")

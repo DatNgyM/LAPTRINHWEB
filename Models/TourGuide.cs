@@ -11,28 +11,28 @@ namespace LAPTRINHWEB.Models
         [Key]
         [Column("ID_Guide")]
         public int ID_Guide { get; set; }
-        
+
         [Required]
         [StringLength(100)]
-        [Column("FullName")]
+        [Column("FullName", TypeName = "nvarchar(100)")]
         public string FullName { get; set; }
-        
+
         [Required]
         [Phone]
         [StringLength(15)]
-        [Column("Phone")]
+        [Column("Phone", TypeName = "varchar(15)")]
         public string Phone { get; set; }
-        
+
         [Required]
         [EmailAddress]
         [StringLength(150)]
-        [Column("Email")]
+        [Column("Email", TypeName = "varchar(150)")]
         public string Email { get; set; }
-        
-        [Column("Experience")]
+
+        [Column("Experience", TypeName = "ntext")]
         [DataType(DataType.Text)]
         public string Experience { get; set; }
-        
+
         // Navigation properties
         public ICollection<TourGuideAssignment> TourGuideAssignments { get; set; } = new List<TourGuideAssignment>();
     }

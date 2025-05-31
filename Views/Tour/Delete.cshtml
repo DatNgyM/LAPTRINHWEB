@@ -1,0 +1,205 @@
+@model LAPTRINHWEB.Models.Tour
+
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xóa Tour - EasyTrips</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .delete-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .delete-header {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+        }
+
+        .tour-info {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+        }
+
+        .warning-icon {
+            font-size: 4rem;
+            color: #dc3545;
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="fas fa-plane"></i> EasyTrips
+            </a>
+            <div class="d-flex">
+                <a asp-controller="Tour" asp-action="ListTour" class="btn btn-outline-light">
+                    <i class="fas fa-arrow-left"></i> Quay lại danh sách
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="delete-container">
+                    <!-- Header -->
+                    <div class="delete-header text-white p-4 rounded-top">
+                        <div class="text-center">
+                            <i class="fas fa-exclamation-triangle fa-3x mb-3"></i>
+                            <h2 class="mb-0">Xác nhận xóa Tour</h2>
+                        </div>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="p-4">
+                        <!-- Warning Message -->
+                        <div class="text-center mb-4">
+                            <div class="warning-icon">
+                                <i class="fas fa-trash-alt"></i>
+                            </div>
+                            <h4 class="text-danger mt-3">Bạn có chắc chắn muốn xóa tour này?</h4>
+                            <p class="text-muted">Hành động này không thể hoàn tác. Tất cả dữ liệu liên quan sẽ bị xóa
+                                vĩnh viễn.</p>
+                        </div>
+
+                        <!-- Tour Information -->
+                        <div class="tour-info p-4 rounded mb-4">
+                            <h5 class="text-warning mb-3">
+                                <i class="fas fa-info-circle"></i> Thông tin Tour sẽ bị xóa:
+                            </h5>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <strong><i class="fas fa-map-signs text-primary"></i> Tên Tour:</strong><br>
+                                    <span class="ms-3">@Model.Name_Tour</span>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <strong><i class="fas fa-clock text-primary"></i> Thời gian:</strong><br>
+                                    <span class="ms-3">@Model.DurationText</span>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <strong><i class="fas fa-map-marker-alt text-success"></i> Điểm khởi
+                                        hành:</strong><br>
+                                    <span class="ms-3">@Model.Start_Location</span>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <strong><i class="fas fa-map-marker-alt text-danger"></i> Điểm kết
+                                        thúc:</strong><br>
+                                    <span class="ms-3">@Model.End_Location</span>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <strong><i class="fas fa-money-bill-wave text-warning"></i> Giá:</strong><br>
+                                    <span class="ms-3 text-success fw-bold">@Model.FinalPrice.ToString("N0") VND</span>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <strong><i class="fas fa-users text-info"></i> Sức chứa:</strong><br>
+                                    <span class="ms-3">@Model.Max_Capacity người</span>
+                                </div>
+                            </div>
+
+                            @if (!string.IsNullOrEmpty(Model.Description))
+                            {
+                                <div class="mt-3">
+                                    <strong><i class="fas fa-align-left text-primary"></i> Mô tả:</strong><br>
+                                    <span class="ms-3">@Model.Description</span>
+                                </div>
+                            }
+                        </div>
+
+                        <!-- Main Image -->
+                        @if (Model.TourImages != null && Model.TourImages.Any())
+                        {
+                            <div class="text-center mb-4">
+                                <h6 class="text-muted mb-3">Hình ảnh đại diện:</h6>
+                                <img src="@Model.MainImageUrl" alt="@Model.Name_Tour" class="img-fluid rounded shadow"
+                                    style="max-height: 300px; object-fit: cover;">
+                            </div>
+                        }
+
+                        <!-- Data Impact Warning -->
+                        <div class="alert alert-danger" role="alert">
+                            <h6 class="alert-heading">
+                                <i class="fas fa-database"></i> Dữ liệu sẽ bị ảnh hưởng:
+                            </h6>
+                            <ul class="mb-0">
+                                <li><strong>Hình ảnh tour:</strong> @(Model.TourImages?.Count ?? 0) hình ảnh</li>
+                                <li><strong>Lịch trình:</strong> @(Model.Itineraries?.Count ?? 0) ngày</li>
+                                <li><strong>Đặt tour:</strong> Tất cả booking liên quan</li>
+                                <li><strong>Đánh giá:</strong> Tất cả review và rating</li>
+                            </ul>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-4">
+                            <form asp-action="DeleteConfirmed" method="post" class="d-inline">
+                                <input type="hidden" asp-for="ID_Tour" />
+                                <button type="submit" class="btn btn-danger btn-lg me-md-2"
+                                    onclick="return confirmDelete()">
+                                    <i class="fas fa-trash-alt"></i> Xác nhận xóa
+                                </button>
+                            </form>
+
+                            <a asp-action="Detail" asp-route-id="@Model.ID_Tour"
+                                class="btn btn-secondary btn-lg me-md-2">
+                                <i class="fas fa-eye"></i> Xem chi tiết
+                            </a>
+
+                            <a asp-action="Edit" asp-route-id="@Model.ID_Tour" class="btn btn-warning btn-lg me-md-2">
+                                <i class="fas fa-edit"></i> Chỉnh sửa
+                            </a>
+
+                            <a asp-action="ListTour" class="btn btn-outline-secondary btn-lg">
+                                <i class="fas fa-times"></i> Hủy bỏ
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function confirmDelete() {
+            return confirm('BẠN CÓ THỰC SỰ CHẮC CHẮN?\n\nViệc xóa tour này sẽ:\n- Xóa vĩnh viễn tất cả dữ liệu\n- Không thể khôi phục\n- Ảnh hưởng đến các booking đã có\n\nNhấn OK để tiếp tục xóa.');
+        }
+
+        // Auto-focus on cancel button for safety
+        document.addEventListener('DOMContentLoaded', function () {
+            // Add keyboard shortcut
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') {
+                    window.location.href = '@Url.Action("ListTour")';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

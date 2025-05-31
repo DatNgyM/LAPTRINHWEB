@@ -11,27 +11,28 @@ namespace LAPTRINHWEB.Models
         [Key]
         [Column("ID_Itinerary")]
         public int ID_Itinerary { get; set; }
-        
+
         [Required]
         [Column("ID_Tour")]
         public int ID_Tour { get; set; }
-        
+
         [Required]
         [Column("Day_Number")]
         public int Day_Number { get; set; }
-        
+
         [Required]
         [StringLength(200)]
-        [Column("Title")]
+        [Column("Title", TypeName = "nvarchar(200)")]
         public string Title { get; set; }
-        
-        [Column("Description")]
+
+        [Column("Description", TypeName = "ntext")]
         [DataType(DataType.Text)]
         public string Description { get; set; }
-        
+
         // Navigation properties
         [ForeignKey("ID_Tour")]
         public Tour Tour { get; set; }
+
         public ICollection<ItineraryLocation> ItineraryLocations { get; set; } = new List<ItineraryLocation>();
     }
 }
