@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Quản lý</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body { background-color: #f8f9fa; }
+        .sidebar {
+            height: 100vh;
+            background: linear-gradient(180deg, #6f42c1 0%, #e83e8c 100%);
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            overflow-y: auto;
+        }
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+        .sidebar .nav-link {
+            color: #fff;
+            padding: 12px 20px;
+            transition: all 0.3s ease;
+        }
+        .sidebar .nav-link:hover,
+        .sidebar .nav-link.active {
+            background-color: rgba(255,255,255,0.2);
+            color: white;
+        }
+        .sidebar-brand {
+            background-color: rgba(0,0,0,0.2);
+            padding: 20px;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 20px;
+            transition: transform 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        @media (max-width: 768px) {
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.show { transform: translateX(0); }
+            .main-content { margin-left: 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="sidebar-brand">
+            <i class="fas fa-tasks"></i> Manager Panel
+        </div>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link active" href="#dashboard">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#itinerary-management">
+                    <i class="fas fa-route"></i> Quản lý lịch trình
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#guide-management">
+                    <i class="fas fa-users"></i> Quản lý hướng dẫn viên
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#assignment-management">
+                    <i class="fas fa-clipboard-list"></i> Phân công tour
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#reports">
+                    <i class="fas fa-chart-bar"></i> Báo cáo
+                </a>
+            </li>
+            <hr class="text-white">
+            <li class="nav-item">
+                <a class="nav-link" href="#logout">
+                    <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Mobile Menu Toggle -->
+        <button class="btn btn-primary d-md-none mb-3" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i> Menu
+        </button>
+
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="h3">
+                    <i class="fas fa-user-tie text-primary"></i> 
+                    Dashboard Quản lý
+                </h1>
+                <p class="text-muted">Quản lý lịch trình và hướng dẫn viên</p>
+            </div>
+            <div class="text-muted">
+                <i class="fas fa-calendar"></i> @DateTime.Now.ToString("dd/MM/yyyy")
+            </div>
+        </div>
+
+        <!-- Stats Overview -->
+        <div class="row mb-4">
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-primary text-white">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h4>45</h4>
+                                <p class="mb-0">Tổng lịch trình</p>
+                            </div>
+                            <i class="fas fa-route fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-success text-white">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h4>12</h4>
+                                <p class="mb-0">Hướng dẫn viên</p>
+                            </div>
+                            <i class="fas fa-users fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-warning text-white">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h4>8</h4>
+                                <p class="mb-0">Tour đang diễn ra</p>
+                            </div>
+                            <i class="fas fa-play-circle fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-info text-white">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h4>25</h4>
+                                <p class="mb-0">Phân công chờ duyệt</p>
+                            </div>
+                            <i class="fas fa-clock fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-plus"></i> Thao tác nhanh
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-grid gap-2">
+                            <a href="#" class="btn btn-outline-primary">
+                                <i class="fas fa-route"></i> Tạo lịch trình mới
+                            </a>
+                            <a href="#" class="btn btn-outline-success">
+                                <i class="fas fa-user-plus"></i> Thêm hướng dẫn viên
+                            </a>
+                            <a href="#" class="btn btn-outline-warning">
+                                <i class="fas fa-clipboard-list"></i> Phân công tour
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-exclamation-triangle"></i> Cần chú ý
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-2">
+                                <i class="fas fa-circle text-warning me-2"></i>
+                                3 tour chưa có hướng dẫn viên
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-circle text-danger me-2"></i>
+                                2 lịch trình cần cập nhật
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-circle text-info me-2"></i>
+                                5 phân công chờ xác nhận
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activities -->
+        <div class="card">
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-history"></i> Hoạt động gần đây
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Thời gian</th>
+                                <th>Hoạt động</th>
+                                <th>Hướng dẫn viên</th>
+                                <th>Tour</th>
+                                <th>Trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>10:30 - 03/06/2025</td>
+                                <td>Phân công mới</td>
+                                <td>Nguyễn Văn A</td>
+                                <td>Tour Hạ Long 3N2Đ</td>
+                                <td><span class="badge bg-success">Hoàn thành</span></td>
+                            </tr>
+                            <tr>
+                                <td>09:15 - 03/06/2025</td>
+                                <td>Cập nhật lịch trình</td>
+                                <td>-</td>
+                                <td>Tour Sapa 4N3Đ</td>
+                                <td><span class="badge bg-info">Đã cập nhật</span></td>
+                            </tr>
+                            <tr>
+                                <td>08:45 - 03/06/2025</td>
+                                <td>Phân công chờ duyệt</td>
+                                <td>Trần Thị B</td>
+                                <td>Tour Phú Quốc 5N4Đ</td>
+                                <td><span class="badge bg-warning">Chờ duyệt</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('show');
+        }
+    </script>
+</body>
+</html>

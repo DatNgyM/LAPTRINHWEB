@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EasyTrips - Du lịch khắp Việt Nam</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* User Login/Register Styles */
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .user-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .user-icon {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 18px;
+        }
+        
+        .user-icon:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .dropdown-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-menu::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            right: 15px;
+            width: 16px;
+            height: 16px;
+            background: white;
+            transform: rotate(45deg);
+            box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .dropdown-item {
+            display: block;
+            padding: 12px 20px;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .dropdown-item:first-child {
+            border-radius: 10px 10px 0 0;
+        }
+        
+        .dropdown-item:last-child {
+            border-bottom: none;
+            border-radius: 0 0 10px 10px;
+        }
+        
+        .dropdown-item:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .dropdown-item i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .user-actions {
+                gap: 10px;
+            }
+            
+            .dropdown-menu {
+                right: -20px;
+                min-width: 180px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <h1>EasyTrips</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a asp-controller="Home" asp-action="HomePage" class="active">Home</a></li>
+                <li><a asp-controller="Tour" asp-action="ListTour">Tour</a></li>
+                <li><a href="#">Destination</a></li>
+                <li><a href="#">Evaluate</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+        
+        <!-- User Actions -->
+        <div class="user-actions">
+            <div class="search-icon">
+                <i class="fas fa-search"></i>
+            </div>
+            
+            <div class="user-dropdown">
+                <button class="user-icon" onclick="toggleDropdown()">
+                    <i class="fas fa-user"></i>
+                </button>
+                
+                <div class="dropdown-menu" id="userDropdown">
+                    <a href="/Views/Auth/login.html" class="dropdown-item">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Đăng nhập
+                    </a>
+                    <a href="/Views/Auth/register.html" class="dropdown-item">
+                        <i class="fas fa-user-plus"></i>
+                        Đăng ký
+                    </a>
+                    <a href="#" class="dropdown-item">
+                        <i class="fas fa-user-circle"></i>
+                        Thông tin cá nhân
+                    </a>
+                    <a href="#" class="dropdown-item">
+                        <i class="fas fa-history"></i>
+                        Lịch sử đặt tour
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ...existing code... -->
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Let's make a tour</h2>
+            <h3>Discover the beauty</h3>
+
+            <div class="search-form">
+                <div class="form-row">
+                    <div class="input-group">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <input type="text" placeholder="From where">
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <input type="text" placeholder="To where">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="input-group">
+                        <i class="far fa-calendar"></i>
+                        <input type="text" placeholder="mm/dd/yyyy">
+                    </div>
+                    <div class="input-group">
+                        <i class="far fa-calendar"></i>
+                        <input type="text" placeholder="mm/dd/yyyy">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Flash Deals Section -->
+    <section class="deals">
+        <h2>Flash Deals</h2>
+        <div class="carousel">
+            <button class="carousel-btn prev"><i class="fas fa-chevron-left"></i></button>
+
+            <div class="carousel-container">
+                @{
+                    var flashDeals = ViewBag.FlashDealTours as List<LAPTRINHWEB.Models.Tour>;
+                }
+                @if (flashDeals != null && flashDeals.Any())
+                {
+                    @foreach (var tour in flashDeals)
+                    {
+                        <div class="deal-card">
+                            <a asp-controller="Tour" asp-action="Detail" asp-route-id="@tour.ID_Tour" class="tour-link">
+                                <img src="@(tour.TourImages.FirstOrDefault()?.Image_URL ?? "/img/default-tour.jpg")"
+                                    alt="@tour.Name_Tour" onerror="this.src='/img/default-tour.jpg'">
+                                <div class="deal-info">
+                                    <h3>@tour.Name_Tour</h3>
+                                    <p>Thời gian: @tour.Duration ngày @(tour.Duration - 1) đêm</p>
+                                    <p class="price">@tour.FinalPrice.ToString("N0") VND/người</p>
+                                    @if (tour.Discount.HasValue && tour.Discount > 0)
+                                    {
+                                        <p class="discount">Giảm @tour.Discount.Value.ToString("N0") VND</p>
+                                        <p class="original-price">@tour.Price.ToString("N0") VND</p>
+                                    }
+                                </div>
+                            </a>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <!-- Fallback static content nếu không có dữ liệu -->
+                    <div class="deal-card">
+                        <a asp-controller="Tour" asp-action="Detail" class="tour-link">
+                            <img src="/img/gioi-thieu-ve-da-lat-1.jpg" alt="Đà Lạt">
+                            <div class="deal-info">
+                                <h3>Đà lạt</h3>
+                                <p>Thời gian: 3-4 ngày</p>
+                                <p class="price">2.990.000 VND/người</p>
+                            </div>
+                        </a>
+                    </div>
+                }
+            </div>
+
+            <button class="carousel-btn next"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </section>
+
+    <!-- Popular Places Section -->
+    <section class="popular-places">
+        <h2>Popular places</h2>
+        <div class="places-grid">
+            @{
+                var locations = ViewBag.PopularLocations as List<LAPTRINHWEB.Models.Location>;
+            }
+            @if (locations != null && locations.Any())
+            {
+                @for (int i = 0; i < locations.Count && i < 4; i++)
+                {
+                    var location = locations[i];
+                    var cssClass = i == 0 ? "place-item large" : "place-item";
+
+                    <div class="@cssClass">
+                        <img src="/img/location-@(i + 1).jpg" alt="@location.Name"
+                            onerror="this.src='/img/default-location.jpg'">
+                        <div class="place-info">
+                            <h4>@location.Name</h4>
+                            <p>@location.Address</p>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <!-- Fallback static content -->
+                <div class="place-item large">
+                    <img src="/img/photo-1742300346757-a1d8f3d737ca.jpg" alt="Skyscraper">
+                </div>
+                <div class="place-item">
+                    <img src="/img/R.png" alt="Temple">
+                </div>
+                <div class="place-item">
+                    <img src="/img/pho-co-ha-noi-1698981164352290722974.png" alt="Old Quarter">
+                </div>
+            }
+        </div>
+        <button class="see-more" onclick="window.location.href='@Url.Action("ListTour", "Tour")'">Click to see
+            more</button>
+    </section>
+
+    <!-- Popular Tour Section -->
+    <section class="popular-tour">
+        <h2>Popular tour</h2>
+        <div class="tour-grid">
+            @{
+                var popularTours = ViewBag.PopularTours as List<LAPTRINHWEB.Models.Tour>;
+            }
+            @if (popularTours != null && popularTours.Any())
+            {
+                @foreach (var tour in popularTours.Take(4))
+                {
+                    <div class="tour-item">
+                        <a asp-controller="Tour" asp-action="Detail" asp-route-id="@tour.ID_Tour">
+                            <img src="@(tour.TourImages.FirstOrDefault()?.Image_URL ?? "/img/default-tour.jpg")"
+                                alt="@tour.Name_Tour" onerror="this.src='/img/default-tour.jpg'">
+                            <div class="tour-overlay">
+                                <h4>@tour.Name_Tour</h4>
+                                <p>@tour.Duration ngày @(tour.Duration - 1) đêm</p>
+                                <p class="tour-price">@tour.FinalPrice.ToString("N0") VND/người</p>
+                                @if (tour.Discount.HasValue && tour.Discount > 0)
+                                {
+                                    <span class="discount-badge">-@tour.Discount.Value.ToString("N0") VND</span>
+                                }
+                            </div>
+                        </a>
+                    </div>
+                }
+            }
+            else
+            {
+                <!-- Fallback static content -->
+                <div class="tour-item">
+                    <img src="/img/unnamed.jpg" alt="River Tour">
+                    <div class="tour-overlay">
+                        <h4>River Tour</h4>
+                        <p>3 ngày 2 đêm</p>
+                        <p class="tour-price">2.500.000 VND/người</p>
+                    </div>
+                </div>
+                <div class="tour-item">
+                    <img src="/img/dao-binh-lap-03.jpg" alt="Cherry Blossom">
+                    <div class="tour-overlay">
+                        <h4>Cherry Blossom</h4>
+                        <p>4 ngày 3 đêm</p>
+                        <p class="tour-price">3.200.000 VND/người</p>
+                    </div>
+                </div>
+                <div class="tour-item">
+                    <img src="/img/OIP.jpg" alt="Beach View">
+                    <div class="tour-overlay">
+                        <h4>Beach View</h4>
+                        <p>2 ngày 1 đêm</p>
+                        <p class="tour-price">1.800.000 VND/người</p>
+                    </div>
+                </div>
+                <div class="tour-item">
+                    <img src="/img/anh-dong-phong-nha-ke-bang-dep-ngat-ngay.jpg" alt="Cave Tour">
+                    <div class="tour-overlay">
+                        <h4>Cave Tour</h4>
+                        <p>3 ngày 2 đêm</p>
+                        <p class="tour-price">2.800.000 VND/người</p>
+                    </div>
+                </div>
+            }
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Newsletter</h3>
+                <p>Subscribe to our newsletter for updates, news, and exclusive offers.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email">
+                    <button type="submit">Subscribe</button>
+                </form>
+                <p class="privacy-note">By subscribing, you agree to our Privacy Policy and consent to receive updates.
+                </p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 EasyTrips. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="/js/main.js"></script>
+    <script>
+        // Toggle dropdown menu
+        function toggleDropdown() {
+            const dropdown = document.getElementById('userDropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('userDropdown');
+            const userIcon = document.querySelector('.user-icon');
+            
+            if (!userIcon.contains(event.target) && !dropdown.contains(event.target)) {
+                dropdown.classList.remove('show');
+            }
+        });
+
+        // Close dropdown on ESC key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                document.getElementById('userDropdown').classList.remove('show');
+            }
+        });
+    </script>
+</body>
+
+</html>
