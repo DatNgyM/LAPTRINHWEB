@@ -44,8 +44,8 @@ namespace LAPTRINHWEB.Models
         public string Note { get; set; }
 
         // Navigation properties
-        [ForeignKey("ID_Customer")]
-        public Customer Customer { get; set; }
+        [ForeignKey("ID_User")]
+        public User User { get; set; }
 
         [ForeignKey("ID_Tour")]
         public Tour Tour { get; set; }
