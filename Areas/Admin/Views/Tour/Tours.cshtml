@@ -1,0 +1,463 @@
+\Documents\GitHub\LAPTRINHWEB\Views\Admin\Tours.cshtml
+@model List<LAPTRINHWEB.Models.Tour>
+@{
+    ViewData["Title"] = "Quản lý Tour - Admin";
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .sidebar {
+            height: 100vh;
+            background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            overflow-y: auto;
+        }
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+        .sidebar .nav-link {
+            color: #ecf0f1;
+            padding: 12px 20px;
+            border-radius: 0;
+            transition: all 0.3s ease;
+        }
+        .sidebar .nav-link:hover,
+        .sidebar .nav-link.active {
+            background-color: #3498db;
+            color: white;
+        }
+        .sidebar-brand {
+            background-color: #1a252f;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        .tour-image {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="sidebar-brand">
+            <i class="fas fa-cogs"></i> Admin Panel
+        </div>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" asp-action="Index">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" asp-action="Tours">
+                    <i class="fas fa-map-marked-alt"></i> Quản lý Tour
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-action="Users">
+                    <i class="fas fa-users"></i> Quản lý Người dùng
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-action="Transportations">
+                    <i class="fas fa-bus"></i> Quản lý Phương tiện
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-action="Accommodations">
+                    <i class="fas fa-bed"></i> Quản lý Nơi ở
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-action="Itineraries">
+                    <i class="fas fa-route"></i> Quản lý Lịch trình
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-action="TourGuides">
+                    <i class="fas fa-user-tie"></i> Quản lý HDV
+                </a>
+            </li>
+            <hr class="text-white">
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Tour" asp-action="ListTour">
+                    <i class="fas fa-home"></i> Về trang chủ
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Mobile Menu Toggle -->
+        <button class="btn btn-primary d-md-none mb-3" type="button" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i> Menu
+        </button>
+
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2><i class="fas fa-map-marked-alt text-primary"></i> Quản lý Tour</h2>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a asp-action="Index">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Quản lý Tour</li>
+                    </ol>
+                </nav>
+            </div>
+            <div>
+                <a asp-action="CreateTour" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Thêm Tour Mới
+                </a>
+            </div>
+        </div>
+
+        <!-- Notifications -->
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="fas fa-check-circle"></i> @TempData["SuccessMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="fas fa-exclamation-circle"></i> @TempData["ErrorMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+
+        <!-- Tours Statistics -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="card text-white bg-primary">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h5 class="card-title">Tổng Tour</h5>
+                                <h3>@Model.Count</h3>
+                            </div>
+                            <i class="fas fa-map-marked-alt fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-white bg-success">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h5 class="card-title">Hoạt động</h5>
+                                <h3>@Model.Count(t => t.Status == LAPTRINHWEB.Models.TourStatus.Active)</h3>
+                            </div>
+                            <i class="fas fa-check-circle fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-white bg-warning">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h5 class="card-title">Tạm dừng</h5>
+                                <h3>@Model.Count(t => t.Status == LAPTRINHWEB.Models.TourStatus.Inactive)</h3>
+                            </div>
+                            <i class="fas fa-pause-circle fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-white bg-info">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h5 class="card-title">Có giảm giá</h5>
+                                <h3>@Model.Count(t => t.Discount.HasValue && t.Discount > 0)</h3>
+                            </div>
+                            <i class="fas fa-percentage fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search and Filter -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <input type="text" id="searchTour" class="form-control" placeholder="Tìm kiếm tour...">
+                    </div>
+                    <div class="col-md-3">
+                        <select id="statusFilter" class="form-select">
+                            <option value="">Tất cả trạng thái</option>
+                            <option value="Active">Hoạt động</option>
+                            <option value="Inactive">Tạm dừng</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select id="sortBy" class="form-select">
+                            <option value="">Sắp xếp theo</option>
+                            <option value="name">Tên A-Z</option>
+                            <option value="price">Giá thấp-cao</option>
+                            <option value="duration">Thời gian</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-outline-secondary w-100" onclick="resetFilters()">
+                            <i class="fas fa-redo"></i> Reset
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tours Table -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Danh sách Tour</h5>
+            </div>
+            <div class="card-body">
+                @if (Model.Any())
+                {
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover" id="toursTable">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>
+                                        <input type="checkbox" id="selectAll" class="form-check-input">
+                                    </th>
+                                    <th>ID</th>
+                                    <th>Hình ảnh</th>
+                                    <th>Tên Tour</th>
+                                    <th>Điểm đi - Điểm đến</th>
+                                    <th>Thời gian</th>
+                                    <th>Sức chứa</th>
+                                    <th>Giá</th>
+                                    <th>Trạng thái</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var tour in Model)
+                                {
+                                    <tr data-tour-id="@tour.ID_Tour">
+                                        <td>
+                                            <input type="checkbox" class="form-check-input tour-checkbox" value="@tour.ID_Tour">
+                                        </td>
+                                        <td>@tour.ID_Tour</td>
+                                        <td>
+                                            @if (tour.TourImages?.Any() == true)
+                                            {
+                                                <img src="@tour.TourImages.First().Image_URL" alt="@tour.Name_Tour" 
+                                                     class="tour-image" onerror="this.src='/img/default-tour.jpg'">
+                                            }
+                                            else
+                                            {
+                                                <div class="tour-image bg-light d-flex align-items-center justify-content-center">
+                                                    <i class="fas fa-image text-muted"></i>
+                                                </div>
+                                            }
+                                        </td>
+                                        <td>
+                                            <div class="fw-bold">@tour.Name_Tour</div>
+                                            @if (!string.IsNullOrEmpty(tour.Description))
+                                            {
+                                                <small class="text-muted">
+                                                    @(tour.Description.Length > 50 ? tour.Description.Substring(0, 50) + "..." : tour.Description)
+                                                </small>
+                                            }
+                                        </td>
+                                        <td>
+                                            <small>
+                                                <i class="fas fa-map-marker-alt text-success"></i> @tour.Start_Location<br>
+                                                <i class="fas fa-map-marker-alt text-danger"></i> @tour.End_Location
+                                            </small>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-info">@tour.DurationText</span>
+                                        </td>
+                                        <td>
+                                            <i class="fas fa-users"></i> @tour.Max_Capacity
+                                        </td>
+                                        <td>
+                                            <div class="fw-bold text-success">@tour.FinalPrice.ToString("N0") VND</div>
+                                            @if (tour.Discount.HasValue && tour.Discount > 0)
+                                            {
+                                                <small class="text-muted text-decoration-line-through">@tour.Price.ToString("N0") VND</small>
+                                            }
+                                        </td>
+                                        <td>
+                                            <span class="badge @(tour.Status == LAPTRINHWEB.Models.TourStatus.Active ? "bg-success" : "bg-secondary")">
+                                                @(tour.Status == LAPTRINHWEB.Models.TourStatus.Active ? "Hoạt động" : "Tạm dừng")
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group btn-group-sm">
+                                                <a asp-controller="Tour" asp-action="Detail" asp-route-id="@tour.ID_Tour" 
+                                                   class="btn btn-info" title="Xem chi tiết">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                <a asp-action="EditTour" asp-route-id="@tour.ID_Tour" 
+                                                   class="btn btn-warning" title="Chỉnh sửa">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <button type="button" class="btn btn-danger" 
+                                                        onclick="deleteTour(@tour.ID_Tour, '@tour.Name_Tour')" title="Xóa">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Bulk Actions -->
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <div id="bulkActions" style="display: none;">
+                            <button class="btn btn-danger btn-sm" onclick="bulkDelete()">
+                                <i class="fas fa-trash"></i> Xóa đã chọn
+                            </button>
+                            <button class="btn btn-success btn-sm" onclick="bulkActivate()">
+                                <i class="fas fa-check"></i> Kích hoạt
+                            </button>
+                            <button class="btn btn-secondary btn-sm" onclick="bulkDeactivate()">
+                                <i class="fas fa-pause"></i> Tạm dừng
+                            </button>
+                        </div>
+                        <div>
+                            <span id="selectedCount">0</span> tour đã chọn
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="text-center py-5">
+                        <i class="fas fa-map-marked-alt fa-4x text-muted mb-3"></i>
+                        <h4>Chưa có tour nào</h4>
+                        <p class="text-muted">Hãy thêm tour đầu tiên để bắt đầu.</p>
+                        <a asp-action="CreateTour" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Thêm Tour Đầu Tiên
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('show');
+        }
+
+        // Bulk selection
+        document.getElementById('selectAll')?.addEventListener('change', function() {
+            const checkboxes = document.querySelectorAll('.tour-checkbox');
+            checkboxes.forEach(cb => cb.checked = this.checked);
+            updateBulkActions();
+        });
+
+        document.querySelectorAll('.tour-checkbox').forEach(cb => {
+            cb.addEventListener('change', updateBulkActions);
+        });
+
+        function updateBulkActions() {
+            const selected = document.querySelectorAll('.tour-checkbox:checked');
+            const bulkActions = document.getElementById('bulkActions');
+            const selectedCount = document.getElementById('selectedCount');
+            
+            selectedCount.textContent = selected.length;
+            bulkActions.style.display = selected.length > 0 ? 'block' : 'none';
+        }
+
+        function deleteTour(id, name) {
+            if (confirm(`Bạn có chắc chắn muốn xóa tour "${name}"?`)) {
+                fetch('@Url.Action("DeleteTour")', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]')?.value || ''
+                    },
+                    body: 'id=' + id
+                }).then(() => {
+                    location.reload();
+                });
+            }
+        }
+
+        function bulkDelete() {
+            const selected = Array.from(document.querySelectorAll('.tour-checkbox:checked')).map(cb => cb.value);
+            if (selected.length === 0) return;
+            
+            if (confirm(`Bạn có chắc chắn muốn xóa ${selected.length} tour đã chọn?`)) {
+                // Implementation for bulk delete
+                console.log('Bulk delete:', selected);
+            }
+        }
+
+        function bulkActivate() {
+            const selected = Array.from(document.querySelectorAll('.tour-checkbox:checked')).map(cb => cb.value);
+            if (selected.length === 0) return;
+            console.log('Bulk activate:', selected);
+        }
+
+        function bulkDeactivate() {
+            const selected = Array.from(document.querySelectorAll('.tour-checkbox:checked')).map(cb => cb.value);
+            if (selected.length === 0) return;
+            console.log('Bulk deactivate:', selected);
+        }
+
+        // Search and filter functionality
+        document.getElementById('searchTour')?.addEventListener('input', filterTours);
+        document.getElementById('statusFilter')?.addEventListener('change', filterTours);
+
+        function filterTours() {
+            const searchTerm = document.getElementById('searchTour').value.toLowerCase();
+            const statusFilter = document.getElementById('statusFilter').value;
+            const rows = document.querySelectorAll('#toursTable tbody tr');
+
+            rows.forEach(row => {
+                const tourName = row.cells[3].textContent.toLowerCase();
+                const status = row.cells[8].textContent.trim();
+                
+                const matchesSearch = tourName.includes(searchTerm);
+                const matchesStatus = !statusFilter || status.includes(statusFilter === 'Active' ? 'Hoạt động' : 'Tạm dừng');
+                
+                row.style.display = matchesSearch && matchesStatus ? '' : 'none';
+            });
+        }
+
+        function resetFilters() {
+            document.getElementById('searchTour').value = '';
+            document.getElementById('statusFilter').value = '';
+            document.getElementById('sortBy').value = '';
+            filterTours();
+        }
+    </script>
+</body>
+</html>

@@ -12,9 +12,7 @@ namespace LAPTRINHWEB.Models
         [Column("ID_Booking")]
         public int ID_Booking { get; set; }
 
-        [Required]
-        [Column("ID_Customer")]
-        public int ID_Customer { get; set; }
+
 
         [Required]
         [Column("ID_Tour")]
@@ -43,9 +41,8 @@ namespace LAPTRINHWEB.Models
         [DataType(DataType.Text)]
         public string Note { get; set; }
 
-        // Navigation properties
-        [ForeignKey("ID_User")]
-        public User User { get; set; }
+        public string? UserId { get; set; }
+        public virtual ApplicationUser? User { get; set; }
 
         [ForeignKey("ID_Tour")]
         public Tour Tour { get; set; }

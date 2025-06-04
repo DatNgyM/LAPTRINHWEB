@@ -1,345 +1,349 @@
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/LAPTRINHWEB.staticwebassets.runtime.json
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/LAPTRINHWEB.staticwebassets.endpoints.json
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/LAPTRINHWEB
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/LAPTRINHWEB.deps.json
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/LAPTRINHWEB.runtimeconfig.json
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/LAPTRINHWEB.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/LAPTRINHWEB.pdb
-/Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/LAPTRINHWEB.GeneratedMSBuildEditorConfig.editorconfig
-/Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/LAPTRINHWEB.AssemblyInfoInputs.cache
-/Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/LAPTRINHWEB.AssemblyInfo.cs
-/Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/LAPTRINHWEB.csproj.CoreCompileInputs.cache
-/Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/LAPTRINHWEB.MvcApplicationPartsAssemblyInfo.cache
-/Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/LAPTRINHWEB.RazorAssemblyInfo.cache
-/Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/LAPTRINHWEB.RazorAssemblyInfo.cs
-/Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/LAPTRINHWEB.sourcelink.json
-/Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/scopedcss/bundle/LAPTRINHWEB.styles.css
-/Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/compressed/dz60unqea5-ceqozlss70.gz
-/Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/compressed/4r5371cqhz-nemtqia8nj.gz
-/Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/compressed/3lby8l0z29-c9hjitln3x.gz
-/Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/compressed/oiie5n1szb-qa4z8y1mak.gz
-/Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/compressed/1mk1xjmecq-jfbwtfyjfh.gz
-/Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/compressed/3sinzlfqfh-0me3jcvk6k.gz
-/Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/compressed/pu4nit8yja-ln11h2o9g9.gz
-/Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/staticwebassets.build.json
-/Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/staticwebassets.build.json.cache
-/Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/staticwebassets.development.json
-/Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/staticwebassets.build.endpoints.json
-/Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/LAPTRINHWEB.dll
-/Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/refint/LAPTRINHWEB.dll
-/Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/LAPTRINHWEB.pdb
-/Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/LAPTRINHWEB.genruntimeconfig.cache
-/Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/ref/LAPTRINHWEB.dll
-/Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/compressed/d7561lx7gy-8zqyhqf4zc.gz
-/Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/compressed/ba8wb7q2eq-qzduzs0i6s.gz
-/Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/compressed/s9j6px3845-jx4jgqjel0.gz
-/Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/compressed/gcbpoouaxk-18ylg3nxef.gz
-/Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/LAPTRINHWEB.csproj.AssemblyReference.cache
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/appsettings.json
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/Azure.Core.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/Azure.Identity.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/Humanizer.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/Microsoft.Bcl.AsyncInterfaces.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/Microsoft.Build.Locator.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/Microsoft.CodeAnalysis.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/Microsoft.CodeAnalysis.CSharp.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/Microsoft.CodeAnalysis.CSharp.Workspaces.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/Microsoft.CodeAnalysis.Workspaces.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/Microsoft.CodeAnalysis.Workspaces.MSBuild.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/Microsoft.Data.SqlClient.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/Microsoft.EntityFrameworkCore.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/Microsoft.EntityFrameworkCore.Abstractions.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/Microsoft.EntityFrameworkCore.Design.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/Microsoft.EntityFrameworkCore.Relational.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/Microsoft.EntityFrameworkCore.SqlServer.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/Microsoft.Extensions.Caching.Abstractions.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/Microsoft.Extensions.Caching.Memory.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/Microsoft.Extensions.Configuration.Abstractions.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/Microsoft.Extensions.DependencyInjection.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/Microsoft.Extensions.DependencyModel.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/Microsoft.Extensions.Logging.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/Microsoft.Extensions.Logging.Abstractions.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/Microsoft.Extensions.Options.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/Microsoft.Extensions.Primitives.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/Microsoft.Identity.Client.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/Microsoft.Identity.Client.Extensions.Msal.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/Microsoft.IdentityModel.Abstractions.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/Microsoft.IdentityModel.JsonWebTokens.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/Microsoft.IdentityModel.Logging.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/Microsoft.IdentityModel.Protocols.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/Microsoft.IdentityModel.Tokens.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/Microsoft.SqlServer.Server.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/Microsoft.Win32.SystemEvents.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/Mono.TextTemplating.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/System.ClientModel.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/System.CodeDom.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/System.Composition.AttributedModel.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/System.Composition.Convention.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/System.Composition.Hosting.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/System.Composition.Runtime.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/System.Composition.TypedParts.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/System.Configuration.ConfigurationManager.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/System.Drawing.Common.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/System.IdentityModel.Tokens.Jwt.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/System.Memory.Data.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/System.Runtime.Caching.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/System.Security.Cryptography.ProtectedData.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/System.Security.Permissions.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/System.Windows.Extensions.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/cs/Microsoft.CodeAnalysis.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/de/Microsoft.CodeAnalysis.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/es/Microsoft.CodeAnalysis.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/fr/Microsoft.CodeAnalysis.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/it/Microsoft.CodeAnalysis.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/ja/Microsoft.CodeAnalysis.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/ko/Microsoft.CodeAnalysis.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/pl/Microsoft.CodeAnalysis.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/pt-BR/Microsoft.CodeAnalysis.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/ru/Microsoft.CodeAnalysis.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/tr/Microsoft.CodeAnalysis.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/zh-Hans/Microsoft.CodeAnalysis.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/zh-Hant/Microsoft.CodeAnalysis.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/cs/Microsoft.CodeAnalysis.CSharp.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/de/Microsoft.CodeAnalysis.CSharp.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/es/Microsoft.CodeAnalysis.CSharp.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/fr/Microsoft.CodeAnalysis.CSharp.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/it/Microsoft.CodeAnalysis.CSharp.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/ja/Microsoft.CodeAnalysis.CSharp.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/ko/Microsoft.CodeAnalysis.CSharp.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/pl/Microsoft.CodeAnalysis.CSharp.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/pt-BR/Microsoft.CodeAnalysis.CSharp.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/ru/Microsoft.CodeAnalysis.CSharp.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/tr/Microsoft.CodeAnalysis.CSharp.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/zh-Hans/Microsoft.CodeAnalysis.CSharp.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/cs/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/de/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/es/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/fr/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/it/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/ja/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/ko/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/pl/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/pt-BR/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/ru/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/tr/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/zh-Hans/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/cs/Microsoft.CodeAnalysis.Workspaces.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/de/Microsoft.CodeAnalysis.Workspaces.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/es/Microsoft.CodeAnalysis.Workspaces.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/fr/Microsoft.CodeAnalysis.Workspaces.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/it/Microsoft.CodeAnalysis.Workspaces.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/ja/Microsoft.CodeAnalysis.Workspaces.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/ko/Microsoft.CodeAnalysis.Workspaces.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/pl/Microsoft.CodeAnalysis.Workspaces.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/pt-BR/Microsoft.CodeAnalysis.Workspaces.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/ru/Microsoft.CodeAnalysis.Workspaces.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/tr/Microsoft.CodeAnalysis.Workspaces.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/zh-Hans/Microsoft.CodeAnalysis.Workspaces.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/zh-Hant/Microsoft.CodeAnalysis.Workspaces.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/cs/Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/de/Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/es/Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/fr/Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/it/Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/ja/Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/ko/Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/pl/Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/pt-BR/Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/ru/Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/tr/Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/zh-Hans/Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/zh-Hant/Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/runtimes/unix/lib/net6.0/Microsoft.Data.SqlClient.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/runtimes/win/lib/net6.0/Microsoft.Data.SqlClient.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/runtimes/win-arm/native/Microsoft.Data.SqlClient.SNI.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/runtimes/win-arm64/native/Microsoft.Data.SqlClient.SNI.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/runtimes/win-x64/native/Microsoft.Data.SqlClient.SNI.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/runtimes/win-x86/native/Microsoft.Data.SqlClient.SNI.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/runtimes/win/lib/net6.0/Microsoft.Win32.SystemEvents.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/runtimes/unix/lib/net6.0/System.Drawing.Common.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/runtimes/win/lib/net6.0/System.Drawing.Common.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/runtimes/win/lib/net6.0/System.Runtime.Caching.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/runtimes/win/lib/net6.0/System.Security.Cryptography.ProtectedData.dll
-/Users/baodiepgia/LAPTRINHWEB/bin/Debug/net9.0/runtimes/win/lib/net6.0/System.Windows.Extensions.dll
-/Users/baodiepgia/LAPTRINHWEB/obj/Debug/net9.0/LAPTRINH.3A3632E5.Up2Date
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\LAPTRINHWEB.exe
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\LAPTRINHWEB.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Abstractions.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Relational.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.SqlServer.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.Extensions.Caching.Abstractions.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.Extensions.Caching.Memory.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.Extensions.Configuration.Abstractions.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.Extensions.DependencyInjection.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.Extensions.Logging.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.Extensions.Logging.Abstractions.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.Extensions.Options.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.Extensions.Primitives.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.Identity.Client.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.SqlServer.Server.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\System.Configuration.ConfigurationManager.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\System.Text.Json.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\appsettings.json
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\LAPTRINHWEB.staticwebassets.runtime.json
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\LAPTRINHWEB.staticwebassets.endpoints.json
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\Azure.Core.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\Azure.Identity.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\Humanizer.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.Bcl.AsyncInterfaces.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.Build.Locator.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.CodeAnalysis.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.CodeAnalysis.CSharp.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.CodeAnalysis.Workspaces.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.Data.SqlClient.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Design.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.Extensions.DependencyModel.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.Identity.Client.Extensions.Msal.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.IdentityModel.Abstractions.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.IdentityModel.JsonWebTokens.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.IdentityModel.Logging.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.Win32.SystemEvents.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\Mono.TextTemplating.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\System.ClientModel.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\System.CodeDom.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\System.Composition.AttributedModel.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\System.Composition.Convention.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\System.Composition.Hosting.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\System.Composition.Runtime.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\System.Composition.TypedParts.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\System.Drawing.Common.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\System.Formats.Asn1.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\System.Memory.Data.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\System.Runtime.Caching.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\System.Security.Cryptography.ProtectedData.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\System.Security.Permissions.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\System.Windows.Extensions.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\obj\Debug\net9.0\LAPTRINHWEB.csproj.AssemblyReference.cache
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\obj\Debug\net9.0\LAPTRINHWEB.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\obj\Debug\net9.0\LAPTRINHWEB.AssemblyInfoInputs.cache
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\obj\Debug\net9.0\LAPTRINHWEB.AssemblyInfo.cs
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\obj\Debug\net9.0\LAPTRINHWEB.csproj.CoreCompileInputs.cache
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\obj\Debug\net9.0\LAPTRINHWEB.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\obj\Debug\net9.0\LAPTRINHWEB.RazorAssemblyInfo.cache
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\obj\Debug\net9.0\LAPTRINHWEB.RazorAssemblyInfo.cs
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\obj\Debug\net9.0\LAPTRINHWEB.sourcelink.json
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\obj\Debug\net9.0\scopedcss\bundle\LAPTRINHWEB.styles.css
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\obj\Debug\net9.0\compressed\dz60unqea5-m0sdov5uku.gz
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\obj\Debug\net9.0\compressed\4r5371cqhz-qt2a7pozvz.gz
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\obj\Debug\net9.0\compressed\3lby8l0z29-kqsfxl9cyz.gz
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\obj\Debug\net9.0\compressed\d7561lx7gy-geo9sv2ukk.gz
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\obj\Debug\net9.0\compressed\ba8wb7q2eq-voki3rl9tn.gz
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\obj\Debug\net9.0\compressed\oiie5n1szb-cpjdnxy9nn.gz
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\obj\Debug\net9.0\compressed\1mk1xjmecq-p26n903apv.gz
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\obj\Debug\net9.0\compressed\3sinzlfqfh-sjdcpq5l1j.gz
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\obj\Debug\net9.0\compressed\pu4nit8yja-aximfvtefv.gz
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\obj\Debug\net9.0\compressed\s9j6px3845-7aj8362gwh.gz
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\obj\Debug\net9.0\compressed\gcbpoouaxk-yx70nkb848.gz
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\obj\Debug\net9.0\staticwebassets.build.json
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\obj\Debug\net9.0\staticwebassets.development.json
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\obj\Debug\net9.0\staticwebassets.build.endpoints.json
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\obj\Debug\net9.0\staticwebassets\msbuild.LAPTRINHWEB.Microsoft.AspNetCore.StaticWebAssets.props
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\obj\Debug\net9.0\staticwebassets\msbuild.LAPTRINHWEB.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\obj\Debug\net9.0\staticwebassets\msbuild.build.LAPTRINHWEB.props
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\obj\Debug\net9.0\staticwebassets\msbuild.buildMultiTargeting.LAPTRINHWEB.props
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\obj\Debug\net9.0\staticwebassets\msbuild.buildTransitive.LAPTRINHWEB.props
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\obj\Debug\net9.0\staticwebassets.pack.json
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\obj\Debug\net9.0\LAPTRINH.3A3632E5.Up2Date
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\obj\Debug\net9.0\LAPTRINHWEB.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\obj\Debug\net9.0\refint\LAPTRINHWEB.dll
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\obj\Debug\net9.0\LAPTRINHWEB.pdb
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\LAPTRINHWEB.deps.json
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\LAPTRINHWEB.runtimeconfig.json
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\bin\Debug\net9.0\LAPTRINHWEB.pdb
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\obj\Debug\net9.0\LAPTRINHWEB.genruntimeconfig.cache
-C:\Users\DAT DAT\Documents\GitHub\LAPTRINHWEB\obj\Debug\net9.0\ref\LAPTRINHWEB.dll
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\LAPTRINHWEB.csproj.AssemblyReference.cache
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\LAPTRINHWEB.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\LAPTRINHWEB.AssemblyInfoInputs.cache
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\LAPTRINHWEB.AssemblyInfo.cs
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\LAPTRINHWEB.csproj.CoreCompileInputs.cache
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\LAPTRINHWEB.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\LAPTRINHWEB.RazorAssemblyInfo.cache
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\LAPTRINHWEB.RazorAssemblyInfo.cs
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\LAPTRINHWEB.sourcelink.json
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\LAPTRINHWEB.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\appsettings.json
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\LAPTRINHWEB.staticwebassets.runtime.json
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\LAPTRINHWEB.staticwebassets.endpoints.json
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\LAPTRINHWEB.exe
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\LAPTRINHWEB.deps.json
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\LAPTRINHWEB.runtimeconfig.json
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\LAPTRINHWEB.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\LAPTRINHWEB.pdb
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Azure.Core.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Azure.Identity.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Humanizer.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.AspNetCore.Identity.UI.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.AspNetCore.Razor.Language.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.Build.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.Build.Framework.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.Build.Locator.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.CodeAnalysis.AnalyzerUtilities.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.CodeAnalysis.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.CodeAnalysis.CSharp.Features.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.CodeAnalysis.Elfie.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.CodeAnalysis.Features.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.CodeAnalysis.Razor.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.CodeAnalysis.Workspaces.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.Data.SqlClient.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.DiaSymReader.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.DotNet.Scaffolding.Shared.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.Extensions.FileProviders.Abstractions.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.Extensions.FileProviders.Embedded.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.Extensions.Identity.Core.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.Extensions.Logging.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.Extensions.Options.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.Extensions.Primitives.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.Identity.Client.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.NET.StringTools.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.SqlServer.Server.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.VisualStudio.Web.CodeGeneration.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.VisualStudio.Web.CodeGeneration.Core.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\dotnet-aspnet-codegenerator-design.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Mono.TextTemplating.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\Newtonsoft.Json.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\NuGet.Common.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\NuGet.Configuration.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\NuGet.DependencyResolver.Core.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\NuGet.Frameworks.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\NuGet.LibraryModel.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\NuGet.Packaging.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\NuGet.ProjectModel.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\NuGet.Protocol.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\NuGet.Versioning.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\System.ClientModel.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\System.CodeDom.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\System.Composition.AttributedModel.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\System.Composition.Convention.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\System.Composition.Hosting.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\System.Composition.Runtime.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\System.Composition.TypedParts.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\System.Configuration.ConfigurationManager.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\System.Memory.Data.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\System.Reflection.MetadataLoadContext.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\System.Runtime.Caching.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\af\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\ar\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\az\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\bg\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\bn-BD\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\cs\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\da\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\de\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\el\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\es\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\fa\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\fi-FI\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\fr\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\fr-BE\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\he\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\hr\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\hu\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\hy\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\id\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\is\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\it\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\ja\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\ko-KR\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\ku\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\lv\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\ms-MY\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\mt\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\nb\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\nb-NO\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\nl\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\pl\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\pt\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\ro\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\ru\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\sk\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\sl\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\sr\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\sr-Latn\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\sv\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\th-TH\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\tr\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\uk\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\uz-Cyrl-UZ\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\uz-Latn-UZ\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\vi\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\zh-CN\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\zh-Hans\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\zh-Hant\Humanizer.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.Features.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.Features.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.Features.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.Features.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.Features.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.Features.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.Features.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.Features.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.Features.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.Features.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Features.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Features.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Features.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\bao\Documents\LAPTRINHWEB\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\scopedcss\bundle\LAPTRINHWEB.styles.css
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\ofa40bqe71-b9sayid5wm.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\j9swiz3yzq-90yqlj465b.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\vltxs1u3vm-xtxxf3hu2r.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\14ipv7q33s-bqjiyaj88i.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\rh65p086id-c2jlpeoesf.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\eb27mqwgz2-erw9l3u2r3.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\9glsckmvxo-aexeepp0ev.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\hh8ihyobdx-d7shbmvgxk.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\bww8ud00yd-ausgxo2sd3.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\edcrak57d7-k8d9w2qqmf.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\sf8kf2lula-cosvhxvwiu.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\3tzsqhslk9-ub07r2b239.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\oxk5o6czdw-fvhpjtyr6v.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\k8b25g0zwc-b7pk76d08c.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\8axix7wldr-fsbi9cje9m.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\d5z9sfpxbi-rzd6atqjts.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\u8428c4e9i-ee0r1s7dh0.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\tg53r17ghy-dxx9fxp4il.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\nlrl0f3xs3-jd9uben2k1.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\1fc4q00scq-khv3u5hwcm.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\8xykfy6qmd-r4e9w2rdcm.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\vsrbd71spn-lcd1t2u6c8.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\cynp17w084-c2oey78nd0.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\7o8oyvng68-tdbxkamptv.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\h9vwtoirpy-j5mq2jizvt.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\o5k23vqhrk-06098lyss8.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\iznc766avz-nvvlpmu67g.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\ns4583i71s-s35ty4nyc5.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\47012z8l2l-pj5nd1wqec.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\4vzefxwp2m-46ein0sx1k.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\bh4v3mdph9-v0zj4ognzu.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\l186vlgaag-37tfw0ft22.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\rsc7qacj1u-hrwsygsryq.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\z408qb6q7a-pk9g2wxc8p.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\qfr28sqcy1-ft3s53vfgj.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\0k1i85ntyh-6cfz1n2cew.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\xa379ftczi-6pdc2jztkx.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\lr5hmrr0j7-493y06b0oq.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\ivy2s9gwh5-iovd86k7lj.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\higufxz8op-vr1egmr9el.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\s3tglgz8hr-kbrnm935zg.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\vw9sls9bhj-jj8uyg4cgr.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\ym8tkpcl2i-y7v9cxd14o.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\zzna4nrm5w-notf2xhcfb.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\igscs4x0yk-h1s4sie4z3.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\zap00c0tb5-63fj8s7r0e.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\pogzkicjpz-0j3bgjxly4.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\j3hwsq15kh-47otxtyo56.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\q3naettu8c-4v8eqarkd7.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\ldxy2n3w6q-356vix0kms.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\ypthv7q62w-83jwlth58m.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\t6e3b82hrf-mrlpezrjn3.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\uocis9wxbx-lzl9nlhx6b.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\2tikzqlmtu-ag7o75518u.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\9muusbdg0a-x0q3zqp4vz.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\tpsq5dibur-0i3buxo5is.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\t0qo7o574p-o1o13a6vjx.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\b9lhb08218-ttgo8qnofa.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\a3ygkwa5zy-2z0ns9nrw6.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\nezrqnk58p-muycvpuwrr.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\v0zgfp0y55-87fc7y1x7t.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\yfc7ypekbg-mlv21k5csn.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\dz60unqea5-m0sdov5uku.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\4r5371cqhz-qt2a7pozvz.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\3lby8l0z29-kqsfxl9cyz.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\d7561lx7gy-geo9sv2ukk.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\ba8wb7q2eq-voki3rl9tn.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\oiie5n1szb-cpjdnxy9nn.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\1mk1xjmecq-p26n903apv.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\3sinzlfqfh-sjdcpq5l1j.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\pu4nit8yja-aximfvtefv.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\s9j6px3845-7aj8362gwh.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\gcbpoouaxk-yx70nkb848.gz
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\staticwebassets.build.json
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\staticwebassets.build.json.cache
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\staticwebassets.development.json
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\staticwebassets.build.endpoints.json
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\LAPTRINH.3A3632E5.Up2Date
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\LAPTRINHWEB.dll
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\refint\LAPTRINHWEB.dll
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\LAPTRINHWEB.pdb
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\LAPTRINHWEB.genruntimeconfig.cache
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\ref\LAPTRINHWEB.dll
+C:\Users\bao\Documents\LAPTRINHWEB\obj\Debug\net9.0\compressed\ppiezkail5-51qoafoyw7.gz

@@ -1,5 +1,5 @@
 using LAPTRINHWEB.Models;
-using LAPTRINHWEB.Services;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -15,12 +15,9 @@ namespace LAPTRINHWEB.Data
         {
             using var scope = serviceProvider.CreateScope();
             var context = scope.ServiceProvider.GetRequiredService<TourDbContext>();
-            var authService = scope.ServiceProvider.GetRequiredService<IAuthService>();
+
 
             await context.Database.EnsureCreatedAsync();
-
-            await SeedRolesAsync(context);
-            await SeedUsersAsync(context, authService);
             await SeedLocationsAsync(context);
             await SeedToursAsync(context);
             await SeedTourGuidesAsync(context);
@@ -29,97 +26,12 @@ namespace LAPTRINHWEB.Data
             await SeedTourGuideAssignmentsAsync(context);
             await SeedTourAccommodationsAsync(context);
             await SeedTourTransportsAsync(context);
-
-
             await context.SaveChangesAsync();
         }
 
-        private static async Task SeedRolesAsync(TourDbContext context)
-        {
-            if (!context.Roles.Any())
-            {
-                var roles = new List<Role>
-                {
-                    new Role { Role_Name = "Admin", Description = "Quản trị viên", Created_Date = DateTime.Now, Is_Active = true },
-                    new Role { Role_Name = "Manager", Description = "Quản lý tour", Created_Date = DateTime.Now, Is_Active = true },
-                    new Role { Role_Name = "TourGuide", Description = "Hướng dẫn viên", Created_Date = DateTime.Now, Is_Active = true },
-                    new Role { Role_Name = "Customer", Description = "Khách hàng", Created_Date = DateTime.Now, Is_Active = true }
-                };
-                context.Roles.AddRange(roles);
-                await context.SaveChangesAsync();
-            }
-        }
 
-        private static async Task SeedUsersAsync(TourDbContext context, IAuthService authService)
-        {
-            if (!context.Users.Any())
-            {
-                var adminRole = context.Roles.First(r => r.Role_Name == "Admin");
-                var managerRole = context.Roles.First(r => r.Role_Name == "Manager");
-                var guideRole = context.Roles.First(r => r.Role_Name == "TourGuide");
-                var customerRole = context.Roles.First(r => r.Role_Name == "Customer");
 
-                var users = new List<User>
-                {
-                    new User
-                    {
-                        Full_Name = "Quản trị viên",
-                        Email = "admin@easytrips.com",
-                        Password_Hash = authService.HashPassword("Admin@123"),
-                        Phone = "0123456789",
-                        Address = "Hà Nội",
-                        Gender = "Nam",
-                        ID_Role = adminRole.ID_Role,
-                        Created_Date = DateTime.Now,
-                        Is_Active = true,
-                        Email_Verified = true
-                    },
-                    new User
-                    {
-                        Full_Name = "Nguyễn Văn Quản",
-                        Email = "manager@easytrips.com",
-                        Password_Hash = authService.HashPassword("Manager@123"),
-                        Phone = "0987654321",
-                        Address = "TP.HCM",
-                        Gender = "Nam",
-                        ID_Role = managerRole.ID_Role,
-                        Created_Date = DateTime.Now,
-                        Is_Active = true,
-                        Email_Verified = true
-                    },
-                    new User
-                    {
-                        Full_Name = "Trần Thị Lan",
-                        Email = "guide@easytrips.com",
-                        Password_Hash = authService.HashPassword("Guide@123"),
-                        Phone = "0976543210",
-                        Address = "Đà Nẵng",
-                        Gender = "Nữ",
-                        Date_Of_Birth = new DateTime(1990, 5, 15),
-                        ID_Role = guideRole.ID_Role,
-                        Created_Date = DateTime.Now,
-                        Is_Active = true,
-                        Email_Verified = true
-                    },
-                    new User
-                    {
-                        Full_Name = "Lê Thị Hoa",
-                        Email = "customer@easytrips.com",
-                        Password_Hash = authService.HashPassword("Customer@123"),
-                        Phone = "0901234567",
-                        Address = "Hà Nội",
-                        Gender = "Nữ",
-                        Date_Of_Birth = new DateTime(1985, 8, 20),
-                        ID_Role = customerRole.ID_Role,
-                        Created_Date = DateTime.Now,
-                        Is_Active = true,
-                        Email_Verified = true
-                    }
-                };
-                context.Users.AddRange(users);
-                await context.SaveChangesAsync();
-            }
-        }
+
 
         private static async Task SeedLocationsAsync(TourDbContext context)
         {

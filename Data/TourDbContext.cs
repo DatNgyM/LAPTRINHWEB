@@ -1,18 +1,15 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LAPTRINHWEB.Models
 {
-    public class TourDbContext : DbContext
+
+    public class TourDbContext : IdentityDbContext<ApplicationUser>
     {
         public TourDbContext(DbContextOptions<TourDbContext> options) : base(options)
         {
         }
-
-        // Authentication DbSets
-        public DbSet<User> Users { get; set; }
-        public DbSet<Role> Roles { get; set; }
 
         // Business DbSets
         public DbSet<Tour> Tours { get; set; }
@@ -33,37 +30,38 @@ namespace LAPTRINHWEB.Models
         {
             base.OnModelCreating(modelBuilder);
 
-            // Configure Role
-            modelBuilder.Entity<Role>(entity =>
+            // Cấu hình ApplicationUser
+            modelBuilder.Entity<ApplicationUser>(entity =>
             {
-                entity.HasKey(e => e.ID_Role);
-                entity.ToTable("Roles");
-                entity.Property(e => e.Role_Name).IsRequired().HasMaxLength(50);
-                entity.Property(e => e.Description).HasMaxLength(200);
-                entity.Property(e => e.Created_Date).HasDefaultValueSql("GETDATE()");
-                entity.HasIndex(e => e.Role_Name).IsUnique();
-            });
-
-            // Configure User
-            modelBuilder.Entity<User>(entity =>
-            {
-                entity.HasKey(e => e.ID_User);
-                entity.ToTable("Users");
-                entity.Property(e => e.Full_Name).IsRequired().HasMaxLength(100);
-                entity.Property(e => e.Email).IsRequired().HasMaxLength(100);
-                entity.Property(e => e.Password_Hash).IsRequired().HasMaxLength(255);
+                entity.Property(e => e.Full_Name).HasMaxLength(100);
                 entity.Property(e => e.Phone).HasMaxLength(15);
                 entity.Property(e => e.Address).HasMaxLength(500);
                 entity.Property(e => e.Gender).HasMaxLength(10);
                 entity.Property(e => e.Avatar).HasMaxLength(500);
                 entity.Property(e => e.Created_Date).HasDefaultValueSql("GETDATE()");
-                entity.HasIndex(e => e.Email).IsUnique();
-
-                entity.HasOne(e => e.Role)
-                    .WithMany(r => r.Users)
-                    .HasForeignKey(e => e.ID_Role)
-                    .OnDelete(DeleteBehavior.Restrict);
             });
+
+            // Seed Identity Roles
+            modelBuilder.Entity<IdentityRole>().HasData(
+                new IdentityRole
+                {
+                    Id = "1",
+                    Name = "Admin",
+                    NormalizedName = "ADMIN"
+                },
+                new IdentityRole
+                {
+                    Id = "2",
+                    Name = "User",
+                    NormalizedName = "USER"
+                },
+                new IdentityRole
+                {
+                    Id = "3",
+                    Name = "TourGuide",
+                    NormalizedName = "TOURGUIDE"
+                }
+            );
 
             // Configure Tour
             modelBuilder.Entity<Tour>(entity =>
@@ -117,7 +115,6 @@ namespace LAPTRINHWEB.Models
                 entity.Property(e => e.Name).IsRequired().HasMaxLength(200);
                 entity.Property(e => e.Address).HasMaxLength(500);
                 entity.Property(e => e.Description).HasColumnType("ntext");
-
             });
 
             // Configure TourAccommodation
@@ -145,7 +142,6 @@ namespace LAPTRINHWEB.Models
                 entity.Property(e => e.Type).IsRequired().HasMaxLength(50);
                 entity.Property(e => e.Provider).HasMaxLength(100);
                 entity.Property(e => e.Description).HasColumnType("ntext");
-
             });
 
             // Configure TourTransport
@@ -204,7 +200,6 @@ namespace LAPTRINHWEB.Models
                 entity.Property(e => e.Name).IsRequired().HasMaxLength(200);
                 entity.Property(e => e.Address).HasMaxLength(500);
                 entity.Property(e => e.Description).HasColumnType("ntext");
-
             });
 
             // Configure TourImage
@@ -215,14 +210,13 @@ namespace LAPTRINHWEB.Models
                 entity.Property(e => e.Image_URL).IsRequired().HasMaxLength(500);
                 entity.Property(e => e.Caption).HasMaxLength(200);
 
-
                 entity.HasOne(e => e.Tour)
                     .WithMany(t => t.TourImages)
                     .HasForeignKey(e => e.ID_Tour)
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
-            // Configure Booking
+            // Configure Booking - Cập nhật để dùng ApplicationUser
             modelBuilder.Entity<Booking>(entity =>
             {
                 entity.HasKey(e => e.ID_Booking);
@@ -231,10 +225,12 @@ namespace LAPTRINHWEB.Models
                 entity.Property(e => e.Booking_Date).HasDefaultValueSql("GETDATE()");
                 entity.Property(e => e.Note).HasColumnType("ntext");
 
-                // Sửa lại để dùng ID_Customer như trong model
+                // Sử dụng UserId (string) thay vì ID_Customer (int)
+                entity.Property(e => e.UserId).IsRequired();
+
                 entity.HasOne(e => e.User)
                     .WithMany(u => u.Bookings)
-                    .HasForeignKey(e => e.ID_Customer)
+                    .HasForeignKey(e => e.UserId)
                     .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne(e => e.Tour)
@@ -265,12 +261,20 @@ namespace LAPTRINHWEB.Models
             modelBuilder.Entity<Booking>()
                 .HasIndex(b => b.Booking_Date);
 
-
             modelBuilder.Entity<TourGuide>()
                 .HasIndex(tg => tg.Email);
 
             modelBuilder.Entity<Location>()
                 .HasIndex(l => l.Name);
+
+            // Đổi tên bảng Identity để tránh xung đột
+            modelBuilder.Entity<ApplicationUser>().ToTable("AspNetUsers");
+            modelBuilder.Entity<IdentityRole>().ToTable("AspNetRoles");
+            modelBuilder.Entity<IdentityUserRole<string>>().ToTable("AspNetUserRoles");
+            modelBuilder.Entity<IdentityUserClaim<string>>().ToTable("AspNetUserClaims");
+            modelBuilder.Entity<IdentityUserLogin<string>>().ToTable("AspNetUserLogins");
+            modelBuilder.Entity<IdentityRoleClaim<string>>().ToTable("AspNetRoleClaims");
+            modelBuilder.Entity<IdentityUserToken<string>>().ToTable("AspNetUserTokens");
         }
     }
 }
