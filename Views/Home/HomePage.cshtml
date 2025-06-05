@@ -67,11 +67,9 @@
                             @if (User.IsInRole("Admin"))
                             {
                                 <li><hr class="dropdown-divider"></li>
-                                <li>
-                                    <a class="dropdown-item" href="/Admin">
-                                        <i class="fas fa-cog me-2"></i>Quản trị hệ thống
-                                    </a>
-                                </li>
+                                <a class="dropdown-item" href="/Admin/DashBoard/Index">
+                                    <i class="fas fa-cog me-2"></i>Quản trị hệ thống
+                                </a>
                             }
                             @if (User.IsInRole("TourGuide"))
                             {

@@ -99,6 +99,16 @@ app.MapControllerRoute(
     defaults: new { area = "TourGuide" });
 
 
+
+if (app.Environment.IsDevelopment())
+{
+    app.Use(async (context, next) =>
+    {
+        Console.WriteLine($"🔍 Request: {context.Request.Method} {context.Request.Path}");
+        await next();
+    });
+}
+
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;

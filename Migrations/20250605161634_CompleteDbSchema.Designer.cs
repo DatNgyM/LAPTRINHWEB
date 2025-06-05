@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LAPTRINHWEB.Migrations
 {
     [DbContext(typeof(TourDbContext))]
-    [Migration("20250603090622_MigrationName")]
-    partial class MigrationName
+    [Migration("20250605161634_CompleteDbSchema")]
+    partial class CompleteDbSchema
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -67,6 +67,96 @@ namespace LAPTRINHWEB.Migrations
                     b.ToTable("Accommodations", (string)null);
                 });
 
+            modelBuilder.Entity("LAPTRINHWEB.Models.ApplicationUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Address")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Avatar")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Created_Date")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Full_Name")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Gender")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
+                });
+
             modelBuilder.Entity("LAPTRINHWEB.Models.Booking", b =>
                 {
                     b.Property<int>("ID_Booking")
@@ -77,21 +167,12 @@ namespace LAPTRINHWEB.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID_Booking"));
 
                     b.Property<DateTime>("Booking_Date")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasColumnName("Booking_Date")
-                        .HasDefaultValueSql("GETDATE()");
-
-                    b.Property<int>("ID_Customer")
-                        .HasColumnType("int")
-                        .HasColumnName("ID_Customer");
+                        .HasColumnName("Booking_Date");
 
                     b.Property<int>("ID_Tour")
                         .HasColumnType("int")
                         .HasColumnName("ID_Tour");
-
-                    b.Property<int?>("ID_User")
-                        .HasColumnType("int");
 
                     b.Property<string>("Note")
                         .HasColumnType("ntext")
@@ -102,29 +183,33 @@ namespace LAPTRINHWEB.Migrations
                         .HasColumnName("Number_Adults");
 
                     b.Property<int>("Number_Children")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
+                        .HasDefaultValue(0)
                         .HasColumnName("Number_Children");
 
                     b.Property<int>("Status")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
+                        .HasDefaultValue(0)
                         .HasColumnName("Status");
 
                     b.Property<decimal>("Total_Price")
                         .HasColumnType("decimal(18,2)")
                         .HasColumnName("Total_Price");
 
-                    b.Property<int?>("TourID_Tour")
-                        .HasColumnType("int");
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("ID_Booking");
 
                     b.HasIndex("Booking_Date");
 
-                    b.HasIndex("ID_Customer");
-
                     b.HasIndex("ID_Tour");
 
-                    b.HasIndex("TourID_Tour");
+                    b.HasIndex("Status");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Bookings", (string)null);
                 });
@@ -147,8 +232,7 @@ namespace LAPTRINHWEB.Migrations
                         .HasColumnName("Description");
 
                     b.Property<int>("ID_Tour")
-                        .HasColumnType("int")
-                        .HasColumnName("ID_Tour");
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -156,14 +240,9 @@ namespace LAPTRINHWEB.Migrations
                         .HasColumnType("nvarchar(200)")
                         .HasColumnName("Title");
 
-                    b.Property<int?>("TourID_Tour")
-                        .HasColumnType("int");
-
                     b.HasKey("ID_Itinerary");
 
                     b.HasIndex("ID_Tour");
-
-                    b.HasIndex("TourID_Tour");
 
                     b.ToTable("Itineraries", (string)null);
                 });
@@ -185,9 +264,6 @@ namespace LAPTRINHWEB.Migrations
                         .HasColumnType("int")
                         .HasColumnName("ID_Location");
 
-                    b.Property<int?>("LocationID_Location")
-                        .HasColumnType("int");
-
                     b.Property<TimeSpan?>("Visit_Time")
                         .HasColumnType("time")
                         .HasColumnName("Visit_Time");
@@ -197,8 +273,6 @@ namespace LAPTRINHWEB.Migrations
                     b.HasIndex("ID_Itinerary");
 
                     b.HasIndex("ID_Location");
-
-                    b.HasIndex("LocationID_Location");
 
                     b.ToTable("ItineraryLocations", (string)null);
                 });
@@ -248,7 +322,6 @@ namespace LAPTRINHWEB.Migrations
                         .HasColumnName("ID_Booking");
 
                     b.Property<int>("Method")
-                        .HasMaxLength(50)
                         .HasColumnType("int")
                         .HasColumnName("Method");
 
@@ -257,58 +330,22 @@ namespace LAPTRINHWEB.Migrations
                         .HasColumnName("Paid_Amount");
 
                     b.Property<DateTime>("Payment_Date")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasColumnName("Payment_Date")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnName("Payment_Date");
 
                     b.Property<int>("Status")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
+                        .HasDefaultValue(0)
                         .HasColumnName("Status");
 
                     b.HasKey("ID_Payment");
 
                     b.HasIndex("ID_Booking");
 
+                    b.HasIndex("Payment_Date");
+
                     b.ToTable("Payments", (string)null);
-                });
-
-            modelBuilder.Entity("LAPTRINHWEB.Models.Role", b =>
-                {
-                    b.Property<int>("ID_Role")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("ID_Role");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID_Role"));
-
-                    b.Property<DateTime>("Created_Date")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Created_Date")
-                        .HasDefaultValueSql("GETDATE()");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)")
-                        .HasColumnName("Description");
-
-                    b.Property<bool>("Is_Active")
-                        .HasColumnType("bit")
-                        .HasColumnName("Is_Active");
-
-                    b.Property<string>("Role_Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnName("Role_Name");
-
-                    b.HasKey("ID_Role");
-
-                    b.HasIndex("Role_Name")
-                        .IsUnique();
-
-                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("LAPTRINHWEB.Models.Tour", b =>
@@ -334,7 +371,7 @@ namespace LAPTRINHWEB.Migrations
 
                     b.Property<string>("End_Location")
                         .IsRequired()
-                        .HasMaxLength(200)
+                        .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)")
                         .HasColumnName("End_Location");
 
@@ -354,17 +391,21 @@ namespace LAPTRINHWEB.Migrations
 
                     b.Property<string>("Start_Location")
                         .IsRequired()
-                        .HasMaxLength(200)
+                        .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)")
                         .HasColumnName("Start_Location");
 
                     b.Property<int>("Status")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
+                        .HasDefaultValue(0)
                         .HasColumnName("Status");
 
                     b.HasKey("ID_Tour");
 
                     b.HasIndex("Name_Tour");
+
+                    b.HasIndex("Status");
 
                     b.ToTable("Tours", (string)null);
                 });
@@ -377,9 +418,6 @@ namespace LAPTRINHWEB.Migrations
                         .HasColumnName("ID_TourAcc");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID_TourAcc"));
-
-                    b.Property<int?>("AccommodationID_Accommodation")
-                        .HasColumnType("int");
 
                     b.Property<TimeSpan?>("Checkin_Time")
                         .HasColumnType("time")
@@ -405,18 +443,11 @@ namespace LAPTRINHWEB.Migrations
                         .HasColumnType("int")
                         .HasColumnName("Nights");
 
-                    b.Property<int?>("TourID_Tour")
-                        .HasColumnType("int");
-
                     b.HasKey("ID_TourAcc");
-
-                    b.HasIndex("AccommodationID_Accommodation");
 
                     b.HasIndex("ID_Accommodation");
 
                     b.HasIndex("ID_Tour");
-
-                    b.HasIndex("TourID_Tour");
 
                     b.ToTable("TourAccommodations", (string)null);
                 });
@@ -432,7 +463,7 @@ namespace LAPTRINHWEB.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(100)
+                        .HasMaxLength(150)
                         .HasColumnType("varchar(150)")
                         .HasColumnName("Email");
 
@@ -485,21 +516,13 @@ namespace LAPTRINHWEB.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("Start_Date");
 
-                    b.Property<int?>("TourGuideID_Guide")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TourID_Tour")
-                        .HasColumnType("int");
-
                     b.HasKey("ID_Assignment");
 
                     b.HasIndex("ID_Guide");
 
                     b.HasIndex("ID_Tour");
 
-                    b.HasIndex("TourGuideID_Guide");
-
-                    b.HasIndex("TourID_Tour");
+                    b.HasIndex("Start_Date", "End_Date");
 
                     b.ToTable("TourGuideAssignments", (string)null);
                 });
@@ -514,7 +537,7 @@ namespace LAPTRINHWEB.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID_Image"));
 
                     b.Property<string>("Caption")
-                        .HasMaxLength(200)
+                        .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)")
                         .HasColumnName("Caption");
 
@@ -574,21 +597,11 @@ namespace LAPTRINHWEB.Migrations
                         .HasColumnType("nvarchar(200)")
                         .HasColumnName("To_Location");
 
-                    b.Property<int?>("TourID_Tour")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TransportationID_Transport")
-                        .HasColumnType("int");
-
                     b.HasKey("ID_TourTransport");
 
                     b.HasIndex("ID_Tour");
 
                     b.HasIndex("ID_Transport");
-
-                    b.HasIndex("TourID_Tour");
-
-                    b.HasIndex("TransportationID_Transport");
 
                     b.ToTable("TourTransports", (string)null);
                 });
@@ -622,12 +635,11 @@ namespace LAPTRINHWEB.Migrations
                         .HasColumnName("Name");
 
                     b.Property<string>("Provider")
-                        .HasMaxLength(100)
+                        .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)")
                         .HasColumnName("Provider");
 
                     b.Property<int>("Type")
-                        .HasMaxLength(50)
                         .HasColumnType("int")
                         .HasColumnName("Type");
 
@@ -636,106 +648,151 @@ namespace LAPTRINHWEB.Migrations
                     b.ToTable("Transportations", (string)null);
                 });
 
-            modelBuilder.Entity("LAPTRINHWEB.Models.User", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
-                    b.Property<int>("ID_User")
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("ID_User");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID_User"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Address")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)")
-                        .HasColumnName("Address");
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Avatar")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)")
-                        .HasColumnName("Avatar");
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Created_Date")
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Created_Date")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("int");
 
-                    b.Property<DateTime?>("Date_Of_Birth")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Date_Of_Birth");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Email")
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
-                        .HasColumnName("Email");
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<bool>("Email_Verified")
-                        .HasColumnType("bit")
-                        .HasColumnName("Email_Verified");
+                    b.HasKey("Id");
 
-                    b.Property<string>("Full_Name")
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
-                        .HasColumnName("Full_Name");
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Gender")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)")
-                        .HasColumnName("Gender");
+                    b.HasKey("LoginProvider", "ProviderKey");
 
-                    b.Property<int>("ID_Role")
-                        .HasColumnType("int")
-                        .HasColumnName("ID_Role");
+                    b.HasIndex("UserId");
 
-                    b.Property<bool>("Is_Active")
-                        .HasColumnType("bit")
-                        .HasColumnName("Is_Active");
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
 
-                    b.Property<DateTime?>("Last_Login")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Last_Login");
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Password_Hash")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)")
-                        .HasColumnName("Password_Hash");
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Phone")
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)")
-                        .HasColumnName("Phone");
+                    b.HasKey("UserId", "RoleId");
 
-                    b.HasKey("ID_User");
+                    b.HasIndex("RoleId");
 
-                    b.HasIndex("Email")
-                        .IsUnique();
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
 
-                    b.HasIndex("ID_Role");
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.ToTable("Users", (string)null);
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
                 });
 
             modelBuilder.Entity("LAPTRINHWEB.Models.Booking", b =>
                 {
-                    b.HasOne("LAPTRINHWEB.Models.User", "User")
-                        .WithMany("Bookings")
-                        .HasForeignKey("ID_Customer")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("LAPTRINHWEB.Models.Tour", "Tour")
-                        .WithMany()
+                        .WithMany("Bookings")
                         .HasForeignKey("ID_Tour")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("LAPTRINHWEB.Models.Tour", null)
+                    b.HasOne("LAPTRINHWEB.Models.ApplicationUser", "User")
                         .WithMany("Bookings")
-                        .HasForeignKey("TourID_Tour");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Tour");
 
@@ -745,14 +802,10 @@ namespace LAPTRINHWEB.Migrations
             modelBuilder.Entity("LAPTRINHWEB.Models.Itinerary", b =>
                 {
                     b.HasOne("LAPTRINHWEB.Models.Tour", "Tour")
-                        .WithMany()
+                        .WithMany("Itineraries")
                         .HasForeignKey("ID_Tour")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("LAPTRINHWEB.Models.Tour", null)
-                        .WithMany("Itineraries")
-                        .HasForeignKey("TourID_Tour");
 
                     b.Navigation("Tour");
                 });
@@ -766,14 +819,10 @@ namespace LAPTRINHWEB.Migrations
                         .IsRequired();
 
                     b.HasOne("LAPTRINHWEB.Models.Location", "Location")
-                        .WithMany()
+                        .WithMany("ItineraryLocations")
                         .HasForeignKey("ID_Location")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("LAPTRINHWEB.Models.Location", null)
-                        .WithMany("ItineraryLocations")
-                        .HasForeignKey("LocationID_Location");
 
                     b.Navigation("Itinerary");
 
@@ -793,25 +842,17 @@ namespace LAPTRINHWEB.Migrations
 
             modelBuilder.Entity("LAPTRINHWEB.Models.TourAccommodation", b =>
                 {
-                    b.HasOne("LAPTRINHWEB.Models.Accommodation", null)
-                        .WithMany("TourAccommodations")
-                        .HasForeignKey("AccommodationID_Accommodation");
-
                     b.HasOne("LAPTRINHWEB.Models.Accommodation", "Accommodation")
-                        .WithMany()
+                        .WithMany("TourAccommodations")
                         .HasForeignKey("ID_Accommodation")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("LAPTRINHWEB.Models.Tour", "Tour")
-                        .WithMany()
+                        .WithMany("TourAccommodations")
                         .HasForeignKey("ID_Tour")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("LAPTRINHWEB.Models.Tour", null)
-                        .WithMany("TourAccommodations")
-                        .HasForeignKey("TourID_Tour");
 
                     b.Navigation("Accommodation");
 
@@ -821,24 +862,16 @@ namespace LAPTRINHWEB.Migrations
             modelBuilder.Entity("LAPTRINHWEB.Models.TourGuideAssignment", b =>
                 {
                     b.HasOne("LAPTRINHWEB.Models.TourGuide", "TourGuide")
-                        .WithMany()
+                        .WithMany("TourGuideAssignments")
                         .HasForeignKey("ID_Guide")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("LAPTRINHWEB.Models.Tour", "Tour")
-                        .WithMany()
+                        .WithMany("TourGuideAssignments")
                         .HasForeignKey("ID_Tour")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("LAPTRINHWEB.Models.TourGuide", null)
-                        .WithMany("TourGuideAssignments")
-                        .HasForeignKey("TourGuideID_Guide");
-
-                    b.HasOne("LAPTRINHWEB.Models.Tour", null)
-                        .WithMany("TourGuideAssignments")
-                        .HasForeignKey("TourID_Tour");
 
                     b.Navigation("Tour");
 
@@ -859,44 +892,81 @@ namespace LAPTRINHWEB.Migrations
             modelBuilder.Entity("LAPTRINHWEB.Models.TourTransport", b =>
                 {
                     b.HasOne("LAPTRINHWEB.Models.Tour", "Tour")
-                        .WithMany()
+                        .WithMany("TourTransports")
                         .HasForeignKey("ID_Tour")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("LAPTRINHWEB.Models.Transportation", "Transportation")
-                        .WithMany()
+                        .WithMany("TourTransports")
                         .HasForeignKey("ID_Transport")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("LAPTRINHWEB.Models.Tour", null)
-                        .WithMany("TourTransports")
-                        .HasForeignKey("TourID_Tour");
-
-                    b.HasOne("LAPTRINHWEB.Models.Transportation", null)
-                        .WithMany("TourTransports")
-                        .HasForeignKey("TransportationID_Transport");
 
                     b.Navigation("Tour");
 
                     b.Navigation("Transportation");
                 });
 
-            modelBuilder.Entity("LAPTRINHWEB.Models.User", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.HasOne("LAPTRINHWEB.Models.Role", "Role")
-                        .WithMany("Users")
-                        .HasForeignKey("ID_Role")
-                        .OnDelete(DeleteBehavior.Restrict)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("LAPTRINHWEB.Models.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("LAPTRINHWEB.Models.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Role");
+                    b.HasOne("LAPTRINHWEB.Models.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("LAPTRINHWEB.Models.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("LAPTRINHWEB.Models.Accommodation", b =>
                 {
                     b.Navigation("TourAccommodations");
+                });
+
+            modelBuilder.Entity("LAPTRINHWEB.Models.ApplicationUser", b =>
+                {
+                    b.Navigation("Bookings");
                 });
 
             modelBuilder.Entity("LAPTRINHWEB.Models.Booking", b =>
@@ -912,11 +982,6 @@ namespace LAPTRINHWEB.Migrations
             modelBuilder.Entity("LAPTRINHWEB.Models.Location", b =>
                 {
                     b.Navigation("ItineraryLocations");
-                });
-
-            modelBuilder.Entity("LAPTRINHWEB.Models.Role", b =>
-                {
-                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("LAPTRINHWEB.Models.Tour", b =>
@@ -942,11 +1007,6 @@ namespace LAPTRINHWEB.Migrations
             modelBuilder.Entity("LAPTRINHWEB.Models.Transportation", b =>
                 {
                     b.Navigation("TourTransports");
-                });
-
-            modelBuilder.Entity("LAPTRINHWEB.Models.User", b =>
-                {
-                    b.Navigation("Bookings");
                 });
 #pragma warning restore 612, 618
         }

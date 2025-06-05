@@ -164,10 +164,8 @@ namespace LAPTRINHWEB.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID_Booking"));
 
                     b.Property<DateTime>("Booking_Date")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasColumnName("Booking_Date")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnName("Booking_Date");
 
                     b.Property<int>("ID_Tour")
                         .HasColumnType("int")
@@ -182,22 +180,22 @@ namespace LAPTRINHWEB.Migrations
                         .HasColumnName("Number_Adults");
 
                     b.Property<int>("Number_Children")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
+                        .HasDefaultValue(0)
                         .HasColumnName("Number_Children");
 
                     b.Property<int>("Status")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
+                        .HasDefaultValue(0)
                         .HasColumnName("Status");
 
                     b.Property<decimal>("Total_Price")
                         .HasColumnType("decimal(18,2)")
                         .HasColumnName("Total_Price");
 
-                    b.Property<int?>("TourID_Tour")
-                        .HasColumnType("int");
-
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("ID_Booking");
@@ -206,7 +204,7 @@ namespace LAPTRINHWEB.Migrations
 
                     b.HasIndex("ID_Tour");
 
-                    b.HasIndex("TourID_Tour");
+                    b.HasIndex("Status");
 
                     b.HasIndex("UserId");
 
@@ -231,8 +229,7 @@ namespace LAPTRINHWEB.Migrations
                         .HasColumnName("Description");
 
                     b.Property<int>("ID_Tour")
-                        .HasColumnType("int")
-                        .HasColumnName("ID_Tour");
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -240,14 +237,9 @@ namespace LAPTRINHWEB.Migrations
                         .HasColumnType("nvarchar(200)")
                         .HasColumnName("Title");
 
-                    b.Property<int?>("TourID_Tour")
-                        .HasColumnType("int");
-
                     b.HasKey("ID_Itinerary");
 
                     b.HasIndex("ID_Tour");
-
-                    b.HasIndex("TourID_Tour");
 
                     b.ToTable("Itineraries", (string)null);
                 });
@@ -269,9 +261,6 @@ namespace LAPTRINHWEB.Migrations
                         .HasColumnType("int")
                         .HasColumnName("ID_Location");
 
-                    b.Property<int?>("LocationID_Location")
-                        .HasColumnType("int");
-
                     b.Property<TimeSpan?>("Visit_Time")
                         .HasColumnType("time")
                         .HasColumnName("Visit_Time");
@@ -281,8 +270,6 @@ namespace LAPTRINHWEB.Migrations
                     b.HasIndex("ID_Itinerary");
 
                     b.HasIndex("ID_Location");
-
-                    b.HasIndex("LocationID_Location");
 
                     b.ToTable("ItineraryLocations", (string)null);
                 });
@@ -332,7 +319,6 @@ namespace LAPTRINHWEB.Migrations
                         .HasColumnName("ID_Booking");
 
                     b.Property<int>("Method")
-                        .HasMaxLength(50)
                         .HasColumnType("int")
                         .HasColumnName("Method");
 
@@ -341,18 +327,20 @@ namespace LAPTRINHWEB.Migrations
                         .HasColumnName("Paid_Amount");
 
                     b.Property<DateTime>("Payment_Date")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasColumnName("Payment_Date")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnName("Payment_Date");
 
                     b.Property<int>("Status")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
+                        .HasDefaultValue(0)
                         .HasColumnName("Status");
 
                     b.HasKey("ID_Payment");
 
                     b.HasIndex("ID_Booking");
+
+                    b.HasIndex("Payment_Date");
 
                     b.ToTable("Payments", (string)null);
                 });
@@ -380,7 +368,7 @@ namespace LAPTRINHWEB.Migrations
 
                     b.Property<string>("End_Location")
                         .IsRequired()
-                        .HasMaxLength(200)
+                        .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)")
                         .HasColumnName("End_Location");
 
@@ -400,17 +388,21 @@ namespace LAPTRINHWEB.Migrations
 
                     b.Property<string>("Start_Location")
                         .IsRequired()
-                        .HasMaxLength(200)
+                        .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)")
                         .HasColumnName("Start_Location");
 
                     b.Property<int>("Status")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
+                        .HasDefaultValue(0)
                         .HasColumnName("Status");
 
                     b.HasKey("ID_Tour");
 
                     b.HasIndex("Name_Tour");
+
+                    b.HasIndex("Status");
 
                     b.ToTable("Tours", (string)null);
                 });
@@ -423,9 +415,6 @@ namespace LAPTRINHWEB.Migrations
                         .HasColumnName("ID_TourAcc");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID_TourAcc"));
-
-                    b.Property<int?>("AccommodationID_Accommodation")
-                        .HasColumnType("int");
 
                     b.Property<TimeSpan?>("Checkin_Time")
                         .HasColumnType("time")
@@ -451,18 +440,11 @@ namespace LAPTRINHWEB.Migrations
                         .HasColumnType("int")
                         .HasColumnName("Nights");
 
-                    b.Property<int?>("TourID_Tour")
-                        .HasColumnType("int");
-
                     b.HasKey("ID_TourAcc");
-
-                    b.HasIndex("AccommodationID_Accommodation");
 
                     b.HasIndex("ID_Accommodation");
 
                     b.HasIndex("ID_Tour");
-
-                    b.HasIndex("TourID_Tour");
 
                     b.ToTable("TourAccommodations", (string)null);
                 });
@@ -478,7 +460,7 @@ namespace LAPTRINHWEB.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(100)
+                        .HasMaxLength(150)
                         .HasColumnType("varchar(150)")
                         .HasColumnName("Email");
 
@@ -531,21 +513,13 @@ namespace LAPTRINHWEB.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("Start_Date");
 
-                    b.Property<int?>("TourGuideID_Guide")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TourID_Tour")
-                        .HasColumnType("int");
-
                     b.HasKey("ID_Assignment");
 
                     b.HasIndex("ID_Guide");
 
                     b.HasIndex("ID_Tour");
 
-                    b.HasIndex("TourGuideID_Guide");
-
-                    b.HasIndex("TourID_Tour");
+                    b.HasIndex("Start_Date", "End_Date");
 
                     b.ToTable("TourGuideAssignments", (string)null);
                 });
@@ -560,7 +534,7 @@ namespace LAPTRINHWEB.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID_Image"));
 
                     b.Property<string>("Caption")
-                        .HasMaxLength(200)
+                        .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)")
                         .HasColumnName("Caption");
 
@@ -620,21 +594,11 @@ namespace LAPTRINHWEB.Migrations
                         .HasColumnType("nvarchar(200)")
                         .HasColumnName("To_Location");
 
-                    b.Property<int?>("TourID_Tour")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TransportationID_Transport")
-                        .HasColumnType("int");
-
                     b.HasKey("ID_TourTransport");
 
                     b.HasIndex("ID_Tour");
 
                     b.HasIndex("ID_Transport");
-
-                    b.HasIndex("TourID_Tour");
-
-                    b.HasIndex("TransportationID_Transport");
 
                     b.ToTable("TourTransports", (string)null);
                 });
@@ -668,12 +632,11 @@ namespace LAPTRINHWEB.Migrations
                         .HasColumnName("Name");
 
                     b.Property<string>("Provider")
-                        .HasMaxLength(100)
+                        .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)")
                         .HasColumnName("Provider");
 
                     b.Property<int>("Type")
-                        .HasMaxLength(50)
                         .HasColumnType("int")
                         .HasColumnName("Type");
 
@@ -707,26 +670,6 @@ namespace LAPTRINHWEB.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "1",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = "2",
-                            Name = "User",
-                            NormalizedName = "USER"
-                        },
-                        new
-                        {
-                            Id = "3",
-                            Name = "TourGuide",
-                            NormalizedName = "TOURGUIDE"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -782,12 +725,10 @@ namespace LAPTRINHWEB.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -824,12 +765,10 @@ namespace LAPTRINHWEB.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -842,20 +781,15 @@ namespace LAPTRINHWEB.Migrations
             modelBuilder.Entity("LAPTRINHWEB.Models.Booking", b =>
                 {
                     b.HasOne("LAPTRINHWEB.Models.Tour", "Tour")
-                        .WithMany()
+                        .WithMany("Bookings")
                         .HasForeignKey("ID_Tour")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("LAPTRINHWEB.Models.Tour", null)
-                        .WithMany("Bookings")
-                        .HasForeignKey("TourID_Tour");
-
                     b.HasOne("LAPTRINHWEB.Models.ApplicationUser", "User")
                         .WithMany("Bookings")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Tour");
 
@@ -865,14 +799,10 @@ namespace LAPTRINHWEB.Migrations
             modelBuilder.Entity("LAPTRINHWEB.Models.Itinerary", b =>
                 {
                     b.HasOne("LAPTRINHWEB.Models.Tour", "Tour")
-                        .WithMany()
+                        .WithMany("Itineraries")
                         .HasForeignKey("ID_Tour")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("LAPTRINHWEB.Models.Tour", null)
-                        .WithMany("Itineraries")
-                        .HasForeignKey("TourID_Tour");
 
                     b.Navigation("Tour");
                 });
@@ -886,14 +816,10 @@ namespace LAPTRINHWEB.Migrations
                         .IsRequired();
 
                     b.HasOne("LAPTRINHWEB.Models.Location", "Location")
-                        .WithMany()
+                        .WithMany("ItineraryLocations")
                         .HasForeignKey("ID_Location")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("LAPTRINHWEB.Models.Location", null)
-                        .WithMany("ItineraryLocations")
-                        .HasForeignKey("LocationID_Location");
 
                     b.Navigation("Itinerary");
 
@@ -913,25 +839,17 @@ namespace LAPTRINHWEB.Migrations
 
             modelBuilder.Entity("LAPTRINHWEB.Models.TourAccommodation", b =>
                 {
-                    b.HasOne("LAPTRINHWEB.Models.Accommodation", null)
-                        .WithMany("TourAccommodations")
-                        .HasForeignKey("AccommodationID_Accommodation");
-
                     b.HasOne("LAPTRINHWEB.Models.Accommodation", "Accommodation")
-                        .WithMany()
+                        .WithMany("TourAccommodations")
                         .HasForeignKey("ID_Accommodation")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("LAPTRINHWEB.Models.Tour", "Tour")
-                        .WithMany()
+                        .WithMany("TourAccommodations")
                         .HasForeignKey("ID_Tour")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("LAPTRINHWEB.Models.Tour", null)
-                        .WithMany("TourAccommodations")
-                        .HasForeignKey("TourID_Tour");
 
                     b.Navigation("Accommodation");
 
@@ -941,24 +859,16 @@ namespace LAPTRINHWEB.Migrations
             modelBuilder.Entity("LAPTRINHWEB.Models.TourGuideAssignment", b =>
                 {
                     b.HasOne("LAPTRINHWEB.Models.TourGuide", "TourGuide")
-                        .WithMany()
+                        .WithMany("TourGuideAssignments")
                         .HasForeignKey("ID_Guide")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("LAPTRINHWEB.Models.Tour", "Tour")
-                        .WithMany()
+                        .WithMany("TourGuideAssignments")
                         .HasForeignKey("ID_Tour")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("LAPTRINHWEB.Models.TourGuide", null)
-                        .WithMany("TourGuideAssignments")
-                        .HasForeignKey("TourGuideID_Guide");
-
-                    b.HasOne("LAPTRINHWEB.Models.Tour", null)
-                        .WithMany("TourGuideAssignments")
-                        .HasForeignKey("TourID_Tour");
 
                     b.Navigation("Tour");
 
@@ -979,24 +889,16 @@ namespace LAPTRINHWEB.Migrations
             modelBuilder.Entity("LAPTRINHWEB.Models.TourTransport", b =>
                 {
                     b.HasOne("LAPTRINHWEB.Models.Tour", "Tour")
-                        .WithMany()
+                        .WithMany("TourTransports")
                         .HasForeignKey("ID_Tour")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("LAPTRINHWEB.Models.Transportation", "Transportation")
-                        .WithMany()
+                        .WithMany("TourTransports")
                         .HasForeignKey("ID_Transport")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("LAPTRINHWEB.Models.Tour", null)
-                        .WithMany("TourTransports")
-                        .HasForeignKey("TourID_Tour");
-
-                    b.HasOne("LAPTRINHWEB.Models.Transportation", null)
-                        .WithMany("TourTransports")
-                        .HasForeignKey("TransportationID_Transport");
 
                     b.Navigation("Tour");
 

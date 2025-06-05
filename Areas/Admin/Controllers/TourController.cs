@@ -425,29 +425,6 @@ namespace LAPTRINHWEB.Areas.Admin.Controllers
         }
 
         // Dummy actions cho navigation (có thể implement sau)
-        public IActionResult Users()
-        {
-            return View();
-        }
 
-        public IActionResult Transportations()
-        {
-            return View();
-        }
-
-        public IActionResult Accommodations()
-        {
-            return View();
-        }
-
-        public IActionResult Itineraries()
-        {
-            return View();
-        }
-
-        public IActionResult TourGuides()
-        {
-            return View();
-        }
     }
 }
