@@ -1,4 +1,8 @@
 @model List<LAPTRINHWEB.Models.Tour>
+@{
+    ViewData["Title"] = "Danh sách Tour";
+}
+
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -9,176 +13,7 @@
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/tour-listing.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Bootstrap CSS for better styling -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <style>
-        .admin-actions {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 8px;
-            border-radius: 8px;
-            display: flex;
-            gap: 5px;
-        }
-
-        .admin-btn {
-            padding: 6px 12px;
-            border: none;
-            border-radius: 5px;
-            color: white;
-            text-decoration: none;
-            font-size: 12px;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .admin-btn:hover {
-            transform: translateY(-2px);
-            color: white;
-            text-decoration: none;
-        }
-
-        .btn-edit {
-            background: #ffc107;
-        }
-
-        .btn-edit:hover {
-            background: #e0a800;
-        }
-
-        .btn-delete {
-            background: #dc3545;
-        }
-
-        .btn-delete:hover {
-            background: #c82333;
-        }
-
-        .tour-item {
-            position: relative;
-        }
-
-        .add-tour-section {
-            background: linear-gradient(135deg, #007bff, #0056b3);
-            color: white;
-            padding: 2rem 0;
-            margin-bottom: 2rem;
-        }
-
-        .btn-add-tour {
-            background: #28a745;
-            color: white;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .btn-add-tour:hover {
-            background: #218838;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
-            color: white;
-            text-decoration: none;
-        }
-
-        .admin-toolbar {
-            background: #f8f9fa;
-            padding: 1rem 0;
-            border-bottom: 2px solid #dee2e6;
-            margin-bottom: 2rem;
-        }
-
-        .bulk-actions {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .select-all-checkbox {
-            margin-right: 0.5rem;
-        }
-
-        .tour-checkbox {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            z-index: 10;
-        }
-
-        .bulk-action-btn {
-            padding: 8px 16px;
-            border: none;
-            border-radius: 6px;
-            color: white;
-            cursor: pointer;
-            font-size: 14px;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: all 0.3s ease;
-        }
-
-        .bulk-delete-btn {
-            background: #dc3545;
-        }
-
-        .bulk-delete-btn:hover {
-            background: #c82333;
-        }
-
-        .bulk-status-btn {
-            background: #6c757d;
-        }
-
-        .bulk-status-btn:hover {
-            background: #5a6268;
-        }
-
-        .tour-status {
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: bold;
-        }
-
-        .status-active {
-            background: #d4edda;
-            color: #155724;
-        }
-
-        .status-inactive {
-            background: #f8d7da;
-            color: #721c24;
-        }
-
-
-        .bulk-actions {
-            flex-direction: column;
-            align-items: stretch;
-        }
-
-        .bulk-actions>div {
-            margin-bottom: 10px;
-        }
-        }
-    </style>
 </head>
 
 <body>
@@ -196,8 +31,84 @@
                 <li><a href="#">Contact</a></li>
             </ul>
         </nav>
-        <div class="search-icon">
-            <i class="fas fa-search"></i>
+        
+        <div class="header-right">
+            <div class="search-icon">
+                <i class="fas fa-search"></i>
+            </div>
+            
+            <!-- Authentication Section -->
+            <div class="auth-section">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <!-- User is logged in -->
+                    <div class="user-dropdown dropdown">
+                        <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-circle"></i>
+                            <span>@(User.Identity.Name)</span>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <span class="role-badge">Admin</span>
+                            }
+                            else if (User.IsInRole("TourGuide"))
+                            {
+                                <span class="role-badge">Guide</span>
+                            }
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-user me-2"></i>Thông tin cá nhân
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-history me-2"></i>Lịch sử đặt tour
+                                </a>
+                            </li>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item" href="/Admin">
+                                        <i class="fas fa-cog me-2"></i>Quản trị hệ thống
+                                    </a>
+                                </li>
+                            }
+                            @if (User.IsInRole("TourGuide"))
+                            {
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item" href="/TourGuide">
+                                        <i class="fas fa-route me-2"></i>Quản lý tour
+                                    </a>
+                                </li>
+                            }
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form asp-area="Identity" asp-page="/Account/Logout" method="post" class="d-inline">
+                                    <button type="submit" class="dropdown-item text-danger">
+                                        <i class="fas fa-sign-out-alt me-2"></i>Đăng xuất
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                }
+                else
+                {
+                    <!-- User is not logged in -->
+                    <div class="auth-buttons">
+                        <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-login">
+                            <i class="fas fa-sign-in-alt me-2"></i>Đăng nhập
+                        </a>
+                        <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-register">
+                            <i class="fas fa-user-plus me-2"></i>Đăng ký
+                        </a>
+                    </div>
+                }
+            </div>
         </div>
     </header>
 
@@ -209,61 +120,6 @@
         </div>
     </section>
 
-    <!-- Add Tour Section -->
-    <section class="add-tour-section">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-8">
-                    <h3 class="mb-2">
-                        <i class="fas fa-cogs"></i> Quản lý Tour Du lịch
-                    </h3>
-                    <p class="mb-0">Thêm, chỉnh sửa hoặc xóa các tour du lịch của bạn</p>
-                </div>
-                <div class="col-md-4 text-md-end">
-                    <a asp-action="AddTour" class="btn-add-tour">
-                        <i class="fas fa-plus-circle"></i>
-                        Thêm Tour Mới
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Admin Toolbar -->
-    <section class="admin-toolbar">
-        <div class="container">
-            <div class="bulk-actions">
-                <div class="d-flex align-items-center">
-                    <input type="checkbox" id="select-all" class="form-check-input select-all-checkbox">
-                    <label for="select-all" class="form-check-label">Chọn tất cả</label>
-                </div>
-
-                <div class="d-flex gap-2">
-                    <button type="button" class="bulk-action-btn bulk-delete-btn" id="bulk-delete" disabled>
-                        <i class="fas fa-trash-alt"></i>
-                        Xóa đã chọn
-                    </button>
-
-                    <button type="button" class="bulk-action-btn bulk-status-btn" id="bulk-activate" disabled>
-                        <i class="fas fa-toggle-on"></i>
-                        Kích hoạt
-                    </button>
-
-                    <button type="button" class="bulk-action-btn bulk-status-btn" id="bulk-deactivate" disabled>
-                        <i class="fas fa-toggle-off"></i>
-                        Tạm dừng
-                    </button>
-                </div>
-
-                <div class="ms-auto">
-                    <span class="text-muted">
-                        <span id="selected-count">0</span> tour đã chọn
-                    </span>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Tour Listing Section -->
     <section class="tour-listing">
         <div class="container">
@@ -271,6 +127,12 @@
                 <h2>Tất cả Tour Du lịch</h2>
                 <div class="tour-count">
                     <span>Hiển thị <strong>@(Model?.Count ?? 0)</strong> tour</span>
+                    @if (ViewBag.TotalTours != null)
+                    {
+                        <span class="text-muted ms-2">
+                            (Trang @ViewBag.CurrentPage/@ViewBag.TotalPages - Tổng @ViewBag.TotalTours tour)
+                        </span>
+                    }
                 </div>
             </div>
 
@@ -280,30 +142,7 @@
                     {
                         @foreach (var tour in Model)
                         {
-                            <div class="tour-item" data-tour-id="@tour.ID_Tour">
-                                <!-- Tour Checkbox -->
-                                <input type="checkbox" class="form-check-input tour-checkbox" value="@tour.ID_Tour">
-
-                                <!-- Tour Status -->
-                                <div
-                                    class="tour-status @(tour.Status == LAPTRINHWEB.Models.TourStatus.Active ? "status-active" : "status-inactive")">
-                                    @(tour.Status == LAPTRINHWEB.Models.TourStatus.Active ? "Hoạt động" : "Tạm dừng")
-                                </div>
-
-                                <!-- Admin Actions -->
-                                <div class="admin-actions">
-                                    <a asp-action="Edit" asp-route-id="@tour.ID_Tour" class="admin-btn btn-edit"
-                                        title="Chỉnh sửa">
-                                        <i class="fas fa-edit"></i>
-                                        <span class="d-none d-sm-inline">Sửa</span>
-                                    </a>
-                                    <a asp-action="Delete" asp-route-id="@tour.ID_Tour" class="admin-btn btn-delete"
-                                        title="Xóa">
-                                        <i class="fas fa-trash-alt"></i>
-                                        <span class="d-none d-sm-inline">Xóa</span>
-                                    </a>
-                                </div>
-
+                            <div class="tour-item">
                                 <div class="tour-image">
                                     <img src="@tour.MainImageUrl" alt="@tour.Name_Tour"
                                         onerror="this.src='/img/default-tour.jpg'">
@@ -329,26 +168,22 @@
                                     <div class="tour-meta">
                                         <span><i class="fas fa-clock"></i> @tour.DurationText</span>
                                         <span><i class="fas fa-users"></i> Tối đa @tour.Max_Capacity người</span>
-                                        <span><i class="fas fa-map-marker-alt"></i> @tour.Start_Location -
-                                            @tour.End_Location</span>
+                                        <span><i class="fas fa-map-marker-alt"></i> @tour.Start_Location - @tour.End_Location</span>
                                     </div>
                                     <div class="tour-description">
-                                        <p>@(tour.Description?.Length > 150 ? tour.Description.Substring(0, 150) + "..." :
-                                                                                tour.Description)</p>
-                            </div>
-                            <div class="tour-price">
-                                <div class="price">
-                                    <span class="current">@tour.FinalPrice.ToString("N0") VND</span>
-                                    @if (tour.Discount.HasValue && tour.Discount > 0)
+                                        <p>@(tour.Description?.Length > 150 ? tour.Description.Substring(0, 150) + "..." : tour.Description)</p>
+                                    </div>
+                                    <div class="tour-price">
+                                        <div class="price">
+                                            <span class="current">@tour.FinalPrice.ToString("N0") VND</span>
+                                            @if (tour.Discount.HasValue && tour.Discount > 0)
                                             {
                                                 <span class="original">@tour.Price.ToString("N0") VND</span>
                                             }
                                         </div>
-                                        <div class="d-flex gap-2">
-                                            <a asp-action="Detail" asp-route-id="@tour.ID_Tour" class="btn-view-details">Xem chi
-                                                tiết</a>
-                                            <a asp-action="Edit" asp-route-id="@tour.ID_Tour" class="btn btn-warning btn-sm">
-                                                <i class="fas fa-edit"></i>
+                                        <div class="tour-actions">
+                                            <a asp-action="Detail" asp-route-id="@tour.ID_Tour" class="btn-view-details">
+                                                <i class="fas fa-eye me-2"></i>Xem chi tiết
                                             </a>
                                         </div>
                                     </div>
@@ -362,18 +197,83 @@
                             <div class="text-center py-5">
                                 <i class="fas fa-map-marked-alt fa-4x text-muted mb-3"></i>
                                 <h3>Hiện tại chưa có tour nào</h3>
-                                <p class="text-muted mb-4">Hãy thêm tour đầu tiên để bắt đầu kinh doanh du lịch của bạn.</p>
+                                <p class="text-muted mb-4">Chúng tôi đang cập nhật thêm các tour du lịch hấp dẫn.</p>
                                 <div class="d-flex gap-3 justify-content-center">
-                                    <a asp-action="AddTour" class="btn-add-tour">
-                                        <i class="fas fa-plus-circle"></i>
-                                        Thêm Tour Đầu Tiên
+                                    <a asp-controller="Home" asp-action="HomePage" class="btn btn-primary">
+                                        <i class="fas fa-home me-2"></i>Về trang chủ
                                     </a>
-                                    <a asp-controller="Home" asp-action="HomePage" class="btn-back-home">Về trang chủ</a>
                                 </div>
                             </div>
                         </div>
                     }
                 </div>
+
+                <!-- Pagination -->
+                @if (ViewBag.TotalPages != null && ViewBag.TotalPages > 1)
+                {
+                    <nav aria-label="Tour pagination" class="mt-5">
+                        <ul class="pagination justify-content-center">
+                            <!-- Previous -->
+                            @if (ViewBag.CurrentPage > 1)
+                            {
+                                <li class="page-item">
+                                    <a class="page-link" asp-action="ListTour" asp-route-page="@(ViewBag.CurrentPage - 1)">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </a>
+                                </li>
+                            }
+
+                            <!-- Page numbers -->
+                            @{
+                                int startPage = Math.Max(1, ViewBag.CurrentPage - 2);
+                                int endPage = Math.Min(ViewBag.TotalPages, ViewBag.CurrentPage + 2);
+                            }
+
+                            @if (startPage > 1)
+                            {
+                                <li class="page-item">
+                                    <a class="page-link" asp-action="ListTour" asp-route-page="1">1</a>
+                                </li>
+                                @if (startPage > 2)
+                                {
+                                    <li class="page-item disabled">
+                                        <span class="page-link">...</span>
+                                    </li>
+                                }
+                            }
+
+                            @for (int i = startPage; i <= endPage; i++)
+                            {
+                                <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                                    <a class="page-link" asp-action="ListTour" asp-route-page="@i">@i</a>
+                                </li>
+                            }
+
+                            @if (endPage < ViewBag.TotalPages)
+                            {
+                                @if (endPage < ViewBag.TotalPages - 1)
+                                {
+                                    <li class="page-item disabled">
+                                        <span class="page-link">...</span>
+                                    </li>
+                                }
+                                <li class="page-item">
+                                    <a class="page-link" asp-action="ListTour" asp-route-page="@ViewBag.TotalPages">@ViewBag.TotalPages</a>
+                                </li>
+                            }
+
+                            <!-- Next -->
+                            @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+                            {
+                                <li class="page-item">
+                                    <a class="page-link" asp-action="ListTour" asp-route-page="@(ViewBag.CurrentPage + 1)">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </nav>
+                }
             </div>
         </div>
     </section>
@@ -385,188 +285,196 @@
                 <h3>EasyTrips</h3>
                 <p>Khám phá vẻ đẹp Việt Nam cùng chúng tôi</p>
             </div>
+            <div class="footer-column">
+                <h3>Liên hệ</h3>
+                <p>Email: info@easytrips.vn</p>
+                <p>Hotline: 1900 1234</p>
+            </div>
+            <div class="footer-column">
+                <h3>Theo dõi chúng tôi</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
         </div>
         <div class="copyright">
             <p>&copy; 2025 EasyTrips. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- Bootstrap Modal for Bulk Actions -->
-    <div class="modal fade" id="confirmModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Xác nhận thao tác</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <p id="modal-message"></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                    <button type="button" class="btn btn-danger" id="confirm-action">Xác nhận</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Success/Error Toast -->
-    <div class="toast-container position-fixed bottom-0 end-0 p-3">
-        <div id="liveToast" class="toast" role="alert">
-            <div class="toast-header">
-                <strong class="me-auto">Thông báo</strong>
-                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
-            </div>
-            <div class="toast-body" id="toast-message"></div>
-        </div>
-    </div>
-
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <script>
-        $(document).ready(function () {
-            // Select all functionality
-            $('#select-all').on('change', function () {
-                $('.tour-checkbox').prop('checked', this.checked);
-                updateBulkActions();
-            });
+    <style>
+        /* Authentication styles similar to homepage */
+        .auth-buttons {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-left: 20px;
+        }
+        
+        .auth-buttons .btn {
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .btn-login {
+            background: transparent;
+            color: #333;
+            border-color: #333;
+        }
+        
+        .btn-login:hover {
+            background: #333;
+            color: white;
+            transform: translateY(-2px);
+            text-decoration: none;
+        }
+        
+        .btn-register {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-register:hover {
+            background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+            transform: translateY(-2px);
+            color: white;
+            text-decoration: none;
+        }
+        
+        .user-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .user-dropdown .dropdown-toggle {
+            background: none;
+            border: none;
+            color: #333;
+            padding: 8px 15px;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .user-dropdown .dropdown-toggle:hover {
+            background: rgba(0,0,0,0.1);
+        }
+        
+        .user-dropdown .dropdown-menu {
+            min-width: 200px;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border-radius: 10px;
+        }
+        
+        .user-dropdown .dropdown-item {
+            padding: 10px 20px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+        }
+        
+        .user-dropdown .dropdown-item:hover {
+            background: #f8f9fa;
+            color: #667eea;
+        }
+        
+        .role-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-left: 5px;
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
 
-            // Individual checkbox functionality
-            $('.tour-checkbox').on('change', function () {
-                updateBulkActions();
+        /* Tour actions styling */
+        .tour-actions {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .btn-view-details {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .btn-view-details:hover {
+            background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+            transform: translateY(-2px);
+            color: white;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
 
-                // Update select all checkbox
-                var totalCheckboxes = $('.tour-checkbox').length;
-                var checkedCheckboxes = $('.tour-checkbox:checked').length;
-                $('#select-all').prop('checked', totalCheckboxes === checkedCheckboxes);
-            });
+        /* Pagination styling */
+        .pagination .page-link {
+            border-radius: 50px;
+            margin: 0 2px;
+            border: none;
+            color: #667eea;
+            padding: 8px 12px;
+        }
 
-            // Update bulk action buttons and counter
-            function updateBulkActions() {
-                var selectedCount = $('.tour-checkbox:checked').length;
-                $('#selected-count').text(selectedCount);
+        .pagination .page-item.active .page-link {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: transparent;
+        }
 
-                var bulkButtons = $('#bulk-delete, #bulk-activate, #bulk-deactivate');
-                if (selectedCount > 0) {
-                    bulkButtons.prop('disabled', false);
-                } else {
-                    bulkButtons.prop('disabled', true);
-                }
-            }
+        .pagination .page-link:hover {
+            background-color: #f8f9fa;
+            color: #667eea;
+        }
 
-            // Bulk delete
-            $('#bulk-delete').on('click', function () {
-                var selectedIds = $('.tour-checkbox:checked').map(function () {
-                    return $(this).val();
-                }).get();
+        /* Tour listing improvements */
+        .tour-listing-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
 
-                if (selectedIds.length === 0) return;
+        .tour-count {
+            color: #666;
+            font-size: 1rem;
+        }
 
-                $('#modal-message').text(`Bạn có chắc chắn muốn xóa ${selectedIds.length} tour đã chọn? Hành động này không thể hoàn tác.`);
-                $('#confirm-action').off('click').on('click', function () {
-                    performBulkAction('delete', selectedIds);
-                });
-
-                new bootstrap.Modal(document.getElementById('confirmModal')).show();
-            });
-
-            // Bulk activate/deactivate
-            $('#bulk-activate').on('click', function () {
-                performBulkStatusChange('activate');
-            });
-
-            $('#bulk-deactivate').on('click', function () {
-                performBulkStatusChange('deactivate');
-            });
-
-            function performBulkStatusChange(action) {
-                var selectedIds = $('.tour-checkbox:checked').map(function () {
-                    return $(this).val();
-                }).get();
-
-                if (selectedIds.length === 0) return;
-
-                var actionText = action === 'activate' ? 'kích hoạt' : 'tạm dừng';
-                $('#modal-message').text(`Bạn có muốn ${actionText} ${selectedIds.length} tour đã chọn?`);
-                $('#confirm-action').off('click').on('click', function () {
-                    performBulkAction(action, selectedIds);
-                });
-
-                new bootstrap.Modal(document.getElementById('confirmModal')).show();
-            }
-
-            function performBulkAction(action, ids) {
-                // Close modal
-                bootstrap.Modal.getInstance(document.getElementById('confirmModal')).hide();
-
-                // Show loading state
-                showToast('Đang xử lý...', 'info');
-
-                // AJAX call to server
-                $.ajax({
-                    url: '@Url.Action("BulkAction", "Tour")',
-                    type: 'POST',
-                    data: {
-                        action: action,
-                        tourIds: ids
-                    },
-                    success: function (response) {
-                        if (response.success) {
-                            showToast(response.message, 'success');
-                            // Reload page after 1 second
-                            setTimeout(function () {
-                                location.reload();
-                            }, 1000);
-                        } else {
-                            showToast(response.message || 'Có lỗi xảy ra', 'error');
-                        }
-                    },
-                    error: function () {
-                        showToast('Có lỗi xảy ra khi thực hiện thao tác', 'error');
-                    }
-                });
-            }
-
-            function showToast(message, type) {
-                var toastEl = document.getElementById('liveToast');
-                var toast = new bootstrap.Toast(toastEl);
-
-                $('#toast-message').text(message);
-
-                // Change toast color based on type
-                toastEl.className = 'toast';
-                if (type === 'success') {
-                    toastEl.classList.add('bg-success', 'text-white');
-                } else if (type === 'error') {
-                    toastEl.classList.add('bg-danger', 'text-white');
-                } else {
-                    toastEl.classList.add('bg-info', 'text-white');
-                }
-
-                toast.show();
-            }
-
-            // Show success/error messages from TempData
-            @if (TempData["SuccessMessage"] != null)
-                {
-                    <text>
-                        showToast('@TempData["SuccessMessage"]', 'success');
-                    </text>
-            }
-
-                @if (TempData["ErrorMessage"] != null)
-                {
-                    <text>
-                        showToast('@TempData["ErrorMessage"]', 'error');
-                    </text>
-            }
-
-                // Initialize page
-                updateBulkActions();
-        });
-    </script>
+        /* Responsive adjustments */
+    </style>
 </body>
 
 </html>

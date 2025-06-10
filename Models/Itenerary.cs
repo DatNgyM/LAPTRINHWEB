@@ -13,7 +13,6 @@ namespace LAPTRINHWEB.Models
         public int ID_Itinerary { get; set; }
 
         [Required]
-        [Column("ID_Tour")]
         public int ID_Tour { get; set; }
 
         [Required]
@@ -31,7 +30,7 @@ namespace LAPTRINHWEB.Models
 
         // Navigation properties
         [ForeignKey("ID_Tour")]
-        public Tour Tour { get; set; }
+        public virtual Tour Tour { get; set; }
 
         public ICollection<ItineraryLocation> ItineraryLocations { get; set; } = new List<ItineraryLocation>();
     }

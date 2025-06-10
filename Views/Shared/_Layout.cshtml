@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="utf-8" />
     <title>@ViewData["Title"] - EasyTrips</title>
     <link rel="stylesheet" href="~/css/styles.css" />
 </head>
+
 <body>
     @* Gọi Header *@
     @await Html.PartialAsync("header")
@@ -15,5 +17,7 @@
 
     @* Gọi Footer *@
     @await Html.PartialAsync("footer")
+    @RenderSection("Scripts", required: false)
 </body>
+
 </html>

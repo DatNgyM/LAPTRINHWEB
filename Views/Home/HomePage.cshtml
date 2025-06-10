@@ -5,13 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EasyTrips - Du lịch khắp Việt Nam</title>
+    
+    <!-- CSS Files -->
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/homepage.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body>
     <!-- Header -->
-    <header>
+    <header class="fade-in">
         <div class="logo">
             <h1>EasyTrips</h1>
         </div>
@@ -24,16 +28,102 @@
                 <li><a href="#">Contact</a></li>
             </ul>
         </nav>
-        <div class="search-icon">
-            <i class="fas fa-search"></i>
+        
+        <div class="header-right">
+            <div class="search-icon">
+                <i class="fas fa-search"></i>
+            </div>
+            
+            <!-- Authentication Section -->
+            <div class="auth-section">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <!-- User is logged in -->
+                    <div class="user-dropdown dropdown">
+                        <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-circle"></i>
+                            <span>@(User.Identity.Name)</span>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <span class="role-badge">Admin</span>
+                            }
+                            else if (User.IsInRole("TourGuide"))
+                            {
+                                <span class="role-badge">Guide</span>
+                            }
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-user me-2"></i>Thông tin cá nhân
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-history me-2"></i>Lịch sử đặt tour
+                                </a>
+                            </li>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li><hr class="dropdown-divider"></li>
+                                <a class="dropdown-item" href="/Admin/DashBoard/Index">
+                                    <i class="fas fa-cog me-2"></i>Quản trị hệ thống
+                                </a>
+                            }
+                            @if (User.IsInRole("TourGuide"))
+                            {
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item" href="/TourGuide">
+                                        <i class="fas fa-route me-2"></i>Quản lý tour
+                                    </a>
+                                </li>
+                            }
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form asp-area="Identity" asp-page="/Account/Logout" method="post" class="d-inline">
+                                    <button type="submit" class="dropdown-item text-danger">
+                                        <i class="fas fa-sign-out-alt me-2"></i>Đăng xuất
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                }
+                else
+                {
+                    <!-- User is not logged in -->
+                    <div class="auth-buttons slide-in-right">
+                        <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-login">
+                            <i class="fas fa-sign-in-alt me-2"></i>Đăng nhập
+                        </a>
+                        <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-register">
+                            <i class="fas fa-user-plus me-2"></i>Đăng ký
+                        </a>
+                    </div>
+                }
+            </div>
         </div>
     </header>
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-content">
+        <div class="hero-content slide-in-left">
             <h2>Let's make a tour</h2>
             <h3>Discover the beauty</h3>
+
+            <!-- Show different content based on authentication -->
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="welcome-message">
+                    <h4>
+                        <i class="fas fa-heart text-danger me-2"></i>
+                        Chào mừng trở lại, @User.Identity.Name!
+                    </h4>
+                    <p>Hãy khám phá những tour du lịch tuyệt vời dành riêng cho bạn</p>
+                </div>
+            }
 
             <div class="search-form">
                 <div class="form-row">
@@ -56,13 +146,29 @@
                         <input type="text" placeholder="mm/dd/yyyy">
                     </div>
                 </div>
+                <div class="form-row">
+                    <button class="search-btn">
+                        <i class="fas fa-search me-2"></i>Tìm kiếm tour
+                    </button>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Flash Deals Section -->
-    <section class="deals">
-        <h2>Flash Deals</h2>
+    <section class="deals fade-in">
+        <div class="section-header">
+            <h2>Flash Deals</h2>
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <div class="auth-prompt">
+                    <a asp-area="Identity" asp-page="/Account/Login">
+                        <i class="fas fa-sign-in-alt me-2"></i>Đăng nhập để nhận ưu đãi đặc biệt!
+                    </a>
+                </div>
+            }
+        </div>
+        
         <div class="carousel">
             <button class="carousel-btn prev"><i class="fas fa-chevron-left"></i></button>
 
@@ -87,6 +193,12 @@
                                         <p class="discount">Giảm @tour.Discount.Value.ToString("N0") VND</p>
                                         <p class="original-price">@tour.Price.ToString("N0") VND</p>
                                     }
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <div class="member-badge">
+                                            <i class="fas fa-star me-1"></i>Ưu đãi thành viên
+                                        </div>
+                                    }
                                 </div>
                             </a>
                         </div>
@@ -94,7 +206,7 @@
                 }
                 else
                 {
-                    <!-- Fallback static content nếu không có dữ liệu -->
+                    <!-- Fallback static content -->
                     <div class="deal-card">
                         <a asp-controller="Tour" asp-action="Detail" class="tour-link">
                             <img src="/img/gioi-thieu-ve-da-lat-1.jpg" alt="Đà Lạt">
@@ -113,7 +225,7 @@
     </section>
 
     <!-- Popular Places Section -->
-    <section class="popular-places">
+    <section class="popular-places fade-in">
         <h2>Popular places</h2>
         <div class="places-grid">
             @{
@@ -150,12 +262,11 @@
                 </div>
             }
         </div>
-        <button class="see-more" onclick="window.location.href='@Url.Action("ListTour", "Tour")'">Click to see
-            more</button>
+        <button class="see-more" onclick="window.location.href='@Url.Action("ListTour", "Tour")'">Click to see more</button>
     </section>
 
     <!-- Popular Tour Section -->
-    <section class="popular-tour">
+    <section class="popular-tour fade-in">
         <h2>Popular tour</h2>
         <div class="tour-grid">
             @{
@@ -177,6 +288,10 @@
                                 {
                                     <span class="discount-badge">-@tour.Discount.Value.ToString("N0") VND</span>
                                 }
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <span class="member-only">Thành viên</span>
+                                }
                             </div>
                         </a>
                     </div>
@@ -191,30 +306,12 @@
                         <h4>River Tour</h4>
                         <p>3 ngày 2 đêm</p>
                         <p class="tour-price">2.500.000 VND/người</p>
-                    </div>
-                </div>
-                <div class="tour-item">
-                    <img src="/img/dao-binh-lap-03.jpg" alt="Cherry Blossom">
-                    <div class="tour-overlay">
-                        <h4>Cherry Blossom</h4>
-                        <p>4 ngày 3 đêm</p>
-                        <p class="tour-price">3.200.000 VND/người</p>
-                    </div>
-                </div>
-                <div class="tour-item">
-                    <img src="/img/OIP.jpg" alt="Beach View">
-                    <div class="tour-overlay">
-                        <h4>Beach View</h4>
-                        <p>2 ngày 1 đêm</p>
-                        <p class="tour-price">1.800.000 VND/người</p>
-                    </div>
-                </div>
-                <div class="tour-item">
-                    <img src="/img/anh-dong-phong-nha-ke-bang-dep-ngat-ngay.jpg" alt="Cave Tour">
-                    <div class="tour-overlay">
-                        <h4>Cave Tour</h4>
-                        <p>3 ngày 2 đêm</p>
-                        <p class="tour-price">2.800.000 VND/người</p>
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            <div class="login-prompt">
+                                <small><a asp-area="Identity" asp-page="/Account/Login">Đăng nhập để đặt tour</a></small>
+                            </div>
+                        }
                     </div>
                 </div>
             }
@@ -231,8 +328,7 @@
                     <input type="email" placeholder="Your email">
                     <button type="submit">Subscribe</button>
                 </form>
-                <p class="privacy-note">By subscribing, you agree to our Privacy Policy and consent to receive updates.
-                </p>
+                <p class="privacy-note">By subscribing, you agree to our Privacy Policy and consent to receive updates.</p>
             </div>
         </div>
         <div class="copyright">
@@ -240,6 +336,8 @@
         </div>
     </footer>
 
+    <!-- JavaScript Files -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/js/main.js"></script>
 </body>
 
