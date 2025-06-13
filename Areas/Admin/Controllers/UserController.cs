@@ -16,103 +16,94 @@ namespace LAPTRINHWEB.Areas.Admin.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public UserController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        public UserController(UserManager<ApplicationUser> userManager,
+                             RoleManager<IdentityRole> roleManager,
+                             SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            _signInManager = signInManager;
         }
 
-        // GET: Admin/User/Index
-        public async Task<IActionResult> Index(string searchString, string role, string sortOrder, int page = 1, int pageSize = 10)
+        // GET: Admin/User
+        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString,
+                                             string role, int page = 1)
         {
-            ViewData["CurrentFilter"] = searchString;
-            ViewData["CurrentRole"] = role;
             ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParam"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["EmailSortParam"] = sortOrder == "email" ? "email_desc" : "email";
+            ViewData["CurrentPage"] = page;
+            ViewData["CurrentRole"] = role;
 
-            // Lấy tất cả người dùng từ UserManager
-            var allUsers = await _userManager.Users.ToListAsync();
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
 
-            // Lọc theo search string nếu có
-            var filteredUsers = allUsers;
+            ViewData["CurrentFilter"] = searchString;
+
+            var users = _userManager.Users.AsQueryable();
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                filteredUsers = allUsers.Where(u =>
-                    u.UserName.Contains(searchString) ||
-                    u.Email.Contains(searchString) ||
-                    u.PhoneNumber != null && u.PhoneNumber.Contains(searchString) ||
-                    u.Full_Name != null && u.Full_Name.Contains(searchString)
-                ).ToList();
+                users = users.Where(u => u.UserName.Contains(searchString) ||
+                                        u.Email.Contains(searchString) ||
+                                        u.PhoneNumber.Contains(searchString) ||
+                                        u.Full_Name.Contains(searchString));
             }
 
-            // Lọc theo vai trò nếu có
             if (!String.IsNullOrEmpty(role))
             {
-                var usersInRole = new List<ApplicationUser>();
-                foreach (var user in filteredUsers)
-                {
-                    if (await _userManager.IsInRoleAsync(user, role))
-                    {
-                        usersInRole.Add(user);
-                    }
-                }
-                filteredUsers = usersInRole;
+                var usersInRole = await _userManager.GetUsersInRoleAsync(role);
+                var userIds = usersInRole.Select(u => u.Id);
+                users = users.Where(u => userIds.Contains(u.Id));
             }
 
-            // Sắp xếp
-            IEnumerable<ApplicationUser> sortedUsers = sortOrder switch
+            switch (sortOrder)
             {
-                "name_desc" => filteredUsers.OrderByDescending(u => u.UserName),
-                "email" => filteredUsers.OrderBy(u => u.Email),
-                "email_desc" => filteredUsers.OrderByDescending(u => u.Email),
-                _ => filteredUsers.OrderBy(u => u.UserName)
-            };
+                case "name_desc":
+                    users = users.OrderByDescending(u => u.UserName);
+                    break;
+                case "email":
+                    users = users.OrderBy(u => u.Email);
+                    break;
+                case "email_desc":
+                    users = users.OrderByDescending(u => u.Email);
+                    break;
+                default:
+                    users = users.OrderBy(u => u.UserName);
+                    break;
+            }
 
-            // Phân trang
-            int totalItems = sortedUsers.Count();
-            int totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+            int pageSize = 10;
+            var count = await users.CountAsync();
+            var items = await users.Skip((page - 1) * pageSize)
+                                 .Take(pageSize).ToListAsync();
 
-            if (page < 1) page = 1;
-            if (page > totalPages && totalPages > 0) page = totalPages;
+            ViewData["TotalPages"] = (int)Math.Ceiling(count / (double)pageSize);
 
-            var paginatedUsers = sortedUsers
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
-                .ToList();
-
-            // Lưu vai trò của người dùng vào ViewBag
             var userRoles = new Dictionary<string, List<string>>();
-
-            foreach (var user in paginatedUsers)
+            foreach (var user in items)
             {
-                userRoles[user.Id] = (await _userManager.GetRolesAsync(user)).ToList();
+                var roles = await _userManager.GetRolesAsync(user);
+                userRoles[user.Id] = roles.ToList();
             }
+
             ViewBag.UserRoles = userRoles;
 
-            // Lấy tất cả các roles
             var allRoles = await _roleManager.Roles.ToListAsync();
             ViewBag.Roles = allRoles;
 
-            ViewData["TotalPages"] = totalPages;
-            ViewData["CurrentPage"] = page;
-
-            // Hiển thị thông báo từ TempData nếu có
-            if (TempData["SuccessMessage"] != null)
-            {
-                ViewBag.SuccessMessage = TempData["SuccessMessage"];
-            }
-            if (TempData["ErrorMessage"] != null)
-            {
-                ViewBag.ErrorMessage = TempData["ErrorMessage"];
-            }
-
-            return View(paginatedUsers);
+            return View(items);
         }
 
-        // GET: Admin/User/Create
+        // GET: Admin/User/Add
         public async Task<IActionResult> Add()
         {
             // Chỉ hiển thị role Manager và TourGuide trong ViewBag
@@ -124,11 +115,11 @@ namespace LAPTRINHWEB.Areas.Admin.Controllers
             return View();
         }
 
-        // POST: Admin/User/Create
+        // POST: Admin/User/Add
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(string email, string phoneNumber, string password, string confirmPassword,
-                                              string fullName, string address, string role, bool emailConfirmed = true)
+                                            string fullName, string address, string role, bool emailConfirmed = true)
         {
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
             {
@@ -218,14 +209,15 @@ namespace LAPTRINHWEB.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            // Lưu thông tin role hiện tại vào ViewBag
-            var roles = await _userManager.GetRolesAsync(user);
-            ViewBag.CurrentRole = roles.FirstOrDefault();
+            // Lấy vai trò hiện tại của user
+            var userRoles = await _userManager.GetRolesAsync(user);
+            ViewBag.CurrentRole = userRoles.FirstOrDefault() ?? "Chưa có vai trò";
 
-            // Chỉ hiển thị role Manager và TourGuide trong ViewBag
+            // Chỉ hiển thị role Manager và TourGuide để chọn
             var managedRoles = await _roleManager.Roles
                 .Where(r => r.Name == "Manager" || r.Name == "TourGuide")
                 .ToListAsync();
+
             ViewBag.Roles = managedRoles;
 
             return View(user);
@@ -234,8 +226,9 @@ namespace LAPTRINHWEB.Areas.Admin.Controllers
         // POST: Admin/User/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, string email, string phoneNumber, string fullName,
-                                            string address, string newRole, string newPassword, bool emailConfirmed)
+        public async Task<IActionResult> Edit(string id, string email, string phoneNumber,
+                                            string fullName, string address, string newRole,
+                                            string newPassword, bool emailConfirmed = true)
         {
             if (id == null)
             {
@@ -248,13 +241,25 @@ namespace LAPTRINHWEB.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            // Kiểm tra nếu người dùng chọn role mới và nó không phải là Manager hoặc TourGuide
-            if (!string.IsNullOrEmpty(newRole) && newRole != "Manager" && newRole != "TourGuide")
-            {
-                ModelState.AddModelError("", "Chỉ được phép đặt vai trò Manager hoặc TourGuide");
+            // Cập nhật thông tin cơ bản
+            user.Email = email;
+            user.UserName = email;
+            user.PhoneNumber = phoneNumber;
+            user.Full_Name = fullName;
+            user.Address = address;
+            user.EmailConfirmed = emailConfirmed;
 
-                var currentRoles = await _userManager.GetRolesAsync(user);
-                ViewBag.CurrentRole = currentRoles.FirstOrDefault();
+            // Cập nhật thông tin
+            var result = await _userManager.UpdateAsync(user);
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+
+                var userRoles = await _userManager.GetRolesAsync(user);
+                ViewBag.CurrentRole = userRoles.FirstOrDefault() ?? "Chưa có vai trò";
 
                 var managedRoles = await _roleManager.Roles
                     .Where(r => r.Name == "Manager" || r.Name == "TourGuide")
@@ -264,55 +269,43 @@ namespace LAPTRINHWEB.Areas.Admin.Controllers
                 return View(user);
             }
 
-            if (ModelState.IsValid)
+            // Cập nhật role nếu có sự thay đổi
+            if (!string.IsNullOrEmpty(newRole))
             {
-                user.Email = email;
-                user.UserName = email;
-                user.PhoneNumber = phoneNumber;
-                user.Full_Name = fullName;
-                user.Address = address;
-                user.EmailConfirmed = emailConfirmed;
+                var currentRoles = await _userManager.GetRolesAsync(user);
+                await _userManager.RemoveFromRolesAsync(user, currentRoles);
+                await _userManager.AddToRoleAsync(user, newRole);
+            }
 
-                var result = await _userManager.UpdateAsync(user);
-
-                if (result.Succeeded)
+            // Cập nhật mật khẩu nếu có
+            if (!string.IsNullOrEmpty(newPassword))
+            {
+                var removePasswordResult = await _userManager.RemovePasswordAsync(user);
+                if (removePasswordResult.Succeeded)
                 {
-                    // Cập nhật role nếu có thay đổi
-                    var roles = await _userManager.GetRolesAsync(user);
-
-                    // Không cho phép thay đổi role nếu người dùng là Admin
-                    if (!string.IsNullOrEmpty(newRole) && !roles.Contains("Admin"))
+                    var addPasswordResult = await _userManager.AddPasswordAsync(user, newPassword);
+                    if (!addPasswordResult.Succeeded)
                     {
-                        await _userManager.RemoveFromRolesAsync(user, roles.ToArray());
-                        await _userManager.AddToRoleAsync(user, newRole);
+                        foreach (var error in addPasswordResult.Errors)
+                        {
+                            ModelState.AddModelError(string.Empty, error.Description);
+                        }
+
+                        var userRoles = await _userManager.GetRolesAsync(user);
+                        ViewBag.CurrentRole = userRoles.FirstOrDefault() ?? "Chưa có vai trò";
+
+                        var managedRoles = await _roleManager.Roles
+                            .Where(r => r.Name == "Manager" || r.Name == "TourGuide")
+                            .ToListAsync();
+                        ViewBag.Roles = managedRoles;
+
+                        return View(user);
                     }
-
-                    // Reset password nếu người dùng nhập password mới
-                    if (!String.IsNullOrEmpty(newPassword))
-                    {
-                        var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-                        await _userManager.ResetPasswordAsync(user, token, newPassword);
-                    }
-
-                    TempData["SuccessMessage"] = "Đã cập nhật thông tin người dùng thành công!";
-                    return RedirectToAction(nameof(Index));
-                }
-
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
 
-            var currentUserRoles = await _userManager.GetRolesAsync(user);
-            ViewBag.CurrentRole = currentUserRoles.FirstOrDefault();
-
-            var availableRoles = await _roleManager.Roles
-                .Where(r => r.Name == "Manager" || r.Name == "TourGuide")
-                .ToListAsync();
-            ViewBag.Roles = availableRoles;
-
-            return View(user);
+            TempData["SuccessMessage"] = "Cập nhật thông tin người dùng thành công!";
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Admin/User/Delete/5
@@ -329,15 +322,17 @@ namespace LAPTRINHWEB.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            // Không cho phép xóa Admin
-            var roles = await _userManager.GetRolesAsync(user);
-            if (roles.Contains("Admin"))
+            // Kiểm tra xem user có phải là Admin không
+            var isAdmin = await _userManager.IsInRoleAsync(user, "Admin");
+            if (isAdmin)
             {
-                TempData["ErrorMessage"] = "Không thể xóa tài khoản Admin";
+                TempData["ErrorMessage"] = "Không thể xóa tài khoản Admin!";
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewBag.UserRoles = await _userManager.GetRolesAsync(user);
+            // Lấy vai trò của user để hiển thị
+            var userRoles = await _userManager.GetRolesAsync(user);
+            ViewBag.UserRoles = userRoles;
 
             return View(user);
         }
@@ -348,32 +343,25 @@ namespace LAPTRINHWEB.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
-            if (user != null)
+            if (user == null)
             {
-                // Kiểm tra xem có phải Admin không
-                var roles = await _userManager.GetRolesAsync(user);
-                if (roles.Contains("Admin"))
-                {
-                    TempData["ErrorMessage"] = "Không thể xóa tài khoản Admin";
-                    return RedirectToAction(nameof(Index));
-                }
+                return NotFound();
+            }
 
-                // Khóa tài khoản thay vì xóa
-                var result = await _userManager.SetLockoutEnabledAsync(user, true);
-                if (result.Succeeded)
-                {
-                    await _userManager.SetLockoutEndDateAsync(user, DateTimeOffset.MaxValue);
-                    TempData["SuccessMessage"] = "Đã vô hiệu hóa người dùng thành công!";
-                }
-                else
-                {
-                    TempData["ErrorMessage"] = "Có lỗi xảy ra khi vô hiệu hóa người dùng.";
-                }
-
+            // Kiểm tra xem user có phải là Admin không
+            var isAdmin = await _userManager.IsInRoleAsync(user, "Admin");
+            if (isAdmin)
+            {
+                TempData["ErrorMessage"] = "Không thể xóa tài khoản Admin!";
                 return RedirectToAction(nameof(Index));
             }
 
-            return NotFound();
+            // Thay vì xóa, chúng ta sẽ khóa tài khoản để giữ lại lịch sử
+            await _userManager.SetLockoutEnabledAsync(user, true);
+            await _userManager.SetLockoutEndDateAsync(user, DateTimeOffset.Now.AddYears(100));
+
+            TempData["SuccessMessage"] = "Đã khóa tài khoản người dùng thành công!";
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Admin/User/Details/5
@@ -390,7 +378,9 @@ namespace LAPTRINHWEB.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            ViewBag.UserRoles = await _userManager.GetRolesAsync(user);
+            // Lấy vai trò của user
+            var userRoles = await _userManager.GetRolesAsync(user);
+            ViewBag.UserRoles = userRoles;
 
             return View(user);
         }

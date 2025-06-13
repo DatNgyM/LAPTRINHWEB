@@ -103,33 +103,19 @@
             color: white;
         }
 
-        /* Thêm hiệu ứng hover cho các nút */
-        .btn-action:hover {
-            transform: scale(1.1);
-            transition: transform 0.2s;
+        .alert {
+            animation: fadeOut 1s forwards;
+            animation-delay: 4s;
         }
-
-        /* Thêm style cho thông báo */
-        .alert-success {
-            animation: fadeOut 5s forwards;
-        }
-
-        .alert-danger {
-            animation: fadeOut 5s forwards;
-        }
-
 
         fadeOut {
-            0% {
+            from {
                 opacity: 1;
             }
 
-            80% {
-                opacity: 1;
-            }
-
-            100% {
+            to {
                 opacity: 0;
+                visibility: hidden;
             }
         }
     </style>
@@ -199,7 +185,7 @@
             </div>
         </div>
 
-        <!-- Thông báo thành công hoặc lỗi -->
+        <!-- Thông báo -->
         @if (ViewBag.SuccessMessage != null)
         {
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -223,7 +209,7 @@
                     <div class="input-group">
                         <span class="input-group-text"><i class="fas fa-search"></i></span>
                         <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" class="form-control"
-                            placeholder="Tìm theo email, username, SĐT, tên người dùng...">
+                            placeholder="Tìm theo email, username, SĐT...">
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -232,7 +218,8 @@
                         @foreach (var role in ViewBag.Roles)
                         {
                             <option value="@role.Name" @(ViewData["CurrentRole"]?.ToString() == role.Name ? "selected" :
-                                                                                   "")>@role.Name</option>
+                                                                                   "")>@role.Name
+                        </option>
                                                 }
                     </select>
                 </div>
@@ -288,7 +275,6 @@
                             {
                                 var userRoles = ViewBag.UserRoles[user.Id] as List<string>;
                                 bool isLocked = user.LockoutEnd != null && user.LockoutEnd > DateTimeOffset.Now;
-                                bool isAdmin = userRoles != null && userRoles.Contains("Admin");
 
                                 <tr>
                                     <td>@user.UserName</td>
@@ -337,33 +323,18 @@
                                         }
                                     </td>
                                     <td>
-                                        <div class="btn-group">
-                                            <a asp-action="Edit" asp-route-id="@user.Id"
-                                                class="btn btn-sm btn-primary btn-action" data-bs-toggle="tooltip"
-                                                title="Chỉnh sửa">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            <a asp-action="Details" asp-route-id="@user.Id"
-                                                class="btn btn-sm btn-info btn-action" data-bs-toggle="tooltip"
-                                                title="Chi tiết">
-                                                <i class="fas fa-info-circle"></i>
-                                            </a>
-                                            @if (!isAdmin)
-                                            {
-                                                <a asp-action="Delete" asp-route-id="@user.Id"
-                                                    class="btn btn-sm btn-danger btn-action" data-bs-toggle="tooltip"
-                                                    title="Xóa">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </a>
-                                            }
-                                            else
-                                            {
-                                                <a href="javascript:void(0)" class="btn btn-sm btn-danger btn-action disabled"
-                                                    data-bs-toggle="tooltip" title="Không thể xóa Admin">
-                                                    <i class="fas fa-ban"></i>
-                                                </a>
-                                            }
-                                        </div>
+                                        <a asp-action="Edit" asp-route-id="@user.Id"
+                                            class="btn btn-sm btn-primary btn-action">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a asp-action="Details" asp-route-id="@user.Id"
+                                            class="btn btn-sm btn-info btn-action">
+                                            <i class="fas fa-info-circle"></i>
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@user.Id"
+                                            class="btn btn-sm btn-danger btn-action">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             }
@@ -373,8 +344,7 @@
 
                 @{
                     var prevDisabled = ((int)ViewData["CurrentPage"] == 1) ? "disabled" : "";
-                    var nextDisabled = ((int)ViewData["CurrentPage"] == (int)ViewData["TotalPages"] ||
-                    (int)ViewData["TotalPages"] == 0) ? "disabled" : "";
+                    var nextDisabled = ((int)ViewData["CurrentPage"] == (int)ViewData["TotalPages"]) ? "disabled" : "";
                 }
 
                 <!-- Pagination -->
@@ -435,10 +405,9 @@
                 </nav>
 
                 <!-- Summary -->
-                @* <div class="text-center text-muted">
-                    <small>Hiển thị trang @ViewData["CurrentPage"] / @(ViewData["TotalPages"] > 0 ?
-                                                ViewData["TotalPages"] : 1)</small>
-                </div> *@
+                <div class="text-center text-muted">
+                    <small>Hiển thị trang @ViewData["CurrentPage"] / @ViewData["TotalPages"]</small>
+                </div>
             </div>
         </div>
     </div>
@@ -446,14 +415,9 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Kích hoạt tooltips
+        // Tự động ẩn alert sau 5 giây
         document.addEventListener('DOMContentLoaded', function () {
-            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-            tooltipTriggerList.map(function (tooltipTriggerEl) {
-                return new bootstrap.Tooltip(tooltipTriggerEl);
-            });
-
-            // Tự động ẩn thông báo sau 5 giây
+            // Tự động ẩn alerts sau 5 giây
             var alerts = document.querySelectorAll('.alert');
             alerts.forEach(function (alert) {
                 setTimeout(function () {
