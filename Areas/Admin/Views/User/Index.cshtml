@@ -322,17 +322,15 @@
                                                 thực</span>
                                         }
                                     </td>
+                                    <!-- Thay thế các nút thao tác -->
                                     <td>
-                                        <a asp-action="Edit" asp-route-id="@user.Id"
-                                            class="btn btn-sm btn-primary btn-action">
+                                        <a href="/Admin/User/Edit/@user.Id" class="btn btn-sm btn-primary btn-action">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <a asp-action="Details" asp-route-id="@user.Id"
-                                            class="btn btn-sm btn-info btn-action">
+                                        <a href="/Admin/User/Details/@user.Id" class="btn btn-sm btn-info btn-action">
                                             <i class="fas fa-info-circle"></i>
                                         </a>
-                                        <a asp-action="Delete" asp-route-id="@user.Id"
-                                            class="btn btn-sm btn-danger btn-action">
+                                        <a href="/Admin/User/Delete/@user.Id" class="btn btn-sm btn-danger btn-action">
                                             <i class="fas fa-trash-alt"></i>
                                         </a>
                                     </td>

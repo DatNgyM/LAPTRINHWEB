@@ -12396,24 +12396,32 @@
     ]
   },
   "packageFolders": {
-    "/Users/baodiepgia/.nuget/packages/": {}
+    "C:\\Users\\DAT DAT\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/baodiepgia/Documents/LAPTRINHWEB/LAPTRINHWEB.csproj",
+      "projectUniqueName": "C:\\Users\\DAT DAT\\Documents\\GitHub\\LAPTRINHWEB\\LAPTRINHWEB.csproj",
       "projectName": "LAPTRINHWEB",
-      "projectPath": "/Users/baodiepgia/Documents/LAPTRINHWEB/LAPTRINHWEB.csproj",
-      "packagesPath": "/Users/baodiepgia/.nuget/packages/",
-      "outputPath": "/Users/baodiepgia/Documents/LAPTRINHWEB/obj/",
+      "projectPath": "C:\\Users\\DAT DAT\\Documents\\GitHub\\LAPTRINHWEB\\LAPTRINHWEB.csproj",
+      "packagesPath": "C:\\Users\\DAT DAT\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\DAT DAT\\Documents\\GitHub\\LAPTRINHWEB\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "/Users/baodiepgia/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\DAT DAT\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net9.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -12432,7 +12440,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.300"
+      "SdkAnalysisLevel": "9.0.200"
     },
     "frameworks": {
       "net9.0": {
@@ -12494,7 +12502,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.300/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.202/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

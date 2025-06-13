@@ -212,12 +212,12 @@ namespace LAPTRINHWEB.Areas.Admin.Controllers
             // Lấy vai trò hiện tại của user
             var userRoles = await _userManager.GetRolesAsync(user);
             ViewBag.CurrentRole = userRoles.FirstOrDefault() ?? "Chưa có vai trò";
-
+            
             // Chỉ hiển thị role Manager và TourGuide để chọn
             var managedRoles = await _roleManager.Roles
                 .Where(r => r.Name == "Manager" || r.Name == "TourGuide")
                 .ToListAsync();
-
+    
             ViewBag.Roles = managedRoles;
 
             return View(user);
