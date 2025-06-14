@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chỉnh sửa Lịch trình</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f4f6f9;
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        .sidebar {
+            width: 250px;
+            background-color: #343a40;
+            color: white;
+            padding: 15px 0;
+            height: 100vh;
+            position: fixed;
+        }
+        
+        .sidebar-item {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .sidebar-item:hover {
+            background-color: #4b545c;
+        }
+        
+        .sidebar-item.active {
+            background-color: #007bff;
+        }
+        
+        .sidebar-item i {
+            margin-right: 10px;
+        }
+        
+        .content {
+            flex: 1;
+            padding: 20px;
+            margin-left: 250px;
+        }
+        
+        .card {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .btn {
+            padding: 8px 15px;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+        }
+        
+        .btn:hover {
+            background-color: #0069d9;
+        }
+        
+        .btn-danger {
+            background-color: #dc3545;
+        }
+        
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+        
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+        }
+        
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-right: -15px;
+            margin-left: -15px;
+        }
+        
+        .col-md-6 {
+            flex: 0 0 50%;
+            max-width: 50%;
+            padding: 0 15px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-item">
+            <i class="fas fa-chart-line"></i>
+            <span>Dashboard</span>
+        </div>
+        <div class="sidebar-item">
+            <i class="fas fa-map-marked-alt"></i>
+            <span>Quản lý Tour</span>
+        </div>
+        <div class="sidebar-item">
+            <i class="fas fa-users"></i>
+            <span>Quản lý Người dùng</span>
+        </div>
+        <div class="sidebar-item">
+            <i class="fas fa-bus"></i>
+            <span>Quản lý Phương tiện</span>
+        </div>
+        <div class="sidebar-item">
+            <i class="fas fa-hotel"></i>
+            <span>Quản lý Nơi ở</span>
+        </div>
+        <div class="sidebar-item active">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Quản lý Lịch trình</span>
+        </div>
+        <div class="sidebar-item">
+            <i class="fas fa-user-tie"></i>
+            <span>Quản lý HDV</span>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="header">
+            <h2>Chỉnh sửa Lịch trình</h2>
+            <a href="index.html" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Quay lại</a>
+        </div>
+
+        <div class="card">
+            <form id="editScheduleForm">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="scheduleCode">Mã lịch trình:</label>
+                            <input type="text" id="scheduleCode" class="form-control" value="LT001" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="scheduleName">Tên lịch trình:</label>
+                            <input type="text" id="scheduleName" class="form-control" value="Du lịch Hạ Long 3 ngày 2 đêm" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tourSelect">Tour:</label>
+                            <select id="tourSelect" class="form-control" required>
+                                <option value="">-- Chọn Tour --</option>
+                                <option value="1" selected>Tour Hạ Long</option>
+                                <option value="2">Tour Đà Lạt</option>
+                                <option value="3">Tour Phú Quốc</option>
+                                <option value="4">Tour Nha Trang</option>
+                                <option value="5">Tour Sapa</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="status">Trạng thái:</label>
+                            <select id="status" class="form-control" required>
+                                <option value="active" selected>Đang hoạt động</option>
+                                <option value="pending">Chưa bắt đầu</option>
+                                <option value="completed">Đã kết thúc</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="startDate">Ngày bắt đầu:</label>
+                            <input type="date" id="startDate" class="form-control" value="2025-06-15" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="endDate">Ngày kết thúc:</label>
+                            <input type="date" id="endDate" class="form-control" value="2025-06-17" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="maxParticipants">Số người tối đa:</label>
+                            <input type="number" id="maxParticipants" class="form-control" value="20" min="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="guide">Hướng dẫn viên:</label>
+                            <select id="guide" class="form-control" required>
+                                <option value="">-- Chọn HDV --</option>
+                                <option value="1" selected>Nguyễn Văn A</option>
+                                <option value="2">Trần Thị B</option>
+                                <option value="3">Lê Hoàng C</option>
+                                <option value="4">Phạm Minh D</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="description">Mô tả lịch trình:</label>
+                    <textarea id="description" class="form-control" rows="4">Lịch trình tham quan vịnh Hạ Long, hang Sửng Sốt, đảo Ti Tốp và các hoạt động giải trí trên biển.</textarea>
+                </div>
+                
+                <h4 style="margin-top: 20px; margin-bottom: 15px;">Chi tiết các ngày:</h4>
+                
+                <div id="dayDetails">
+                    <div class="day-item" style="margin-bottom: 15px; padding: 15px; border: 1px solid #ddd; border-radius: 4px;">
+                        <h5>Ngày 1 (15/06/2025)</h5>
+                        <div class="form-group">
+                            <label>Nội dung:</label>
+                            <textarea class="form-control" rows="2">Khởi hành từ Hà Nội đi Hạ Long. Check-in khách sạn. Tham quan vịnh Hạ Long buổi chiều.</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Địa điểm:</label>
+                            <input type="text" class="form-control" value="Vịnh Hạ Long, Quảng Ninh">
+                        </div>
+                    </div>
+                    
+                    <div class="day-item" style="margin-bottom: 15px; padding: 15px; border: 1px solid #ddd; border-radius: 4px;">
+                        <h5>Ngày 2 (16/06/2025)</h5>
+                        <div class="form-group">
+                            <label>Nội dung:</label>
+                            <textarea class="form-control" rows="2">Tham quan hang Sửng Sốt buổi sáng. Chiều khám phá đảo Ti Tốp và tắm biển.</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Địa điểm:</label>
+                            <input type="text" class="form-control" value="Hang Sửng Sốt, Đảo Ti Tốp">
+                        </div>
+                    </div>
+                    
+                    <div class="day-item" style="margin-bottom: 15px; padding: 15px; border: 1px solid #ddd; border-radius: 4px;">
+                        <h5>Ngày 3 (17/06/2025)</h5>
+                        <div class="form-group">
+                            <label>Nội dung:</label>
+                            <textarea class="form-control" rows="2">Trả phòng khách sạn. Thăm làng chài Cửa Vạn buổi sáng. Chiều trở về Hà Nội.</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Địa điểm:</label>
+                            <input type="text" class="form-control" value="Làng chài Cửa Vạn, Hạ Long">
+                        </div>
+                    </div>
+                    
+                    <button type="button" class="btn btn-secondary" style="margin-bottom: 20px;">
+                        <i class="fas fa-plus"></i> Thêm ngày
+                    </button>
+                </div>
+                
+                <div style="margin-top: 20px; border-top: 1px solid #ddd; padding-top: 20px;">
+                    <button type="submit" class="btn">Cập nhật lịch trình</button>
+                    <a href="index.html" class="btn btn-secondary" style="margin-left: 10px;">Hủy</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('editScheduleForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Đã cập nhật lịch trình thành công!');
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,248 @@
+\DAT DAT\Documents\GitHub\LAPTRINHWEB\Areas\Admin\Views\Itenerary\Add.html -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thêm Hành trình mới</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f4f6f9;
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        .sidebar {
+            width: 250px;
+            background-color: #343a40;
+            color: white;
+            padding: 15px 0;
+            height: 100vh;
+            position: fixed;
+        }
+        
+        .sidebar-item {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .sidebar-item:hover {
+            background-color: #4b545c;
+        }
+        
+        .sidebar-item.active {
+            background-color: #007bff;
+        }
+        
+        .sidebar-item i {
+            margin-right: 10px;
+        }
+        
+        .content {
+            flex: 1;
+            padding: 20px;
+            margin-left: 250px;
+        }
+        
+        .card {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .btn {
+            padding: 8px 15px;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+        }
+        
+        .btn:hover {
+            background-color: #0069d9;
+        }
+        
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+        }
+        
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-right: -15px;
+            margin-left: -15px;
+        }
+        
+        .col-md-6 {
+            flex: 0 0 50%;
+            max-width: 50%;
+            padding: 0 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-item">
+            <i class="fas fa-chart-line"></i>
+            <span>Dashboard</span>
+        </div>
+        <div class="sidebar-item">
+            <i class="fas fa-map-marked-alt"></i>
+            <span>Quản lý Tour</span>
+        </div>
+        <div class="sidebar-item">
+            <i class="fas fa-users"></i>
+            <span>Quản lý Người dùng</span>
+        </div>
+        <div class="sidebar-item">
+            <i class="fas fa-bus"></i>
+            <span>Quản lý Phương tiện</span>
+        </div>
+        <div class="sidebar-item">
+            <i class="fas fa-hotel"></i>
+            <span>Quản lý Nơi ở</span>
+        </div>
+        <div class="sidebar-item active">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Quản lý Lịch trình</span>
+        </div>
+        <div class="sidebar-item">
+            <i class="fas fa-route"></i>
+            <span>Quản lý Hành trình</span>
+        </div>
+        <div class="sidebar-item">
+            <i class="fas fa-user-tie"></i>
+            <span>Quản lý HDV</span>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="header">
+            <h2>Thêm Hành trình mới</h2>
+            <a href="Index.html" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Quay lại</a>
+        </div>
+
+        <div class="card">
+            <form id="addIteneraryForm">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="iteneraryName">Tên hành trình:</label>
+                            <input type="text" id="iteneraryName" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="scheduleSelect">Lịch trình:</label>
+                            <select id="scheduleSelect" class="form-control" required>
+                                <option value="">-- Chọn lịch trình --</option>
+                                <option value="1">Du lịch Hạ Long 3N2Đ</option>
+                                <option value="2">Du lịch Đà Lạt 4N3Đ</option>
+                                <option value="3">Du lịch Phú Quốc 5N4Đ</option>
+                                <option value="4">Du lịch Nha Trang 3N2Đ</option>
+                                <option value="5">Du lịch Sapa 2N1Đ</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="location">Địa điểm:</label>
+                            <input type="text" id="location" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="iteneraryDate">Ngày:</label>
+                            <input type="date" id="iteneraryDate" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="startTime">Thời gian bắt đầu:</label>
+                            <input type="time" id="startTime" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="endTime">Thời gian kết thúc:</label>
+                            <input type="time" id="endTime" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="description">Mô tả hành trình:</label>
+                    <textarea id="description" class="form-control" rows="4" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="activities">Các hoạt động:</label>
+                    <textarea id="activities" class="form-control" rows="4"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="notes">Ghi chú:</label>
+                    <textarea id="notes" class="form-control" rows="3"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="images">Hình ảnh (chọn nhiều file):</label>
+                    <input type="file" id="images" class="form-control" multiple>
+                </div>
+                
+                <div style="margin-top: 20px;">
+                    <button type="submit" class="btn">Thêm hành trình</button>
+                    <a href="Index.html" class="btn btn-secondary" style="margin-left: 10px;">Hủy</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('addIteneraryForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Đã thêm hành trình thành công!');
+            window.location.href = 'Index.html';
+        });
+    </script>
+</body>
+</html>

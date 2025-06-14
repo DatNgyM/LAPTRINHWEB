@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Xóa Lịch trình</title>
+    <title>Xóa Hướng dẫn viên</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -134,8 +135,35 @@
             width: 30%;
             background-color: #f2f2f2;
         }
+
+        .tour-guide-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+
+        .tour-guide-info img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 20px;
+        }
+
+        .tour-guide-name {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .tour-guide-email {
+            color: #6c757d;
+            margin-bottom: 10px;
+        }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="sidebar">
@@ -159,11 +187,11 @@
             <i class="fas fa-hotel"></i>
             <span>Quản lý Nơi ở</span>
         </div>
-        <div class="sidebar-item active">
+        <div class="sidebar-item">
             <i class="fas fa-calendar-alt"></i>
             <span>Quản lý Lịch trình</span>
         </div>
-        <div class="sidebar-item">
+        <div class="sidebar-item active">
             <i class="fas fa-user-tie"></i>
             <span>Quản lý HDV</span>
         </div>
@@ -171,8 +199,8 @@
 
     <div class="content">
         <div class="header">
-            <h2>Xóa Lịch trình</h2>
-            <a href="index.html" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Quay lại</a>
+            <h2>Xóa Hướng dẫn viên</h2>
+            <a href="Index.html" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Quay lại</a>
         </div>
 
         <div class="card">
@@ -180,40 +208,49 @@
                 <div class="delete-icon">
                     <i class="fas fa-exclamation-triangle"></i>
                 </div>
-                <h3>Xác nhận xóa lịch trình?</h3>
-                <p class="delete-message">Bạn có chắc chắn muốn xóa lịch trình này? Hành động này không thể hoàn tác.</p>
+                <h3>Xác nhận xóa hướng dẫn viên?</h3>
+                <p class="delete-message">Bạn có chắc chắn muốn xóa hướng dẫn viên này? Hành động này không thể hoàn tác.</p>
+                
+                <div class="tour-guide-info">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Nguyễn Văn A">
+                    <div>
+                        <div class="tour-guide-name">Nguyễn Văn A</div>
+                        <div class="tour-guide-email">nguyenvana@example.com</div>
+                        <div>Kinh nghiệm: 5 năm</div>
+                    </div>
+                </div>
                 
                 <div style="background-color: #f8f9fa; padding: 20px; border-radius: 5px; margin-bottom: 20px;">
-                    <h4 style="margin-bottom: 15px;">Thông tin lịch trình:</h4>
+                    <h4 style="margin-bottom: 15px; text-align: left;">Thông tin chi tiết:</h4>
                     
                     <table class="detail-table">
                         <tr>
-                            <th>Mã lịch trình:</th>
-                            <td>LT001</td>
+                            <th>Mã hướng dẫn viên:</th>
+                            <td>HDV001</td>
                         </tr>
                         <tr>
-                            <th>Tên lịch trình:</th>
-                            <td>Du lịch Hạ Long 3 ngày 2 đêm</td>
+                            <th>Số điện thoại:</th>
+                            <td>0912345678</td>
                         </tr>
                         <tr>
-                            <th>Tour:</th>
-                            <td>Tour Hạ Long</td>
+                            <th>Ngày sinh:</th>
+                            <td>15/06/1990</td>
                         </tr>
                         <tr>
-                            <th>Ngày bắt đầu:</th>
-                            <td>15/06/2025</td>
+                            <th>Ngôn ngữ:</th>
+                            <td>Tiếng Anh, Tiếng Việt</td>
                         </tr>
                         <tr>
-                            <th>Ngày kết thúc:</th>
-                            <td>17/06/2025</td>
+                            <th>Chuyên môn:</th>
+                            <td>Du lịch trong nước</td>
+                        </tr>
+                        <tr>
+                            <th>Địa chỉ:</th>
+                            <td>123 Đường ABC, Quận 1, TP.HCM</td>
                         </tr>
                         <tr>
                             <th>Trạng thái:</th>
-                            <td>Đang hoạt động</td>
-                        </tr>
-                        <tr>
-                            <th>Hướng dẫn viên:</th>
-                            <td>Nguyễn Văn A</td>
+                            <td>Hoạt động</td>
                         </tr>
                     </table>
                 </div>
@@ -221,7 +258,7 @@
                 <div>
                     <form id="deleteForm">
                         <button type="submit" class="btn btn-danger" style="margin-right: 10px;"><i class="fas fa-trash"></i> Xác nhận xóa</button>
-                        <a href="index.html" class="btn btn-secondary">Hủy</a>
+                        <a href="Index.html" class="btn btn-secondary">Hủy</a>
                     </form>
                 </div>
             </div>
@@ -231,8 +268,8 @@
     <script>
         document.getElementById('deleteForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Đã xóa lịch trình thành công!');
-            window.location.href = 'index.html';
+            alert('Đã xóa hướng dẫn viên thành công!');
+            window.location.href = 'Index.html';
         });
     </script>
 </body>
