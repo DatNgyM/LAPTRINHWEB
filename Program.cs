@@ -11,13 +11,29 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
-using LAPTRINHWEB.Services;
 
+using DotNetEnv;
+using Microsoft.AspNetCore.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
+Env.Load();
+var googleClientId = Environment.GetEnvironmentVariable("GOOGLE_CLIENT_ID");
+var googleClientSecret = Environment.GetEnvironmentVariable("GOOGLE_CLIENT_SECRET");
+
+if (!string.IsNullOrEmpty(googleClientId))
+{
+    builder.Configuration["Authentication:Google:ClientId"] = googleClientId;
+}
+
+if (!string.IsNullOrEmpty(googleClientSecret))
+{
+    builder.Configuration["Authentication:Google:ClientSecret"] = googleClientSecret;
+}
 
 builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
+
+
 
 // Thêm Entity Framework
 builder.Services.AddDbContext<TourDbContext>(options =>
@@ -25,7 +41,7 @@ builder.Services.AddDbContext<TourDbContext>(options =>
 
 
 
-// Add Identity services
+
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
     // Password settings
@@ -45,7 +61,19 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 .AddEntityFrameworkStores<TourDbContext>()
 .AddDefaultTokenProviders();
 
-builder.Services.AddTransient<IEmailSender, EmailSender>();
+builder.Services.AddAuthentication()
+    .AddGoogle(options =>
+    {
+        options.ClientId = builder.Configuration["Authentication:Google:ClientId"];
+        options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
+        options.CallbackPath = "/signin-google";
+
+        // Map Google claims to Identity claims
+        options.ClaimActions.MapJsonKey("urn:google:picture", "picture", "url");
+        options.ClaimActions.MapJsonKey("urn:google:locale", "locale", "string");
+
+        options.SaveTokens = true;
+    });
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
@@ -78,10 +106,6 @@ app.MapRazorPages();
 
 
 app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=HomePage}/{id?}");
-
-app.MapControllerRoute(
     name: "admin",
     pattern: "Admin/{controller=Dashboard}/{action=Index}/{id?}",
     defaults: new { area = "Admin" });
@@ -98,7 +122,9 @@ app.MapControllerRoute(
     pattern: "TourGuide/{controller=Dashboard}/{action=Index}/{id?}",
     defaults: new { area = "TourGuide" });
 
-
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=HomePage}/{id?}");
 
 if (app.Environment.IsDevelopment())
 {

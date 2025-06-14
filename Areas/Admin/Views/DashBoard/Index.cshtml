@@ -88,43 +88,48 @@
         </div>
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link active" asp-action="Index">
+                <a class="nav-link active" asp-area="Admin" asp-controller="DashBoard" asp-action="Index">
                     <i class="fas fa-tachometer-alt"></i> Dashboard
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" asp-action="Tours">
+                <a class="nav-link" asp-area="Admin" asp-controller="Tour" asp-action="Index">
                     <i class="fas fa-map-marked-alt"></i> Quản lý Tour
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" asp-action="Users">
+                <a class="nav-link" asp-area="Admin" asp-controller="User" asp-action="Index">
                     <i class="fas fa-users"></i> Quản lý Người dùng
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" asp-action="Transportations">
+                <a class="nav-link" asp-area="Admin" asp-controller="Transportation" asp-action="Index">
                     <i class="fas fa-bus"></i> Quản lý Phương tiện
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" asp-action="Accommodations">
+                <a class="nav-link" asp-area="Admin" asp-controller="Accommodation" asp-action="Index">
                     <i class="fas fa-bed"></i> Quản lý Nơi ở
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" asp-action="Itineraries">
+                <a class="nav-link" asp-area="Admin" asp-controller="Itinerary" asp-action="Index">
                     <i class="fas fa-route"></i> Quản lý Lịch trình
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" asp-action="TourGuides">
+                <a class="nav-link" asp-area="Admin" asp-controller="DashBoard" asp-action="TourGuide">
                     <i class="fas fa-user-tie"></i> Quản lý HDV
                 </a>
             </li>
-            <hr class="text-white">
+            <li class="nav-item mt-3">
+                <a class="btn btn-primary w-100" asp-area="Admin" asp-controller="DashBoard" asp-action="Add">
+                    <i class="fas fa-plus"></i> Thêm Tour
+                </a>
+            </li>
+            <hr class="text-white" />
             <li class="nav-item">
-                <a class="nav-link" asp-controller="Home" asp-action="HomePage" asp-area="">
+                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="HomePage">
                     <i class="fas fa-home"></i> Về trang chủ
                 </a>
             </li>
@@ -272,7 +277,8 @@
                                 </a>
                             </div>
                             <div class="col-md-2 col-6 mb-3">
-                                <a asp-action="Users" class="btn btn-success w-100">
+                                <a asp-area="Admin" asp-controller="User" asp-action="Index"
+                                    class="btn btn-success w-100">
                                     <i class="fas fa-user-plus"></i><br>
                                     <small>QL User</small>
                                 </a>

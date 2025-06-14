@@ -1,0 +1,266 @@
+@model LAPTRINHWEB.Models.ApplicationUser
+@{
+    ViewData["Title"] = "Xóa Người dùng - EasyTrips";
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* CSS giống với trang Index */
+        .sidebar {
+            height: 100vh;
+            background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            overflow-y: auto;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        .sidebar .nav-link {
+            color: #ecf0f1;
+            padding: 12px 20px;
+            border-radius: 0;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar .nav-link:hover,
+        .sidebar .nav-link.active {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .sidebar-brand {
+            background-color: #1a252f;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Form styles */
+        .delete-card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        }
+
+        .delete-card .card-header {
+            background-color: #dc3545;
+            color: white;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .info-group {
+            margin-bottom: 1rem;
+        }
+
+        .info-label {
+            font-weight: bold;
+            color: #495057;
+        }
+
+        .info-value {
+            color: #212529;
+        }
+
+        .role-badge {
+            font-size: 0.8rem;
+            padding: 5px 10px;
+            border-radius: 15px;
+        }
+
+        .role-admin {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .role-manager {
+            background-color: #fd7e14;
+            color: white;
+        }
+
+        .role-tourguide {
+            background-color: #17a2b8;
+            color: white;
+        }
+
+        .role-customer {
+            background-color: #28a745;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar - Giống với trang Index -->
+    <nav class="sidebar">
+        <div class="sidebar-brand">
+            <i class="fas fa-cogs"></i> Admin Panel
+        </div>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="Admin" asp-controller="Tour" asp-action="Index">
+                    <i class="fas fa-map-marked-alt"></i> Quản lý Tour
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" asp-area="Admin" asp-controller="User" asp-action="Index">
+                    <i class="fas fa-users"></i> Quản lý Người dùng
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="Admin" asp-controller="Dashboard" asp-action="Transportations">
+                    <i class="fas fa-bus"></i> Quản lý Phương tiện
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="Admin" asp-controller="Dashboard" asp-action="Accommodations">
+                    <i class="fas fa-bed"></i> Quản lý Nơi ở
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="Admin" asp-controller="Dashboard" asp-action="Itineraries">
+                    <i class="fas fa-route"></i> Quản lý Lịch trình
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="Admin" asp-controller="Dashboard" asp-action="TourGuides">
+                    <i class="fas fa-user-tie"></i> Quản lý HDV
+                </a>
+            </li>
+            <hr class="text-white">
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Home" asp-action="Index" asp-area="">
+                    <i class="fas fa-home"></i> Về trang chủ
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Page Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="h3">
+                <i class="fas fa-user-times text-danger"></i>
+                Xóa Người Dùng
+            </h1>
+            <a asp-action="Index" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left"></i> Quay lại danh sách
+            </a>
+        </div>
+
+        <!-- Delete Confirmation -->
+        <div class="card delete-card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Xác nhận xóa người dùng
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-danger">
+                    <i class="fas fa-exclamation-circle me-2"></i>
+                    Bạn có chắc chắn muốn vô hiệu hóa người dùng này? Thao tác này sẽ khóa tài khoản người dùng và họ sẽ
+                    không thể đăng nhập được.
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="info-group">
+                            <div class="info-label">Tên đăng nhập:</div>
+                            <div class="info-value">@Model.UserName</div>
+                        </div>
+
+                        <div class="info-group">
+                            <div class="info-label">Họ tên:</div>
+                            <div class="info-value">@(Model.Full_Name ?? "Chưa cập nhật")</div>
+                        </div>
+
+                        <div class="info-group">
+                            <div class="info-label">Email:</div>
+                            <div class="info-value">@Model.Email</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="info-group">
+                            <div class="info-label">Vai trò:</div>
+                            <div class="info-value">
+                                @foreach (var role in ViewBag.UserRoles)
+                                {
+                                    string badgeClass = role.ToLower() switch
+                                    {
+                                        "admin" => "role-admin",
+                                        "manager" => "role-manager",
+                                        "tourguide" => "role-tourguide",
+                                        _ => "role-customer"
+                                    };
+                                    <span class="badge @badgeClass role-badge me-1">@role</span>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="info-group">
+                            <div class="info-label">Số điện thoại:</div>
+                            <div class="info-value">@(Model.PhoneNumber ?? "Chưa cập nhật")</div>
+                        </div>
+
+                        <div class="info-group">
+                            <div class="info-label">Trạng thái email:</div>
+                            <div class="info-value">
+                                @if (Model.EmailConfirmed)
+                                {
+                                    <span class="text-success"><i class="fas fa-check-circle"></i> Đã xác thực</span>
+                                }
+                                else
+                                {
+                                    <span class="text-danger"><i class="fas fa-times-circle"></i> Chưa xác thực</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sửa form action -->
+                <form action="/Admin/User/Delete" method="post" class="mt-4">
+                    <input type="hidden" name="id" value="@Model.Id" />
+
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-danger me-2">
+                            <i class="fas fa-user-lock"></i> Khóa người dùng này
+                        </button>
+                        <!-- Sửa nút quay lại -->
+                        <a href="/Admin/User/Index" class="btn btn-secondary">
+                            <i class="fas fa-times"></i> Hủy
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

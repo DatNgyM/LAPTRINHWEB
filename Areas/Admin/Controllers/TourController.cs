@@ -23,14 +23,9 @@ namespace LAPTRINHWEB.Areas.Admin.Controllers
             _context = context;
         }
 
-        // GET: Admin/Tour/Index - Dashboard đơn giản
-        public IActionResult Index()
-        {
-            return View();
-        }
 
         // GET: Admin/Tour/Tours - Quản lý danh sách tour
-        public async Task<IActionResult> Tours(string search, string status, string sortBy, int page = 1, int pageSize = 20)
+        public async Task<IActionResult> Index(string search, string status, string sortBy, int page = 1, int pageSize = 20)
         {
             try
             {

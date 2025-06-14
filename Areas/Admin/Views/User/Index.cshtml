@@ -1,0 +1,424 @@
+@model IEnumerable<LAPTRINHWEB.Models.ApplicationUser>
+
+@{
+    ViewData["Title"] = "Quản lý Người dùng - EasyTrips";
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .sidebar {
+            height: 100vh;
+            background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            overflow-y: auto;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        .sidebar .nav-link {
+            color: #ecf0f1;
+            padding: 12px 20px;
+            border-radius: 0;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar .nav-link:hover,
+        .sidebar .nav-link.active {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .sidebar-brand {
+            background-color: #1a252f;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        .pagination {
+            justify-content: center;
+        }
+
+        .search-box {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .status-active {
+            color: #28a745;
+        }
+
+        .status-inactive {
+            color: #dc3545;
+        }
+
+        .btn-action {
+            margin: 0 3px;
+        }
+
+        .role-badge {
+            font-size: 0.8rem;
+            padding: 5px 10px;
+            border-radius: 15px;
+        }
+
+        .role-admin {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .role-manager {
+            background-color: #fd7e14;
+            color: white;
+        }
+
+        .role-tourguide {
+            background-color: #17a2b8;
+            color: white;
+        }
+
+        .role-customer {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .alert {
+            animation: fadeOut 1s forwards;
+            animation-delay: 4s;
+        }
+
+        fadeOut {
+            from {
+                opacity: 1;
+            }
+
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="sidebar-brand">
+            <i class="fas fa-cogs"></i> Admin Panel
+        </div>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="Admin" asp-controller="Tour" asp-action="Index">
+                    <i class="fas fa-map-marked-alt"></i> Quản lý Tour
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" asp-area="Admin" asp-controller="User" asp-action="Index">
+                    <i class="fas fa-users"></i> Quản lý Người dùng
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="Admin" asp-controller="Dashboard" asp-action="Transportations">
+                    <i class="fas fa-bus"></i> Quản lý Phương tiện
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="Admin" asp-controller="Dashboard" asp-action="Accommodations">
+                    <i class="fas fa-bed"></i> Quản lý Nơi ở
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="Admin" asp-controller="Dashboard" asp-action="Itineraries">
+                    <i class="fas fa-route"></i> Quản lý Lịch trình
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="Admin" asp-controller="Dashboard" asp-action="TourGuides">
+                    <i class="fas fa-user-tie"></i> Quản lý HDV
+                </a>
+            </li>
+            <hr class="text-white">
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Home" asp-action="Index" asp-area="">
+                    <i class="fas fa-home"></i> Về trang chủ
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Page Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="h3">
+                <i class="fas fa-users text-primary"></i>
+                Quản lý Người dùng
+            </h1>
+            <div class="text-muted">
+                <i class="fas fa-calendar"></i> @DateTime.Now.ToString("dd/MM/yyyy HH:mm")
+            </div>
+        </div>
+
+        <!-- Thông báo -->
+        @if (ViewBag.SuccessMessage != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="fas fa-check-circle me-2"></i> @ViewBag.SuccessMessage
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        @if (ViewBag.ErrorMessage != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="fas fa-exclamation-circle me-2"></i> @ViewBag.ErrorMessage
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        <!-- Search & Filter Box -->
+        <div class="search-box">
+            <form asp-action="Index" method="get" class="row g-3">
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-search"></i></span>
+                        <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" class="form-control"
+                            placeholder="Tìm theo email, username, SĐT...">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <select name="role" class="form-select">
+                        <option value="">Tất cả vai trò</option>
+                        @foreach (var role in ViewBag.Roles)
+                        {
+                            @if (ViewData["CurrentRole"]?.ToString() == role.Name)
+                            {
+                                <option value="@role.Name" selected="selected">@role.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@role.Name">@role.Name</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fas fa-filter"></i> Lọc
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Actions Button -->
+        <div class="mb-3">
+            <a asp-action="Add" class="btn btn-success">
+                <i class="fas fa-user-plus"></i> Thêm Người dùng mới
+            </a>
+        </div>
+
+        <!-- Users Table -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Danh sách Người dùng</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th>Tên người dùng</th>
+                                <th>Họ tên</th>
+                                <th>Email</th>
+                                <th>SĐT</th>
+                                <th>Vai trò</th>
+                                <th>Trạng thái</th>
+                                <th>Xác thực</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var user in Model)
+                            {
+                                var userRoles = ViewBag.UserRoles[user.Id] as List<string>;
+                                bool isLocked = user.LockoutEnd != null && user.LockoutEnd > DateTimeOffset.Now;
+
+                                <tr>
+                                    <td>@user.UserName</td>
+                                    <td>@(user.Full_Name ?? "Chưa cập nhật")</td>
+                                    <td>@user.Email</td>
+                                    <td>@(user.PhoneNumber ?? "Chưa cập nhật")</td>
+                                    <td>
+                                        @if (userRoles != null && userRoles.Any())
+                                        {
+                                            foreach (var role in userRoles)
+                                            {
+                                                string badgeClass = role.ToLower() switch
+                                                {
+                                                    "admin" => "role-admin",
+                                                    "manager" => "role-manager",
+                                                    "tourguide" => "role-tourguide",
+                                                    _ => "role-customer"
+                                                };
+                                                <span class="badge @badgeClass role-badge me-1">@role</span>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted">Chưa có vai trò</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (isLocked)
+                                        {
+                                            <span class="status-inactive"><i class="fas fa-lock"></i> Bị khóa</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="status-active"><i class="fas fa-check-circle"></i> Hoạt động</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (user.EmailConfirmed)
+                                        {
+                                            <span class="status-active"><i class="fas fa-check-circle"></i> Đã xác thực</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="status-inactive"><i class="fas fa-times-circle"></i> Chưa xác
+                                                thực</span>
+                                        }
+                                    </td>
+                                    <!-- Thay thế các nút thao tác -->
+                                    <td>
+                                        <a href="/Admin/User/Edit/@user.Id" class="btn btn-sm btn-primary btn-action">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a href="/Admin/User/Details/@user.Id" class="btn btn-sm btn-info btn-action">
+                                            <i class="fas fa-info-circle"></i>
+                                        </a>
+                                        <a href="/Admin/User/Delete/@user.Id" class="btn btn-sm btn-danger btn-action">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                @{
+                    var prevDisabled = ((int)ViewData["CurrentPage"] == 1) ? "disabled" : "";
+                    var nextDisabled = ((int)ViewData["CurrentPage"] == (int)ViewData["TotalPages"]) ? "disabled" : "";
+                }
+
+                <!-- Pagination -->
+                <nav aria-label="Page navigation" class="mt-4">
+                    <ul class="pagination">
+                        <li class="page-item @prevDisabled">
+                            <a class="page-link" asp-action="Index" asp-route-page="1"
+                                asp-route-sortOrder="@ViewData["CurrentSort"]"
+                                asp-route-searchString="@ViewData["CurrentFilter"]"
+                                asp-route-role="@ViewData["CurrentRole"]">
+                                <i class="fas fa-angle-double-left"></i>
+                            </a>
+                        </li>
+                        <li class="page-item @prevDisabled">
+                            <a class="page-link" asp-action="Index" asp-route-page="@((int)ViewData["CurrentPage"] - 1)"
+                                asp-route-sortOrder="@ViewData["CurrentSort"]"
+                                asp-route-searchString="@ViewData["CurrentFilter"]"
+                                asp-route-role="@ViewData["CurrentRole"]">
+                                <i class="fas fa-angle-left"></i>
+                            </a>
+                        </li>
+
+                        @{
+                            int startPage = Math.Max(1, (int)ViewData["CurrentPage"] - 2);
+                            int endPage = Math.Min((int)ViewData["TotalPages"], startPage + 4);
+                            startPage = Math.Max(1, endPage - 4);
+                        }
+
+                        @for (int i = startPage; i <= endPage; i++)
+                        {
+                            <li class="page-item @(i == (int)ViewData["CurrentPage"] ? "active" : "")">
+                                <a class="page-link" asp-action="Index" asp-route-page="@i"
+                                    asp-route-sortOrder="@ViewData["CurrentSort"]"
+                                    asp-route-searchString="@ViewData["CurrentFilter"]"
+                                    asp-route-role="@ViewData["CurrentRole"]">
+                                    @i
+                                </a>
+                            </li>
+                        }
+
+                        <li class="page-item @nextDisabled">
+                            <a class="page-link" asp-action="Index" asp-route-page="@((int)ViewData["CurrentPage"] + 1)"
+                                asp-route-sortOrder="@ViewData["CurrentSort"]"
+                                asp-route-searchString="@ViewData["CurrentFilter"]"
+                                asp-route-role="@ViewData["CurrentRole"]">
+                                <i class="fas fa-angle-right"></i>
+                            </a>
+                        </li>
+                        <li class="page-item @nextDisabled">
+                            <a class="page-link" asp-action="Index" asp-route-page="@ViewData["TotalPages"]"
+                                asp-route-sortOrder="@ViewData["CurrentSort"]"
+                                asp-route-searchString="@ViewData["CurrentFilter"]"
+                                asp-route-role="@ViewData["CurrentRole"]">
+                                <i class="fas fa-angle-double-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <!-- Summary -->
+                <div class="text-center text-muted">
+                    <small>Hiển thị trang @ViewData["CurrentPage"] / @ViewData["TotalPages"]</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Tự động ẩn alert sau 5 giây
+        document.addEventListener('DOMContentLoaded', function () {
+            // Tự động ẩn alerts sau 5 giây
+            var alerts = document.querySelectorAll('.alert');
+            alerts.forEach(function (alert) {
+                setTimeout(function () {
+                    var bsAlert = new bootstrap.Alert(alert);
+                    bsAlert.close();
+                }, 5000);
+            });
+        });
+    </script>
+</body>
+
+</html>
