@@ -6,9 +6,7 @@ namespace LAPTRINHWEB.Models
 {
     public class TourDbContext : IdentityDbContext<ApplicationUser>
     {
-        public TourDbContext(DbContextOptions<TourDbContext> options) : base(options)
-        {
-        }
+        public TourDbContext(DbContextOptions<TourDbContext> options) : base(options) { }
 
         // Business DbSets
         public DbSet<Tour> Tours { get; set; }
@@ -19,6 +17,7 @@ namespace LAPTRINHWEB.Models
         public DbSet<Transportation> Transportations { get; set; }
         public DbSet<TourTransport> TourTransports { get; set; }
         public DbSet<Itinerary> Itineraries { get; set; }
+        public DbSet<ItineraryDetail> ItineraryDetails { get; set; }
         public DbSet<ItineraryLocation> ItineraryLocations { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<TourImage> TourImages { get; set; }
@@ -161,17 +160,32 @@ namespace LAPTRINHWEB.Models
             });
 
             // ===== CONFIGURE ITINERARY =====
+            // Lưu ý: Bảng Itinerary giờ chỉ lưu thông tin cơ bản,
+            // chi tiết Time & Activities sẽ được lưu ở bảng ItineraryDetail.
             modelBuilder.Entity<Itinerary>(entity =>
             {
                 entity.HasKey(e => e.ID_Itinerary);
                 entity.ToTable("Itineraries");
                 entity.Property(e => e.Day_Number).IsRequired();
                 entity.Property(e => e.Title).IsRequired().HasMaxLength(200);
-                entity.Property(e => e.Description).HasColumnType("ntext");
 
                 entity.HasOne(e => e.Tour)
                     .WithMany(t => t.Itineraries)
                     .HasForeignKey(e => e.ID_Tour)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            // ===== CONFIGURE ITINERARY DETAIL =====
+            modelBuilder.Entity<ItineraryDetail>(entity =>
+            {
+                entity.HasKey(e => e.ID_Detail);
+                entity.ToTable("ItineraryDetails");
+                entity.Property(e => e.Time).IsRequired().HasColumnType("nvarchar(50)");
+                entity.Property(e => e.Activities).IsRequired().HasColumnType("ntext");
+
+                entity.HasOne(e => e.Itinerary)
+                    .WithMany(i => i.Details)
+                    .HasForeignKey(e => e.ID_Itinerary)
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
@@ -229,7 +243,7 @@ namespace LAPTRINHWEB.Models
                 entity.Property(e => e.Total_Price).HasColumnType("decimal(18,2)");
                 entity.Property(e => e.Status).HasDefaultValue(BookingStatus.Pending);
                 entity.Property(e => e.Note).HasColumnType("ntext");
-                entity.Property(e => e.UserId).IsRequired(false); // Có thể null cho guest booking
+                entity.Property(e => e.UserId).IsRequired(false);
 
                 entity.HasOne(e => e.User)
                     .WithMany(u => u.Bookings)
@@ -268,7 +282,7 @@ namespace LAPTRINHWEB.Models
             modelBuilder.Entity<IdentityRoleClaim<string>>().ToTable("AspNetRoleClaims");
             modelBuilder.Entity<IdentityUserToken<string>>().ToTable("AspNetUserTokens");
 
-            // ===== ADDITIONAL INDEXES FOR PERFORMANCE =====
+            // ===== ADDITIONAL INDEXES =====
             modelBuilder.Entity<Tour>()
                 .HasIndex(t => t.Status);
 

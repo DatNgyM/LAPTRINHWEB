@@ -20,7 +20,7 @@ namespace LAPTRINHWEB.Data
 
             await context.Database.EnsureCreatedAsync();
 
-            // 1. Seed Identity data TRƯỚC
+            // 1. Seed Identity data
             await SeedIdentityAsync(roleManager, userManager);
 
             // 2. Seed business data
@@ -31,6 +31,7 @@ namespace LAPTRINHWEB.Data
             await SeedToursAsync(context);
             await SeedTourImagesAsync(context);
             await SeedItinerariesAsync(context);
+            await SeedItineraryLocationsAsync(context);
             await SeedTourGuideAssignmentsAsync(context);
             await SeedTourAccommodationsAsync(context);
             await SeedTourTransportsAsync(context);
@@ -45,7 +46,6 @@ namespace LAPTRINHWEB.Data
             await SeedRolesAsync(roleManager);
             await SeedUsersAsync(userManager);
         }
-
         private static async Task SeedRolesAsync(RoleManager<IdentityRole> roleManager)
         {
             var roles = new[]
@@ -55,7 +55,6 @@ namespace LAPTRINHWEB.Data
                 new IdentityRole { Name = "TourGuide", NormalizedName = "TOURGUIDE" },
                 new IdentityRole { Name = "User", NormalizedName = "USER" }
             };
-
             foreach (var role in roles)
             {
                 if (!await roleManager.RoleExistsAsync(role.Name))
@@ -65,7 +64,6 @@ namespace LAPTRINHWEB.Data
                 }
             }
         }
-
         private static async Task SeedUsersAsync(UserManager<ApplicationUser> userManager)
         {
             var users = new[]
@@ -159,22 +157,17 @@ namespace LAPTRINHWEB.Data
             {
                 var locations = new List<Location>
                 {
-                    // Miền Bắc
                     new Location { Name = "Vịnh Hạ Long", Address = "Hạ Long, Quảng Ninh", Description = "Di sản thiên nhiên thế giới UNESCO" },
                     new Location { Name = "Núi Fansipan", Address = "Sapa, Lào Cai", Description = "Nóc nhà Đông Dương" },
                     new Location { Name = "Đền Ngọc Sơn", Address = "Hoàn Kiếm, Hà Nội", Description = "Đền cổ giữa lòng Hồ Gươm" },
                     new Location { Name = "Bản Cát Cát", Address = "Sapa, Lào Cai", Description = "Bản làng người H'Mông" },
                     new Location { Name = "Động Thiên Cung", Address = "Hạ Long, Quảng Ninh", Description = "Hang động đẹp nhất vịnh Hạ Long" },
-                    
-                    // Miền Trung
                     new Location { Name = "Phố cổ Hội An", Address = "Hội An, Quảng Nam", Description = "Di sản văn hóa thế giới UNESCO" },
                     new Location { Name = "Cầu Chùa Cầu", Address = "Hội An, Quảng Nam", Description = "Biểu tượng của phố cổ Hội An" },
                     new Location { Name = "Chùa Cầu Nhật Bản", Address = "Hội An, Quảng Nam", Description = "Kiến trúc độc đáo Nhật - Việt" },
                     new Location { Name = "Bà Nà Hills", Address = "Đà Nẵng", Description = "Khu du lịch trên núi với cầu Vàng nổi tiếng" },
                     new Location { Name = "Đại Nội Huế", Address = "Huế, Thừa Thiên Huế", Description = "Cố đô của triều Nguyễn" },
                     new Location { Name = "Chùa Thiên Mụ", Address = "Huế, Thừa Thiên Huế", Description = "Chùa cổ nhất xứ Huế" },
-                    
-                    // Miền Nam
                     new Location { Name = "Củ Chi Tunnels", Address = "Củ Chi, TP.HCM", Description = "Hệ thống địa đạo lịch sử" },
                     new Location { Name = "Dinh Độc Lập", Address = "Quận 1, TP.HCM", Description = "Dinh thống nhất lịch sử" },
                     new Location { Name = "Chợ Bến Thành", Address = "Quận 1, TP.HCM", Description = "Chợ truyền thống nổi tiếng" },
@@ -185,7 +178,6 @@ namespace LAPTRINHWEB.Data
                     new Location { Name = "Thác Elephant", Address = "Đà Lạt, Lâm Đồng", Description = "Thác nước đẹp ở Đà Lạt" },
                     new Location { Name = "Đồi Chè Cầu Đất", Address = "Đà Lạt, Lâm Đồng", Description = "Đồi chè xanh mướt" }
                 };
-
                 context.Locations.AddRange(locations);
                 await context.SaveChangesAsync();
                 Console.WriteLine($"✅ Seeded {locations.Count} locations");
@@ -200,37 +192,21 @@ namespace LAPTRINHWEB.Data
             {
                 var accommodations = new List<Accommodation>
                 {
-                    // Hạ Long
                     new Accommodation { Name = "Novotel Hạ Long Bay", Type = (AccommodationType)0, Address = "Hạ Long, Quảng Ninh", Phone = "0203123456", Star_Rating = 5, Description = "Khách sạn 5 sao view vịnh Hạ Long" },
                     new Accommodation { Name = "Du thuyền La Regina", Type = (AccommodationType)2, Address = "Vịnh Hạ Long", Phone = "0203234567", Star_Rating = 4, Description = "Du thuyền cao cấp nghỉ đêm trên vịnh" },
-                    
-                    // Sapa
                     new Accommodation { Name = "Sapa Jade Hill Resort", Type = (AccommodationType)1, Address = "Sapa, Lào Cai", Phone = "0214123456", Star_Rating = 4, Description = "Resort view núi Fansipan" },
                     new Accommodation { Name = "Homestay Bản Cát Cát", Type = (AccommodationType)3, Address = "Bản Cát Cát, Sapa", Phone = "0214234567", Star_Rating = 3, Description = "Homestay trải nghiệm văn hóa dân tộc" },
-                    
-                    // Hội An - Đà Nẵng
                     new Accommodation { Name = "Anantara Hội An Resort", Type = (AccommodationType)1, Address = "Hội An, Quảng Nam", Phone = "0235123456", Star_Rating = 5, Description = "Resort cao cấp ven sông Thu Bồn" },
                     new Accommodation { Name = "Fusion Maia Đà Nẵng", Type = (AccommodationType)1, Address = "Đà Nẵng", Phone = "0236123456", Star_Rating = 5, Description = "Resort spa all-inclusive" },
-                    
-                    // Huế
                     new Accommodation { Name = "Pilgrimage Village Boutique Resort", Type = (AccommodationType)1, Address = "Huế, Thừa Thiên Huế", Phone = "0234123456", Star_Rating = 4, Description = "Resort kiến trúc làng cổ" },
-                    
-                    // TP.HCM
                     new Accommodation { Name = "Rex Hotel Sài Gòn", Type = (AccommodationType)0, Address = "Quận 1, TP.HCM", Phone = "0283123456", Star_Rating = 4, Description = "Khách sạn lịch sử trung tâm" },
                     new Accommodation { Name = "Park Hyatt Sài Gòn", Type = (AccommodationType)0, Address = "Quận 1, TP.HCM", Phone = "0283234567", Star_Rating = 5, Description = "Khách sạn luxury 5 sao" },
-                    
-                    // Cần Thơ
                     new Accommodation { Name = "Victoria Cần Thơ Resort", Type = (AccommodationType)1, Address = "Cần Thơ", Phone = "0292123456", Star_Rating = 4, Description = "Resort ven sông Hậu" },
-                    
-                    // Phú Quốc
                     new Accommodation { Name = "JW Marriott Phú Quốc", Type = (AccommodationType)1, Address = "Phú Quốc, Kiên Giang", Phone = "0297123456", Star_Rating = 5, Description = "Resort biển 5 sao" },
                     new Accommodation { Name = "Salinda Resort Phú Quốc", Type = (AccommodationType)1, Address = "Phú Quốc, Kiên Giang", Phone = "0297234567", Star_Rating = 5, Description = "Resort view biển tuyệt đẹp" },
-                    
-                    // Đà Lạt
                     new Accommodation { Name = "Ana Mandara Villas Đà Lạt", Type = (AccommodationType)1, Address = "Đà Lạt, Lâm Đồng", Phone = "0263123456", Star_Rating = 5, Description = "Villa resort kiến trúc Pháp cổ" },
                     new Accommodation { Name = "Terracotta Hotel Đà Lạt", Type = (AccommodationType)0, Address = "Đà Lạt, Lâm Đồng", Phone = "0263234567", Star_Rating = 4, Description = "Khách sạn boutique trung tâm" }
                 };
-
                 context.Accommodations.AddRange(accommodations);
                 await context.SaveChangesAsync();
                 Console.WriteLine($"✅ Seeded {accommodations.Count} accommodations");
@@ -245,29 +221,19 @@ namespace LAPTRINHWEB.Data
             {
                 var transportations = new List<Transportation>
                 {
-                    // Xe khách/Bus
                     new Transportation { Type = 0, Name = "Xe Limousine 16 chỗ VIP", Capacity = 16, Provider = "Hoàng Long Travel", License_Plate = "30A-12345", Description = "Limousine cao cấp ghế massage" },
                     new Transportation { Type = 0, Name = "Xe khách 45 chỗ", Capacity = 45, Provider = "Phương Trang", License_Plate = "51B-67890", Description = "Xe khách đường dài thoải mái" },
                     new Transportation { Type = 0, Name = "Xe 7 chỗ Ford Transit", Capacity = 7, Provider = "Sao Việt Travel", License_Plate = "29A-11111", Description = "Xe gia đình nhỏ gọn" },
-                    
-                    // Máy bay
                     new Transportation { Type = (TransportationType)1, Name = "Vietnam Airlines A321", Capacity = 180, Provider = "Vietnam Airlines", License_Plate = "VN-A123", Description = "Máy bay Airbus A321" },
                     new Transportation { Type = (TransportationType)1, Name = "Vietjet A320", Capacity = 174, Provider = "Vietjet Air", License_Plate = "VN-A456", Description = "Máy bay Airbus A320" },
                     new Transportation { Type = (TransportationType)1, Name = "Bamboo Airways A321", Capacity = 180, Provider = "Bamboo Airways", License_Plate = "VN-A789", Description = "Máy bay cao cấp" },
-                    
-                    // Tàu hỏa
                     new Transportation { Type = (TransportationType)2, Name = "Tàu SE1 Hà Nội - Sài Gòn", Capacity = 600, Provider = "Đường sắt Việt Nam", License_Plate = "SE1", Description = "Tàu nhanh Bắc Nam" },
                     new Transportation { Type = (TransportationType)2, Name = "Tàu SE3 Hà Nội - Đà Nẵng", Capacity = 400, Provider = "Đường sắt Việt Nam", License_Plate = "SE3", Description = "Tàu nhanh đi Đà Nẵng" },
-                    
-                    // Du thuyền
                     new Transportation { Type = (TransportationType)3, Name = "Du thuyền Dragon Legend", Capacity = 40, Provider = "Dragon Legend Cruise", License_Plate = "HL-001", Description = "Du thuyền 5 sao vịnh Hạ Long" },
                     new Transportation { Type = (TransportationType)3, Name = "Du thuyền Paradise Peak", Capacity = 30, Provider = "Paradise Cruises", License_Plate = "HL-002", Description = "Du thuyền cao cấp overnight" },
-                    
-                    // Speedboat
                     new Transportation { Type = (TransportationType)4, Name = "Speedboat SuperDong", Capacity = 300, Provider = "SuperDong", License_Plate = "SD-123", Description = "Tàu cao tốc Rạch Giá - Phú Quốc" },
                     new Transportation { Type = (TransportationType)4, Name = "Cano nhanh 12 chỗ", Capacity = 12, Provider = "Phú Quốc Express", License_Plate = "PQ-456", Description = "Cano tham quan đảo" }
                 };
-
                 context.Transportations.AddRange(transportations);
                 await context.SaveChangesAsync();
                 Console.WriteLine($"✅ Seeded {transportations.Count} transportations");
@@ -291,7 +257,6 @@ namespace LAPTRINHWEB.Data
                     new TourGuide { FullName = "Vũ Văn Hải", Phone = "0967890123", Email = "vuvanhai@guide.com", Experience = "3 năm hướng dẫn tour phiêu lưu, chuyên trekking Sapa" },
                     new TourGuide { FullName = "Đỗ Thị Linh", Phone = "0978901234", Email = "dothilinh@guide.com", Experience = "5 năm hướng dẫn tour ẩm thực, chuyên tour ẩm thực TP.HCM" }
                 };
-
                 context.TourGuides.AddRange(tourGuides);
                 await context.SaveChangesAsync();
                 Console.WriteLine($"✅ Seeded {tourGuides.Count} tour guides");
@@ -309,28 +274,26 @@ namespace LAPTRINHWEB.Data
                     new Tour
                     {
                         Name_Tour = "Khám phá Vịnh Hạ Long - Đảo Cát Bà",
-                        Description = "Tour khám phá vịnh Hạ Long 3 ngày 2 đêm với du thuyền 5 sao, tham quan động Thiên Cung, đảo Cát Bà, thưởng thức hải sản tươi ngon và trải nghiệm kayak khám phá hang động.",
+                        Description = "Tour khám phá vịnh Hạ Long 3 ngày 2 đêm với du thuyền 5 sao, tham quan động Thiên Cung, đảo Cát Bà, thưởng thức hải sản tươi ngon và trải nghiệm kayak.",
                         Duration = 3,
                         Start_Location = "Hà Nội",
                         End_Location = "Hạ Long",
                         Price = 4500000,
                         Discount = 500000,
                         Max_Capacity = 30,
-                        Status = TourStatus.Active,
-
+                        Status = TourStatus.Active
                     },
                     new Tour
                     {
                         Name_Tour = "Sapa - Fansipan - Bản Cát Cát",
-                        Description = "Tour trekking Sapa 4 ngày 3 đêm chinh phục đỉnh Fansipan, khám phá văn hóa dân tộc H'Mông, Dao đỏ, thưởng thức ẩm thực đặc sản vùng cao và ngủ homestay.",
+                        Description = "Tour trekking Sapa 4 ngày 3 đêm chinh phục đỉnh Fansipan, khám phá văn hóa dân tộc H'Mông, thưởng thức ẩm thực đặc sản vùng cao và ngủ homestay.",
                         Duration = 4,
                         Start_Location = "Hà Nội",
                         End_Location = "Sapa",
                         Price = 5200000,
                         Discount = 700000,
                         Max_Capacity = 20,
-                        Status = TourStatus.Active,
-
+                        Status = TourStatus.Active
                     },
                     new Tour
                     {
@@ -342,21 +305,19 @@ namespace LAPTRINHWEB.Data
                         Price = 3800000,
                         Discount = 300000,
                         Max_Capacity = 25,
-                        Status = TourStatus.Active,
-
+                        Status = TourStatus.Active
                     },
                     new Tour
                     {
                         Name_Tour = "Huế - Cố đô Hoàng gia",
-                        Description = "Tour văn hóa lịch sử Huế 2 ngày 1 đêm, tham quan Đại Nội, Lăng Khải Định, chùa Thiên Mụ, thưởng thức bún bò Huế, bánh khoái và nghe Ca Huế cung đình.",
+                        Description = "Tour văn hóa lịch sử Huế 2 ngày 1 đêm, tham quan Đại Nội, Lăng Khải Định, chùa Thiên Mụ, thưởng thức bún bò Huế và nghe Ca Huế cung đình.",
                         Duration = 2,
                         Start_Location = "Đà Nẵng",
                         End_Location = "Huế",
                         Price = 2800000,
                         Discount = 0,
                         Max_Capacity = 35,
-                        Status = TourStatus.Active,
-
+                        Status = TourStatus.Active
                     },
                     new Tour
                     {
@@ -368,21 +329,19 @@ namespace LAPTRINHWEB.Data
                         Price = 3200000,
                         Discount = 200000,
                         Max_Capacity = 40,
-                        Status = TourStatus.Active,
-
+                        Status = TourStatus.Active
                     },
                     new Tour
                     {
                         Name_Tour = "Phú Quốc - Đảo Ngọc",
-                        Description = "Tour nghỉ dưỡng Phú Quốc 4 ngày 3 đêm, tắm biển bãi Sao, cáp treo Hòn Thơm, Safari Phú Quốc, Grand World, chợ đêm Dinh Cậu và thưởng thức hải sản tại Hàm Ninh.",
+                        Description = "Tour nghỉ dưỡng Phú Quốc 4 ngày 3 đêm, tắm biển bãi Sao, cáp treo Hòn Thơm, Safari Phú Quốc, Grand World, chợ đêm Dinh Cậu và thưởng thức hải sản.",
                         Duration = 4,
                         Start_Location = "TP.HCM",
                         End_Location = "Phú Quốc",
                         Price = 6800000,
                         Discount = 800000,
                         Max_Capacity = 30,
-                        Status = TourStatus.Active,
-
+                        Status = TourStatus.Active
                     },
                     new Tour
                     {
@@ -394,50 +353,45 @@ namespace LAPTRINHWEB.Data
                         Price = 4200000,
                         Discount = 400000,
                         Max_Capacity = 25,
-                        Status = TourStatus.Active,
-
+                        Status = TourStatus.Active
                     },
                     new Tour
                     {
                         Name_Tour = "Hà Nội - Thủ đô Ngàn năm",
-                        Description = "Tour khám phá Hà Nội 2 ngày 1 đêm, tham quan Văn Miếu, Lăng Bác, phố cổ 36 phố phường, hồ Gươm, thưởng thức phở, bún chả và cà phê vỉa hè đặc trưng.",
+                        Description = "Tour khám phá Hà Nội 2 ngày 1 đêm, tham quan Văn Miếu, Lăng Bác, phố cổ, hồ Gươm, thưởng thức phở, bún chả và cà phê vỉa hè.",
                         Duration = 2,
                         Start_Location = "Hà Nội",
                         End_Location = "Hà Nội",
                         Price = 2200000,
                         Discount = 0,
                         Max_Capacity = 30,
-                        Status = TourStatus.Active,
-
+                        Status = TourStatus.Active
                     },
                     new Tour
                     {
                         Name_Tour = "Nha Trang - Biển xanh cát trắng",
-                        Description = "Tour biển Nha Trang 4 ngày 3 đêm, tắm biển, lặn ngắm san hô Hòn Mun, tham quan Vinpearl Land, tháp Bà Ponagar, thưởng thức hải sản và tắm bùn khoáng nóng.",
+                        Description = "Tour biển Nha Trang 4 ngày 3 đêm, tắm biển, lặn san hô, tham quan Vinpearl Land, tháp Bà Ponagar và tắm bùn khoáng nóng.",
                         Duration = 4,
                         Start_Location = "TP.HCM",
                         End_Location = "Nha Trang",
                         Price = 5500000,
                         Discount = 600000,
                         Max_Capacity = 35,
-                        Status = TourStatus.Active,
-
+                        Status = TourStatus.Active
                     },
                     new Tour
                     {
                         Name_Tour = "Tour Miền Bắc Trọn gói 7 ngày",
-                        Description = "Tour tổng hợp miền Bắc 7 ngày 6 đêm: Hà Nội - Hạ Long - Sapa - Ninh Bình, trải nghiệm đầy đủ văn hóa, thiên nhiên và ẩm thực miền Bắc với lịch trình tối ưu.",
+                        Description = "Tour tổng hợp miền Bắc 7 ngày 6 đêm: Hà Nội - Hạ Long - Sapa - Ninh Bình, trải nghiệm văn hóa, thiên nhiên và ẩm thực miền Bắc.",
                         Duration = 7,
                         Start_Location = "Hà Nội",
                         End_Location = "Hà Nội",
                         Price = 9800000,
                         Discount = 1200000,
                         Max_Capacity = 25,
-                        Status = TourStatus.Active,
-
+                        Status = TourStatus.Active
                     }
                 };
-
                 context.Tours.AddRange(tours);
                 await context.SaveChangesAsync();
                 Console.WriteLine($"✅ Seeded {tours.Count} tours");
@@ -452,10 +406,8 @@ namespace LAPTRINHWEB.Data
             {
                 var tours = await context.Tours.ToListAsync();
                 var images = new List<TourImage>();
-
                 foreach (var tour in tours)
                 {
-                    // Mỗi tour có 3-4 hình
                     for (int i = 1; i <= 3; i++)
                     {
                         images.Add(new TourImage
@@ -466,7 +418,6 @@ namespace LAPTRINHWEB.Data
                         });
                     }
                 }
-
                 context.TourImages.AddRange(images);
                 await context.SaveChangesAsync();
                 Console.WriteLine($"✅ Seeded {images.Count} tour images");
@@ -474,73 +425,202 @@ namespace LAPTRINHWEB.Data
         }
         #endregion
 
-        #region Itineraries Seeding
+        #region Itineraries and ItineraryDetails Seeding
+        // Ở đây ta tạo lịch trình cơ bản (Itinerary) và kèm theo mỗi lịch trình là các chi tiết (ItineraryDetail)
         private static async Task SeedItinerariesAsync(TourDbContext context)
         {
             if (!context.Itineraries.Any())
             {
                 var tours = await context.Tours.ToListAsync();
-                var locations = await context.Locations.ToListAsync();
+                // Danh sách tạm để thêm cả Itinerary và ItineraryDetail thông qua navgiation property
                 var itineraries = new List<Itinerary>();
 
                 foreach (var tour in tours)
                 {
+                    // Ví dụ: áp dụng seeding cho một số tour nổi bật
                     switch (tour.Name_Tour)
                     {
                         case "Khám phá Vịnh Hạ Long - Đảo Cát Bà":
-                            itineraries.AddRange(new[]
                             {
-                                new Itinerary { ID_Tour = tour.ID_Tour, Day_Number = 1, Title = "Hà Nội - Hạ Long", Description = "06:00: Xe đón tại Hà Nội\n08:30: Nghỉ chân Hải Dương\n12:00: Đến Hạ Long, lên du thuyền\n13:00: Ăn trưa trên du thuyền\n15:00: Tham quan động Thiên Cung\n18:00: Ăn tối, nghỉ đêm trên du thuyền" },
-                                new Itinerary { ID_Tour = tour.ID_Tour, Day_Number = 2, Title = "Hạ Long - Đảo Cát Bà", Description = "07:00: Tập thể dục, ăn sáng\n09:00: Kayak khám phá hang động\n11:30: Di chuyển đến đảo Cát Bà\n13:00: Ăn trưa, nghỉ ngơi\n15:00: Tham quan Vườn quốc gia Cát Bà\n19:00: Ăn tối hải sản, tự do khám phá" },
-                                new Itinerary { ID_Tour = tour.ID_Tour, Day_Number = 3, Title = "Cát Bà - Hà Nội", Description = "08:00: Ăn sáng, tham quan bãi biển\n10:00: Mua sắm đặc sản\n12:00: Ăn trưa, về Hà Nội\n18:00: Về đến Hà Nội, kết thúc tour" }
-                            });
+                                // Day 1
+                                var iti1 = new Itinerary
+                                {
+                                    ID_Tour = tour.ID_Tour,
+                                    Day_Number = 1,
+                                    Title = "Hà Nội - Hạ Long",
+                                    Details = new List<ItineraryDetail>()
+                                };
+                                iti1.Details.Add(new ItineraryDetail { Time = "06:00", Activities = "Xe đón tại Hà Nội" });
+                                iti1.Details.Add(new ItineraryDetail { Time = "08:30", Activities = "Nghỉ chân Hải Dương" });
+                                iti1.Details.Add(new ItineraryDetail { Time = "12:00", Activities = "Đến Hạ Long, lên du thuyền" });
+                                iti1.Details.Add(new ItineraryDetail { Time = "13:00", Activities = "Ăn trưa trên du thuyền" });
+                                iti1.Details.Add(new ItineraryDetail { Time = "15:00", Activities = "Tham quan động Thiên Cung" });
+                                iti1.Details.Add(new ItineraryDetail { Time = "18:00", Activities = "Ăn tối và nghỉ đêm trên du thuyền" });
+
+                                // Day 2
+                                var iti2 = new Itinerary
+                                {
+                                    ID_Tour = tour.ID_Tour,
+                                    Day_Number = 2,
+                                    Title = "Hạ Long - Đảo Cát Bà",
+                                    Details = new List<ItineraryDetail>()
+                                };
+                                iti2.Details.Add(new ItineraryDetail { Time = "07:00", Activities = "Tập thể dục và ăn sáng" });
+                                iti2.Details.Add(new ItineraryDetail { Time = "09:00", Activities = "Kayak khám phá hang động" });
+                                iti2.Details.Add(new ItineraryDetail { Time = "11:30", Activities = "Di chuyển đến đảo Cát Bà" });
+                                iti2.Details.Add(new ItineraryDetail { Time = "13:00", Activities = "Ăn trưa và nghỉ ngơi" });
+                                iti2.Details.Add(new ItineraryDetail { Time = "15:00", Activities = "Tham quan Vườn quốc gia Cát Bà" });
+                                iti2.Details.Add(new ItineraryDetail { Time = "19:00", Activities = "Ăn tối hải sản và tự do khám phá" });
+
+                                // Day 3
+                                var iti3 = new Itinerary
+                                {
+                                    ID_Tour = tour.ID_Tour,
+                                    Day_Number = 3,
+                                    Title = "Cát Bà - Hà Nội",
+                                    Details = new List<ItineraryDetail>()
+                                };
+                                iti3.Details.Add(new ItineraryDetail { Time = "08:00", Activities = "Ăn sáng và tham quan bãi biển" });
+                                iti3.Details.Add(new ItineraryDetail { Time = "10:00", Activities = "Mua sắm đặc sản" });
+                                iti3.Details.Add(new ItineraryDetail { Time = "12:00", Activities = "Ăn trưa và về Hà Nội" });
+                                iti3.Details.Add(new ItineraryDetail { Time = "18:00", Activities = "Kết thúc tour" });
+
+                                itineraries.AddRange(new[] { iti1, iti2, iti3 });
+                            }
                             break;
 
                         case "Sapa - Fansipan - Bản Cát Cát":
-                            itineraries.AddRange(new[]
                             {
-                                new Itinerary { ID_Tour = tour.ID_Tour, Day_Number = 1, Title = "Hà Nội - Sapa", Description = "21:30: Xe giường nằm khởi hành từ Hà Nội\nNghỉ đêm trên xe" },
-                                new Itinerary { ID_Tour = tour.ID_Tour, Day_Number = 2, Title = "Chinh phục Fansipan", Description = "06:00: Đến Sapa, ăn sáng\n08:00: Cáp treo lên đỉnh Fansipan\n11:00: Chụp ảnh 'nóc nhà Đông Dương'\n13:00: Ăn trưa, nghỉ ngơi\n15:00: Tham quan bản Cát Cát\n19:00: Ăn tối, nghỉ đêm khách sạn" },
-                                new Itinerary { ID_Tour = tour.ID_Tour, Day_Number = 3, Title = "Sapa - Làng dân tộc", Description = "08:00: Ăn sáng, trekking bản Tả Van\n12:00: Ăn trưa với gia đình H'Mông\n14:00: Trải nghiệm làm bánh giầy\n16:00: Mua sắm thổ cẩm\n19:00: BBQ tối, nghỉ homestay" },
-                                new Itinerary { ID_Tour = tour.ID_Tour, Day_Number = 4, Title = "Sapa - Hà Nội", Description = "08:00: Ăn sáng, chợ Sapa\n10:00: Khởi hành về Hà Nội\n16:00: Về đến Hà Nội, kết thúc tour" }
-                            });
+                                // Day 1
+                                var iti1 = new Itinerary
+                                {
+                                    ID_Tour = tour.ID_Tour,
+                                    Day_Number = 1,
+                                    Title = "Hà Nội - Sapa"
+                                };
+                                iti1.Details.Add(new ItineraryDetail { Time = "21:30", Activities = "Xe giường nằm khởi hành từ Hà Nội" });
+
+                                // Day 2
+                                var iti2 = new Itinerary
+                                {
+                                    ID_Tour = tour.ID_Tour,
+                                    Day_Number = 2,
+                                    Title = "Chinh phục Fansipan"
+                                };
+                                iti2.Details.Add(new ItineraryDetail { Time = "06:00", Activities = "Đến Sapa và ăn sáng" });
+                                iti2.Details.Add(new ItineraryDetail { Time = "08:00", Activities = "Cáp treo lên đỉnh Fansipan" });
+                                iti2.Details.Add(new ItineraryDetail { Time = "11:00", Activities = "Chụp ảnh tại đỉnh" });
+                                iti2.Details.Add(new ItineraryDetail { Time = "13:00", Activities = "Ăn trưa & nghỉ ngơi" });
+                                iti2.Details.Add(new ItineraryDetail { Time = "15:00", Activities = "Tham quan bản Cát Cát" });
+                                iti2.Details.Add(new ItineraryDetail { Time = "19:00", Activities = "Ăn tối và nghỉ đêm khách sạn" });
+
+                                // Day 3
+                                var iti3 = new Itinerary
+                                {
+                                    ID_Tour = tour.ID_Tour,
+                                    Day_Number = 3,
+                                    Title = "Sapa - Làng dân tộc"
+                                };
+                                iti3.Details.Add(new ItineraryDetail { Time = "08:00", Activities = "Ăn sáng và trekking tại bản Tả Van" });
+                                iti3.Details.Add(new ItineraryDetail { Time = "12:00", Activities = "Ăn trưa với gia đình H'Mông" });
+                                iti3.Details.Add(new ItineraryDetail { Time = "14:00", Activities = "Trải nghiệm làm bánh giầy" });
+                                iti3.Details.Add(new ItineraryDetail { Time = "16:00", Activities = "Mua sắm thổ cẩm" });
+                                iti3.Details.Add(new ItineraryDetail { Time = "19:00", Activities = "BBQ tối và nghỉ homestay" });
+
+                                // Day 4
+                                var iti4 = new Itinerary
+                                {
+                                    ID_Tour = tour.ID_Tour,
+                                    Day_Number = 4,
+                                    Title = "Sapa - Hà Nội"
+                                };
+                                iti4.Details.Add(new ItineraryDetail { Time = "08:00", Activities = "Ăn sáng" });
+                                iti4.Details.Add(new ItineraryDetail { Time = "10:00", Activities = "Khởi hành về Hà Nội" });
+                                iti4.Details.Add(new ItineraryDetail { Time = "16:00", Activities = "Về đến Hà Nội, kết thúc tour" });
+
+                                itineraries.AddRange(new[] { iti1, iti2, iti3, iti4 });
+                            }
                             break;
 
                         case "Hội An - Đà Nẵng - Bà Nà Hills":
-                            itineraries.AddRange(new[]
                             {
-                                new Itinerary { ID_Tour = tour.ID_Tour, Day_Number = 1, Title = "Đến Đà Nẵng - Hội An", Description = "10:00: Đón sân bay Đà Nẵng\n11:00: Check-in khách sạn\n13:00: Ăn trưa cao lầu Hội An\n15:00: Tham quan phố cổ, chùa Cầu\n18:00: Ăn tối white rose\n20:00: Thả đèn hoa đăng sông Hoài" },
-                                new Itinerary { ID_Tour = tour.ID_Tour, Day_Number = 2, Title = "Bà Nà Hills", Description = "07:30: Ăn sáng, đi Bà Nà Hills\n08:30: Cáp treo lên Bà Nà\n10:00: Cầu Vàng, chụp ảnh sống ảo\n12:00: Ăn trưa buffet\n14:00: Fantasy Park, trò chơi\n17:00: Về Đà Nẵng, ăn tối hải sản" },
-                                new Itinerary { ID_Tour = tour.ID_Tour, Day_Number = 3, Title = "Đà Nẵng - Về", Description = "08:00: Ăn sáng, tắm biển Mỹ Khê\n10:00: Mua sắm Con market\n12:00: Ăn trưa, ra sân bay\n14:00: Bay về, kết thúc tour" }
-                            });
-                            break;
-
-                        // Tiếp tục với các tour khác...
-                        default:
-                            // Tạo lịch trình cơ bản cho các tour còn lại
-                            for (int day = 1; day <= tour.Duration; day++)
-                            {
-                                itineraries.Add(new Itinerary
+                                // Day 1
+                                var iti1 = new Itinerary
                                 {
                                     ID_Tour = tour.ID_Tour,
-                                    Day_Number = day,
-                                    Title = $"Ngày {day}",
-                                    Description = $"Lịch trình ngày {day} của tour {tour.Name_Tour}"
-                                });
+                                    Day_Number = 1,
+                                    Title = "Đến Đà Nẵng - Hội An"
+                                };
+                                iti1.Details.Add(new ItineraryDetail { Time = "10:00", Activities = "Đón sân bay Đà Nẵng" });
+                                iti1.Details.Add(new ItineraryDetail { Time = "11:00", Activities = "Check-in khách sạn" });
+                                iti1.Details.Add(new ItineraryDetail { Time = "13:00", Activities = "Ăn trưa cao lầu Hội An" });
+                                iti1.Details.Add(new ItineraryDetail { Time = "15:00", Activities = "Tham quan phố cổ và chùa Cầu" });
+                                iti1.Details.Add(new ItineraryDetail { Time = "18:00", Activities = "Ăn tối white rose" });
+                                iti1.Details.Add(new ItineraryDetail { Time = "20:00", Activities = "Thả đèn hoa đăng sông Hoài" });
+
+                                // Day 2
+                                var iti2 = new Itinerary
+                                {
+                                    ID_Tour = tour.ID_Tour,
+                                    Day_Number = 2,
+                                    Title = "Bà Nà Hills"
+                                };
+                                iti2.Details.Add(new ItineraryDetail { Time = "07:30", Activities = "Ăn sáng và đi Bà Nà Hills" });
+                                iti2.Details.Add(new ItineraryDetail { Time = "08:30", Activities = "Cáp treo lên Bà Nà" });
+                                iti2.Details.Add(new ItineraryDetail { Time = "10:00", Activities = "Tham quan Cầu Vàng và chụp ảnh" });
+                                iti2.Details.Add(new ItineraryDetail { Time = "12:00", Activities = "Ăn trưa buffet" });
+                                iti2.Details.Add(new ItineraryDetail { Time = "14:00", Activities = "Tham gia Fantasy Park" });
+                                iti2.Details.Add(new ItineraryDetail { Time = "17:00", Activities = "Về Đà Nẵng và ăn tối hải sản" });
+
+                                // Day 3
+                                var iti3 = new Itinerary
+                                {
+                                    ID_Tour = tour.ID_Tour,
+                                    Day_Number = 3,
+                                    Title = "Đà Nẵng - Về"
+                                };
+                                iti3.Details.Add(new ItineraryDetail { Time = "08:00", Activities = "Ăn sáng và tắm biển Mỹ Khê" });
+                                iti3.Details.Add(new ItineraryDetail { Time = "10:00", Activities = "Mua sắm tại Con Market" });
+                                iti3.Details.Add(new ItineraryDetail { Time = "12:00", Activities = "Ăn trưa và ra sân bay" });
+                                iti3.Details.Add(new ItineraryDetail { Time = "14:00", Activities = "Bay về, kết thúc tour" });
+
+                                itineraries.AddRange(new[] { iti1, iti2, iti3 });
+                            }
+                            break;
+
+                        default:
+                            {
+                                // Với các tour khác, tạo một bản ghi chi tiết đơn giản cho mỗi ngày
+                                for (int day = 1; day <= tour.Duration; day++)
+                                {
+                                    var iti = new Itinerary
+                                    {
+                                        ID_Tour = tour.ID_Tour,
+                                        Day_Number = day,
+                                        Title = $"Ngày {day}"
+                                    };
+                                    iti.Details.Add(new ItineraryDetail
+                                    {
+                                        Time = $"Thời gian hoạt động ngày {day}",
+                                        Activities = $"Hoạt động cụ thể ngày {day} của tour {tour.Name_Tour}"
+                                    });
+                                    itineraries.Add(iti);
+                                }
                             }
                             break;
                     }
                 }
-
                 context.Itineraries.AddRange(itineraries);
                 await context.SaveChangesAsync();
-                Console.WriteLine($"✅ Seeded {itineraries.Count} itineraries");
+                Console.WriteLine($"✅ Seeded {itineraries.Count} itineraries with details");
 
-                // Seed ItineraryLocations
+                // Seed ItineraryLocations nếu cần
                 await SeedItineraryLocationsAsync(context);
             }
         }
+        #endregion
 
+        #region ItineraryLocations Seeding
         private static async Task SeedItineraryLocationsAsync(TourDbContext context)
         {
             if (!context.ItineraryLocations.Any())
@@ -548,10 +628,8 @@ namespace LAPTRINHWEB.Data
                 var itineraries = await context.Itineraries.ToListAsync();
                 var locations = await context.Locations.ToListAsync();
                 var itineraryLocations = new List<ItineraryLocation>();
-
-                foreach (var itinerary in itineraries.Take(10)) // Chỉ seed cho vài itinerary đầu
+                foreach (var itinerary in itineraries.Take(10))
                 {
-                    // Random 1-2 locations cho mỗi itinerary
                     var randomLocations = locations.OrderBy(x => Guid.NewGuid()).Take(2);
                     foreach (var location in randomLocations)
                     {
@@ -559,11 +637,9 @@ namespace LAPTRINHWEB.Data
                         {
                             ID_Itinerary = itinerary.ID_Itinerary,
                             ID_Location = location.ID_Location,
-
                         });
                     }
                 }
-
                 context.ItineraryLocations.AddRange(itineraryLocations);
                 await context.SaveChangesAsync();
                 Console.WriteLine($"✅ Seeded {itineraryLocations.Count} itinerary locations");
@@ -579,12 +655,10 @@ namespace LAPTRINHWEB.Data
                 var tours = await context.Tours.ToListAsync();
                 var guides = await context.TourGuides.ToListAsync();
                 var assignments = new List<TourGuideAssignment>();
-
                 for (int i = 0; i < tours.Count; i++)
                 {
                     var tour = tours[i];
-                    var guide = guides[i % guides.Count]; // Xoay vòng guides
-
+                    var guide = guides[i % guides.Count];
                     assignments.Add(new TourGuideAssignment
                     {
                         ID_Tour = tour.ID_Tour,
@@ -593,13 +667,11 @@ namespace LAPTRINHWEB.Data
                         End_Date = DateTime.Now.AddDays(7 + i * 3 + tour.Duration)
                     });
                 }
-
                 context.TourGuideAssignments.AddRange(assignments);
                 await context.SaveChangesAsync();
                 Console.WriteLine($"✅ Seeded {assignments.Count} tour guide assignments");
             }
         }
-
         private static async Task SeedTourAccommodationsAsync(TourDbContext context)
         {
             if (!context.TourAccommodations.Any())
@@ -607,10 +679,8 @@ namespace LAPTRINHWEB.Data
                 var tours = await context.Tours.ToListAsync();
                 var accommodations = await context.Accommodations.ToListAsync();
                 var tourAccommodations = new List<TourAccommodation>();
-
                 foreach (var tour in tours)
                 {
-                    // Mỗi tour có accommodation cho các đêm nghỉ
                     for (int night = 1; night < tour.Duration; night++)
                     {
                         var accommodation = accommodations[night % accommodations.Count];
@@ -625,13 +695,11 @@ namespace LAPTRINHWEB.Data
                         });
                     }
                 }
-
                 context.TourAccommodations.AddRange(tourAccommodations);
                 await context.SaveChangesAsync();
                 Console.WriteLine($"✅ Seeded {tourAccommodations.Count} tour accommodations");
             }
         }
-
         private static async Task SeedTourTransportsAsync(TourDbContext context)
         {
             if (!context.TourTransports.Any())
@@ -639,13 +707,9 @@ namespace LAPTRINHWEB.Data
                 var tours = await context.Tours.ToListAsync();
                 var transportations = await context.Transportations.ToListAsync();
                 var tourTransports = new List<TourTransport>();
-
                 foreach (var tour in tours)
                 {
-                    // Mỗi tour có transportation cho ngày đầu và cuối
-                    var transport = transportations.First(t => t.Type == 0); // Xe bus
-
-                    // Transportation đi
+                    var transport = transportations.First(t => t.Type == 0);
                     tourTransports.Add(new TourTransport
                     {
                         ID_Tour = tour.ID_Tour,
@@ -656,8 +720,6 @@ namespace LAPTRINHWEB.Data
                         Departure_Time = new TimeSpan(7, 0, 0),
                         Arrival_Time = new TimeSpan(12, 0, 0)
                     });
-
-                    // Transportation về
                     if (tour.Duration > 1)
                     {
                         tourTransports.Add(new TourTransport
@@ -672,12 +734,15 @@ namespace LAPTRINHWEB.Data
                         });
                     }
                 }
-
                 context.TourTransports.AddRange(tourTransports);
                 await context.SaveChangesAsync();
                 Console.WriteLine($"✅ Seeded {tourTransports.Count} tour transports");
             }
         }
         #endregion
+
+
+
+
     }
 }

@@ -1,0 +1,301 @@
+@model LAPTRINHWEB.Models.Itinerary
+@using Microsoft.AspNetCore.Mvc.Rendering
+@{
+    ViewData["Title"] = "Thêm Hành trình mới";
+    var tours = ViewData["TourList"] as SelectList;
+    var locations = ViewData["LocationList"] as MultiSelectList;
+}
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thêm Hành trình mới</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #eef2f7;
+            display: flex;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 250px;
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px 0;
+            height: 100vh;
+            position: fixed;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar-item {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .sidebar-item:hover,
+        .sidebar-item.active {
+            background-color: #34495e;
+        }
+
+        .sidebar-item i {
+            margin-right: 15px;
+            font-size: 18px;
+        }
+
+        /* Content Styles */
+        .content {
+            flex: 1;
+            padding: 30px;
+            margin-left: 250px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        /* Card Styles */
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+
+        /* Button Styles */
+        .btn {
+            padding: 10px 20px;
+            background-color: #3498db;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-secondary {
+            background-color: #7f8c8d;
+        }
+
+        .btn-secondary:hover {
+            background-color: #95a5a6;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            margin-bottom: 8px;
+            font-weight: 600;
+            display: block;
+        }
+
+        .form-control,
+        .form-select {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+
+        /* Grid System */
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: -15px;
+        }
+
+        .col-md-6 {
+            flex: 0 0 50%;
+            max-width: 50%;
+            padding: 15px;
+        }
+
+        /* Style phần chi tiết */
+        .detail-container {
+            margin-top: 20px;
+        }
+
+        .detail-header {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .detail-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .detail-row input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+        }
+
+        .btn-remove-detail {
+            background-color: #dc3545;
+            border: none;
+            color: white;
+            padding: 8px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-add-detail {
+            background-color: #28a745;
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="sidebar-item">
+            <i class="fas fa-chart-line"></i>
+            <span>Dashboard</span>
+        </div>
+        <div class="sidebar-item">
+            <i class="fas fa-map-marked-alt"></i>
+            <span>Quản lý Tour</span>
+        </div>
+        <div class="sidebar-item">
+            <i class="fas fa-users"></i>
+            <span>Quản lý Người dùng</span>
+        </div>
+        <div class="sidebar-item">
+            <i class="fas fa-bus"></i>
+            <span>Quản lý Phương tiện</span>
+        </div>
+        <div class="sidebar-item">
+            <i class="fas fa-hotel"></i>
+            <span>Quản lý Nơi ở</span>
+        </div>
+        <div class="sidebar-item active">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Quản lý Lịch trình</span>
+        </div>
+        <div class="sidebar-item">
+            <i class="fas fa-route"></i>
+            <span>Quản lý Hành trình</span>
+        </div>
+        <div class="sidebar-item">
+            <i class="fas fa-user-tie"></i>
+            <span>Quản lý HDV</span>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="header">
+            <h2>Thêm Hành trình mới</h2>
+            <a href='@Url.Action("Index", "Itenerary", new { area = "Admin" })' class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Quay lại
+            </a>
+        </div>
+
+        <div class="card">
+            <form id="addIteneraryForm" asp-area="Admin" asp-controller="Itenerary" asp-action="Add" method="post">
+                @Html.AntiForgeryToken()
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="ID_Tour" class="form-label">Tour</label>
+                            <select asp-for="ID_Tour" asp-items="tours" class="form-select"></select>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Day_Number" class="form-label">Ngày thứ</label>
+                            <input asp-for="Day_Number" type="number" min="1" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Title" class="form-label">Tiêu đề</label>
+                            <input asp-for="Title" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Chọn địa điểm</label>
+                            <select name="SelectedLocations" asp-items="locations" class="form-select"
+                                multiple></select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phần chi tiết lịch trình -->
+                <div class="detail-container">
+                    <div class="detail-header">Chi tiết lịch trình</div>
+                    <div id="detailsContainer">
+                        @* Ban đầu không có dòng nào, người dùng có thể thêm *@
+                    </div>
+                    <button type="button" class="btn-add-detail" onclick="addDetail()">Thêm chi tiết</button>
+                </div>
+
+                <div style="margin-top: 20px;">
+                    <button type="submit" class="btn">Thêm hành trình</button>
+                    <a href='@Url.Action("Index", "Itenerary", new { area = "Admin" })' class="btn btn-secondary"
+                        style="margin-left: 10px;">Hủy</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function removeDetail(btn) {
+            btn.parentElement.remove();
+        }
+        function addDetail() {
+            var container = document.getElementById('detailsContainer');
+            var index = container.children.length;
+            var div = document.createElement('div');
+            div.className = "detail-row";
+            div.innerHTML = '<input type="text" name="Details[' + index + '].Time" placeholder="Time" required/>' +
+                '<input type="text" name="Details[' + index + '].Activities" placeholder="Activities" required/>' +
+                '<button type="button" class="btn-remove-detail" onclick="removeDetail(this)">X</button>';
+            container.appendChild(div);
+        }
+    </script>
+</body>
+
+</html>
+        

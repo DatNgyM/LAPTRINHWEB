@@ -2,7 +2,6 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace LAPTRINHWEB.Models
 {
@@ -24,14 +23,16 @@ namespace LAPTRINHWEB.Models
         [Column("Title", TypeName = "nvarchar(200)")]
         public string Title { get; set; }
 
-        [Column("Description", TypeName = "ntext")]
-        [DataType(DataType.Text)]
-        public string Description { get; set; }
-
-        // Navigation properties
         [ForeignKey("ID_Tour")]
         public virtual Tour Tour { get; set; }
 
+        public ICollection<ItineraryDetail> Details { get; set; }
         public ICollection<ItineraryLocation> ItineraryLocations { get; set; } = new List<ItineraryLocation>();
+
+        public Itinerary()
+        {
+            Details = new List<ItineraryDetail>();
+            ItineraryLocations = new List<ItineraryLocation>();
+        }
     }
 }

@@ -1,0 +1,256 @@
+@model LAPTRINHWEB.Models.TourGuide
+@{
+    ViewData["Title"] = "Xóa Hướng dẫn viên";
+}
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f4f6f9;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #343a40;
+            color: white;
+            padding: 15px 0;
+            height: 100vh;
+            position: fixed;
+        }
+
+        .sidebar-item {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .sidebar-item:hover {
+            background-color: #4b545c;
+        }
+
+        .sidebar-item.active {
+            background-color: #007bff;
+        }
+
+        .sidebar-item i {
+            margin-right: 10px;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+            margin-left: 250px;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .btn {
+            padding: 8px 15px;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+        }
+
+        .btn:hover {
+            background-color: #0069d9;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+        .delete-confirmation {
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        .delete-icon {
+            font-size: 64px;
+            color: #dc3545;
+            margin-bottom: 20px;
+        }
+
+        .delete-message {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .detail-table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+        }
+
+        .detail-table th,
+        .detail-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .detail-table th {
+            width: 30%;
+            background-color: #f2f2f2;
+        }
+
+        .tour-guide-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+
+        .tour-guide-info img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 20px;
+        }
+
+        .tour-guide-name {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .tour-guide-email {
+            color: #6c757d;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="sidebar-item">
+            <i class="fas fa-chart-line"></i>
+            <span>Dashboard</span>
+        </div>
+        <div class="sidebar-item">
+            <i class="fas fa-map-marked-alt"></i>
+            <span>Quản lý Tour</span>
+        </div>
+        <div class="sidebar-item">
+            <i class="fas fa-users"></i>
+            <span>Quản lý Người dùng</span>
+        </div>
+        <div class="sidebar-item">
+            <i class="fas fa-bus"></i>
+            <span>Quản lý Phương tiện</span>
+        </div>
+        <div class="sidebar-item">
+            <i class="fas fa-hotel"></i>
+            <span>Quản lý Nơi ở</span>
+        </div>
+        <div class="sidebar-item">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Quản lý Lịch trình</span>
+        </div>
+        <div class="sidebar-item active">
+            <i class="fas fa-user-tie"></i>
+            <span>Quản lý HDV</span>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="header">
+            <h2>@ViewData["Title"]</h2>
+            <a href="@Url.Action("Index", "TourGuide", new { area = "Admin" })" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Quay lại
+            </a>
+        </div>
+        <div class="card">
+            <div class="delete-confirmation">
+                <div class="delete-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <h3>Xác nhận xóa hướng dẫn viên?</h3>
+                <p class="delete-message">
+                    Bạn có chắc chắn muốn xóa hướng dẫn viên <strong>@Model.FullName</strong>? Hành động này không thể
+                    hoàn tác.
+                </p>
+                <div class="tour-guide-info">
+                    <div>
+                        <div class="tour-guide-name">@Model.FullName</div>
+                        <div class="tour-guide-email">@Model.Email</div>
+                        <div>Kinh nghiệm: @Model.Experience năm</div>
+                    </div>
+                </div>
+                <div style="background-color: #f8f9fa; padding: 20px; border-radius: 5px; margin-bottom: 20px;">
+                    <h4 style="margin-bottom: 15px; text-align: left;">Thông tin chi tiết:</h4>
+                    <table class="detail-table">
+                        <tr>
+                            <th>Mã hướng dẫn viên:</th>
+                            <td>@Model.ID_Guide</td>
+                        </tr>
+                        <tr>
+                            <th>Số điện thoại:</th>
+                            <td>@Model.Phone</td>
+                        </tr>
+
+                    </table>
+                </div>
+                <form asp-action="Delete" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" asp-for="ID_Guide" />
+                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> Xác nhận xóa</button>
+                    <a href="@Url.Action("Index", "TourGuide", new { area = "Admin" })"
+                        class="btn btn-secondary">Hủy</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

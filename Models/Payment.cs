@@ -49,6 +49,7 @@ namespace LAPTRINHWEB.Models
         Waiting = 0,
         Completed = 1,
         Failed = 2,
-        Cancelled = 3
+        Cancelled = 3,
+        completed = 4
     }
 }

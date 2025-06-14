@@ -224,10 +224,6 @@ namespace LAPTRINHWEB.Migrations
                         .HasColumnType("int")
                         .HasColumnName("Day_Number");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("ntext")
-                        .HasColumnName("Description");
-
                     b.Property<int>("ID_Tour")
                         .HasColumnType("int");
 
@@ -242,6 +238,33 @@ namespace LAPTRINHWEB.Migrations
                     b.HasIndex("ID_Tour");
 
                     b.ToTable("Itineraries", (string)null);
+                });
+
+            modelBuilder.Entity("LAPTRINHWEB.Models.ItineraryDetail", b =>
+                {
+                    b.Property<int>("ID_Detail")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID_Detail"));
+
+                    b.Property<string>("Activities")
+                        .IsRequired()
+                        .HasColumnType("ntext");
+
+                    b.Property<int>("ID_Itinerary")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Time")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("ID_Detail");
+
+                    b.HasIndex("ID_Itinerary");
+
+                    b.ToTable("ItineraryDetails", (string)null);
                 });
 
             modelBuilder.Entity("LAPTRINHWEB.Models.ItineraryLocation", b =>
@@ -807,6 +830,17 @@ namespace LAPTRINHWEB.Migrations
                     b.Navigation("Tour");
                 });
 
+            modelBuilder.Entity("LAPTRINHWEB.Models.ItineraryDetail", b =>
+                {
+                    b.HasOne("LAPTRINHWEB.Models.Itinerary", "Itinerary")
+                        .WithMany("Details")
+                        .HasForeignKey("ID_Itinerary")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Itinerary");
+                });
+
             modelBuilder.Entity("LAPTRINHWEB.Models.ItineraryLocation", b =>
                 {
                     b.HasOne("LAPTRINHWEB.Models.Itinerary", "Itinerary")
@@ -973,6 +1007,8 @@ namespace LAPTRINHWEB.Migrations
 
             modelBuilder.Entity("LAPTRINHWEB.Models.Itinerary", b =>
                 {
+                    b.Navigation("Details");
+
                     b.Navigation("ItineraryLocations");
                 });
 

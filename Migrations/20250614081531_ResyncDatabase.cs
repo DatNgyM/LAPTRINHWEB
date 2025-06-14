@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LAPTRINHWEB.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class ResyncDatabase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -97,7 +97,7 @@ namespace LAPTRINHWEB.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FullName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Phone = table.Column<string>(type: "varchar(15)", maxLength: 15, nullable: false),
-                    Email = table.Column<string>(type: "varchar(150)", maxLength: 100, nullable: false),
+                    Email = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: false),
                     Experience = table.Column<string>(type: "ntext", nullable: true)
                 },
                 constraints: table =>
@@ -114,12 +114,12 @@ namespace LAPTRINHWEB.Migrations
                     Name_Tour = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     Description = table.Column<string>(type: "ntext", nullable: true),
                     Duration = table.Column<int>(type: "int", nullable: false),
-                    Start_Location = table.Column<string>(type: "nvarchar(100)", maxLength: 200, nullable: false),
-                    End_Location = table.Column<string>(type: "nvarchar(100)", maxLength: 200, nullable: false),
+                    Start_Location = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    End_Location = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Discount = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     Max_Capacity = table.Column<int>(type: "int", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false)
+                    Status = table.Column<int>(type: "int", nullable: false, defaultValue: 0)
                 },
                 constraints: table =>
                 {
@@ -132,10 +132,10 @@ namespace LAPTRINHWEB.Migrations
                 {
                     ID_Transport = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Type = table.Column<int>(type: "int", maxLength: 50, nullable: false),
+                    Type = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     Capacity = table.Column<int>(type: "int", nullable: true),
-                    Provider = table.Column<string>(type: "nvarchar(200)", maxLength: 100, nullable: true),
+                    Provider = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     License_Plate = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: true),
                     Description = table.Column<string>(type: "ntext", nullable: true)
                 },
@@ -257,14 +257,13 @@ namespace LAPTRINHWEB.Migrations
                     ID_Booking = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ID_Tour = table.Column<int>(type: "int", nullable: false),
-                    Booking_Date = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
+                    Booking_Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Number_Adults = table.Column<int>(type: "int", nullable: false),
-                    Number_Children = table.Column<int>(type: "int", nullable: false),
+                    Number_Children = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     Total_Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     Note = table.Column<string>(type: "ntext", nullable: true),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    TourID_Tour = table.Column<int>(type: "int", nullable: true)
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -281,11 +280,6 @@ namespace LAPTRINHWEB.Migrations
                         principalTable: "Tours",
                         principalColumn: "ID_Tour",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Bookings_Tours_TourID_Tour",
-                        column: x => x.TourID_Tour,
-                        principalTable: "Tours",
-                        principalColumn: "ID_Tour");
                 });
 
             migrationBuilder.CreateTable(
@@ -296,9 +290,7 @@ namespace LAPTRINHWEB.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ID_Tour = table.Column<int>(type: "int", nullable: false),
                     Day_Number = table.Column<int>(type: "int", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    Description = table.Column<string>(type: "ntext", nullable: true),
-                    TourID_Tour = table.Column<int>(type: "int", nullable: true)
+                    Title = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -309,11 +301,6 @@ namespace LAPTRINHWEB.Migrations
                         principalTable: "Tours",
                         principalColumn: "ID_Tour",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Itineraries_Tours_TourID_Tour",
-                        column: x => x.TourID_Tour,
-                        principalTable: "Tours",
-                        principalColumn: "ID_Tour");
                 });
 
             migrationBuilder.CreateTable(
@@ -327,18 +314,11 @@ namespace LAPTRINHWEB.Migrations
                     Day_Number = table.Column<int>(type: "int", nullable: false),
                     Nights = table.Column<int>(type: "int", nullable: false),
                     Checkin_Time = table.Column<TimeSpan>(type: "time", nullable: true),
-                    Checkout_Time = table.Column<TimeSpan>(type: "time", nullable: true),
-                    AccommodationID_Accommodation = table.Column<int>(type: "int", nullable: true),
-                    TourID_Tour = table.Column<int>(type: "int", nullable: true)
+                    Checkout_Time = table.Column<TimeSpan>(type: "time", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TourAccommodations", x => x.ID_TourAcc);
-                    table.ForeignKey(
-                        name: "FK_TourAccommodations_Accommodations_AccommodationID_Accommodation",
-                        column: x => x.AccommodationID_Accommodation,
-                        principalTable: "Accommodations",
-                        principalColumn: "ID_Accommodation");
                     table.ForeignKey(
                         name: "FK_TourAccommodations_Accommodations_ID_Accommodation",
                         column: x => x.ID_Accommodation,
@@ -351,11 +331,6 @@ namespace LAPTRINHWEB.Migrations
                         principalTable: "Tours",
                         principalColumn: "ID_Tour",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_TourAccommodations_Tours_TourID_Tour",
-                        column: x => x.TourID_Tour,
-                        principalTable: "Tours",
-                        principalColumn: "ID_Tour");
                 });
 
             migrationBuilder.CreateTable(
@@ -367,9 +342,7 @@ namespace LAPTRINHWEB.Migrations
                     ID_Tour = table.Column<int>(type: "int", nullable: false),
                     ID_Guide = table.Column<int>(type: "int", nullable: false),
                     Start_Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    End_Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TourGuideID_Guide = table.Column<int>(type: "int", nullable: true),
-                    TourID_Tour = table.Column<int>(type: "int", nullable: true)
+                    End_Date = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -381,21 +354,11 @@ namespace LAPTRINHWEB.Migrations
                         principalColumn: "ID_Guide",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TourGuideAssignments_TourGuides_TourGuideID_Guide",
-                        column: x => x.TourGuideID_Guide,
-                        principalTable: "TourGuides",
-                        principalColumn: "ID_Guide");
-                    table.ForeignKey(
                         name: "FK_TourGuideAssignments_Tours_ID_Tour",
                         column: x => x.ID_Tour,
                         principalTable: "Tours",
                         principalColumn: "ID_Tour",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_TourGuideAssignments_Tours_TourID_Tour",
-                        column: x => x.TourID_Tour,
-                        principalTable: "Tours",
-                        principalColumn: "ID_Tour");
                 });
 
             migrationBuilder.CreateTable(
@@ -406,7 +369,7 @@ namespace LAPTRINHWEB.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ID_Tour = table.Column<int>(type: "int", nullable: false),
                     Image_URL = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    Caption = table.Column<string>(type: "nvarchar(255)", maxLength: 200, nullable: true)
+                    Caption = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -431,9 +394,7 @@ namespace LAPTRINHWEB.Migrations
                     From_Location = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     To_Location = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Departure_Time = table.Column<TimeSpan>(type: "time", nullable: true),
-                    Arrival_Time = table.Column<TimeSpan>(type: "time", nullable: true),
-                    TourID_Tour = table.Column<int>(type: "int", nullable: true),
-                    TransportationID_Transport = table.Column<int>(type: "int", nullable: true)
+                    Arrival_Time = table.Column<TimeSpan>(type: "time", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -445,21 +406,11 @@ namespace LAPTRINHWEB.Migrations
                         principalColumn: "ID_Tour",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TourTransports_Tours_TourID_Tour",
-                        column: x => x.TourID_Tour,
-                        principalTable: "Tours",
-                        principalColumn: "ID_Tour");
-                    table.ForeignKey(
                         name: "FK_TourTransports_Transportations_ID_Transport",
                         column: x => x.ID_Transport,
                         principalTable: "Transportations",
                         principalColumn: "ID_Transport",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_TourTransports_Transportations_TransportationID_Transport",
-                        column: x => x.TransportationID_Transport,
-                        principalTable: "Transportations",
-                        principalColumn: "ID_Transport");
                 });
 
             migrationBuilder.CreateTable(
@@ -469,10 +420,10 @@ namespace LAPTRINHWEB.Migrations
                     ID_Payment = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ID_Booking = table.Column<int>(type: "int", nullable: false),
-                    Method = table.Column<int>(type: "int", maxLength: 50, nullable: false),
+                    Method = table.Column<int>(type: "int", nullable: false),
                     Paid_Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Payment_Date = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
-                    Status = table.Column<int>(type: "int", nullable: false)
+                    Payment_Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false, defaultValue: 0)
                 },
                 constraints: table =>
                 {
@@ -486,6 +437,27 @@ namespace LAPTRINHWEB.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ItineraryDetails",
+                columns: table => new
+                {
+                    ID_Detail = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ID_Itinerary = table.Column<int>(type: "int", nullable: false),
+                    Time = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Activities = table.Column<string>(type: "ntext", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ItineraryDetails", x => x.ID_Detail);
+                    table.ForeignKey(
+                        name: "FK_ItineraryDetails_Itineraries_ID_Itinerary",
+                        column: x => x.ID_Itinerary,
+                        principalTable: "Itineraries",
+                        principalColumn: "ID_Itinerary",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ItineraryLocations",
                 columns: table => new
                 {
@@ -493,8 +465,7 @@ namespace LAPTRINHWEB.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ID_Itinerary = table.Column<int>(type: "int", nullable: false),
                     ID_Location = table.Column<int>(type: "int", nullable: false),
-                    Visit_Time = table.Column<TimeSpan>(type: "time", nullable: true),
-                    LocationID_Location = table.Column<int>(type: "int", nullable: true)
+                    Visit_Time = table.Column<TimeSpan>(type: "time", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -511,11 +482,6 @@ namespace LAPTRINHWEB.Migrations
                         principalTable: "Locations",
                         principalColumn: "ID_Location",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ItineraryLocations_Locations_LocationID_Location",
-                        column: x => x.LocationID_Location,
-                        principalTable: "Locations",
-                        principalColumn: "ID_Location");
                 });
 
             migrationBuilder.CreateIndex(
@@ -568,9 +534,9 @@ namespace LAPTRINHWEB.Migrations
                 column: "ID_Tour");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Bookings_TourID_Tour",
+                name: "IX_Bookings_Status",
                 table: "Bookings",
-                column: "TourID_Tour");
+                column: "Status");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Bookings_UserId",
@@ -583,9 +549,9 @@ namespace LAPTRINHWEB.Migrations
                 column: "ID_Tour");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Itineraries_TourID_Tour",
-                table: "Itineraries",
-                column: "TourID_Tour");
+                name: "IX_ItineraryDetails_ID_Itinerary",
+                table: "ItineraryDetails",
+                column: "ID_Itinerary");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ItineraryLocations_ID_Itinerary",
@@ -598,11 +564,6 @@ namespace LAPTRINHWEB.Migrations
                 column: "ID_Location");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ItineraryLocations_LocationID_Location",
-                table: "ItineraryLocations",
-                column: "LocationID_Location");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Locations_Name",
                 table: "Locations",
                 column: "Name");
@@ -613,9 +574,9 @@ namespace LAPTRINHWEB.Migrations
                 column: "ID_Booking");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TourAccommodations_AccommodationID_Accommodation",
-                table: "TourAccommodations",
-                column: "AccommodationID_Accommodation");
+                name: "IX_Payments_Payment_Date",
+                table: "Payments",
+                column: "Payment_Date");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TourAccommodations_ID_Accommodation",
@@ -628,11 +589,6 @@ namespace LAPTRINHWEB.Migrations
                 column: "ID_Tour");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TourAccommodations_TourID_Tour",
-                table: "TourAccommodations",
-                column: "TourID_Tour");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_TourGuideAssignments_ID_Guide",
                 table: "TourGuideAssignments",
                 column: "ID_Guide");
@@ -643,14 +599,9 @@ namespace LAPTRINHWEB.Migrations
                 column: "ID_Tour");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TourGuideAssignments_TourGuideID_Guide",
+                name: "IX_TourGuideAssignments_Start_Date_End_Date",
                 table: "TourGuideAssignments",
-                column: "TourGuideID_Guide");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TourGuideAssignments_TourID_Tour",
-                table: "TourGuideAssignments",
-                column: "TourID_Tour");
+                columns: new[] { "Start_Date", "End_Date" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_TourGuides_Email",
@@ -669,6 +620,11 @@ namespace LAPTRINHWEB.Migrations
                 column: "Name_Tour");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Tours_Status",
+                table: "Tours",
+                column: "Status");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TourTransports_ID_Tour",
                 table: "TourTransports",
                 column: "ID_Tour");
@@ -677,16 +633,6 @@ namespace LAPTRINHWEB.Migrations
                 name: "IX_TourTransports_ID_Transport",
                 table: "TourTransports",
                 column: "ID_Transport");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TourTransports_TourID_Tour",
-                table: "TourTransports",
-                column: "TourID_Tour");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TourTransports_TransportationID_Transport",
-                table: "TourTransports",
-                column: "TransportationID_Transport");
         }
 
         /// <inheritdoc />
@@ -706,6 +652,9 @@ namespace LAPTRINHWEB.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "ItineraryDetails");
 
             migrationBuilder.DropTable(
                 name: "ItineraryLocations");

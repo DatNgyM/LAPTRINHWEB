@@ -1,0 +1,328 @@
+@model LAPTRINHWEB.Models.TourGuide
+@{
+    ViewData["Title"] = "Thêm Hướng dẫn viên mới";
+}
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f4f6f9;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #343a40;
+            color: white;
+            padding: 15px 0;
+            height: 100vh;
+            position: fixed;
+        }
+
+        .sidebar-item {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .sidebar-item:hover {
+            background-color: #4b545c;
+        }
+
+        .sidebar-item.active {
+            background-color: #007bff;
+        }
+
+        .sidebar-item i {
+            margin-right: 10px;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+            margin-left: 250px;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .btn {
+            padding: 8px 15px;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+        }
+
+        .btn:hover {
+            background-color: #0069d9;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-right: -15px;
+            margin-left: -15px;
+        }
+
+        .col-md-6 {
+            flex: 0 0 50%;
+            max-width: 50%;
+            padding: 0 15px;
+        }
+
+        .avatar-upload {
+            position: relative;
+            max-width: 200px;
+            margin: 10px auto 20px;
+        }
+
+        .avatar-upload .avatar-preview {
+            width: 192px;
+            height: 192px;
+            position: relative;
+            border-radius: 100%;
+            border: 6px solid #f8f9fa;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+        }
+
+        .avatar-upload .avatar-preview>div {
+            width: 100%;
+            height: 100%;
+            border-radius: 100%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-image: url('https://via.placeholder.com/200x200?text=Upload+Photo');
+        }
+
+        .avatar-upload .avatar-edit {
+            position: absolute;
+            right: 12px;
+            z-index: 1;
+            top: 10px;
+        }
+
+        .avatar-upload .avatar-edit input {
+            display: none;
+        }
+
+        .avatar-upload .avatar-edit label {
+            display: inline-block;
+            width: 34px;
+            height: 34px;
+            margin-bottom: 0;
+            border-radius: 100%;
+            background: #FFFFFF;
+            border: 1px solid #d2d6de;
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12);
+            cursor: pointer;
+            font-weight: normal;
+            transition: all .2s ease-in-out;
+            line-height: 34px;
+            text-align: center;
+        }
+
+        .avatar-upload .avatar-edit label:hover {
+            background: #f1f1f1;
+            border-color: #d6d6d6;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+
+        .checkbox-item input {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="sidebar-item">
+            <i class="fas fa-chart-line"></i>
+            <span>Dashboard</span>
+        </div>
+        <div class="sidebar-item">
+            <i class="fas fa-map-marked-alt"></i>
+            <span>Quản lý Tour</span>
+        </div>
+        <div class="sidebar-item">
+            <i class="fas fa-users"></i>
+            <span>Quản lý Người dùng</span>
+        </div>
+        <div class="sidebar-item">
+            <i class="fas fa-bus"></i>
+            <span>Quản lý Phương tiện</span>
+        </div>
+        <div class="sidebar-item">
+            <i class="fas fa-hotel"></i>
+            <span>Quản lý Nơi ở</span>
+        </div>
+        <div class="sidebar-item">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Quản lý Lịch trình</span>
+        </div>
+        <div class="sidebar-item active">
+            <i class="fas fa-user-tie"></i>
+            <span>Quản lý HDV</span>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="header">
+            <h2>@ViewData["Title"]</h2>
+            <a href="@Url.Action("Index", "TourGuide", new { area = "Admin" })" class="btn">
+                <i class="fas fa-arrow-left"></i> Quay lại
+            </a>
+        </div>
+        <div class="card">
+            <form asp-action="Create" method="post" id="addTourGuideForm">
+                @Html.AntiForgeryToken()
+                <div class="avatar-upload">
+                    <div class="avatar-edit">
+                        <input type="file" id="imageUpload" accept=".png, .jpg, .jpeg" />
+                        <label for="imageUpload"><i class="fas fa-pencil-alt"></i></label>
+                    </div>
+                    <div class="avatar-preview">
+                        <div id="imagePreview"></div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="fullName">Họ và tên:</label>
+                            <input type="text" asp-for="FullName" class="form-control" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" asp-for="Email" class="form-control" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Số điện thoại:</label>
+                            <input type="tel" asp-for="Phone" class="form-control" required />
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="experience">Số năm kinh nghiệm:</label>
+                            <input type="number" asp-for="Experience" class="form-control" min="0" required />
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="bio">Giới thiệu:</label>
+                    <textarea id="bio" class="form-control" rows="4"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="certificate">Chứng chỉ (chọn nhiều file):</label>
+                    <input type="file" id="certificate" class="form-control" multiple>
+                </div>
+
+                <div style="margin-top: 20px;">
+                    <button type="submit" class="btn">Thêm hướng dẫn viên</button>
+                    <a href="@Url.Action("Index", "TourGuide", new { area = "Admin" })" class="btn btn-secondary"
+                        style="margin-left: 10px;">Hủy</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('addTourGuideForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            alert('Đã thêm hướng dẫn viên thành công!');
+            window.location.href = '@Url.Action("Index", "TourGuide", new { area = "Admin" })';
+        });
+
+        // Xử lý xem trước ảnh khi upload
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('imagePreview').style.backgroundImage = 'url(' + e.target.result + ')';
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        document.getElementById("imageUpload").addEventListener("change", function () {
+            readURL(this);
+        });
+    </script>
+</body>
+
+</html>
