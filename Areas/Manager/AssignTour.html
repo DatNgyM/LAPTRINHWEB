@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phân công tour - Quản lý</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #1abc9c;
+            --light-bg: #f4f6f9;
+            --text-color: #333;
+            --light-text: #ecf0f1;
+            --border-color: #ddd;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+        }
+        
+        body { 
+            background-color: var(--light-bg);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .sidebar {
+            height: 100vh;
+            background-color: var(--secondary-color);
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            overflow-y: auto;
+            color: var(--light-text);
+            z-index: 1000;
+        }
+        
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+        
+        .sidebar .nav-link {
+            color: var(--light-text);
+            padding: 12px 20px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .sidebar .nav-link i {
+            width: 20px;
+            margin-right: 10px;
+            text-align: center;
+        }
+        
+        .sidebar .nav-link:hover,
+        .sidebar .nav-link.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .sidebar-brand {
+            background-color: #1c2a35;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .sidebar-brand i {
+            margin-right: 10px;
+        }
+        
+        .card {
+            border: none;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .card-header {
+            border-bottom: 1px solid var(--border-color);
+            font-weight: 600;
+            padding: 15px 20px;
+        }
+        
+        .card-body {
+            padding: 20px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: #2980b9;
+            border-color: #2980b9;
+        }
+        
+        .btn-outline-secondary {
+            color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+        
+        .btn-outline-secondary:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar { 
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            .sidebar.show { 
+                transform: translateX(0); 
+            }
+            .main-content { 
+                margin-left: 0; 
+            }
+        }
+        
+        /* Top bar for mobile */
+        .mobile-topbar {
+            display: none;
+            background-color: var(--secondary-color);
+            padding: 15px;
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-topbar {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .main-content {
+                padding-top: 70px;
+            }
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+        }
+        
+        .form-section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        .form-section-title i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .home-link {
+            margin-top: auto;
+            border-top: 1px solid #34495e;
+        }
+
+        .home-link a {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .home-link a:hover {
+            background-color: #34495e;
+        }
+
+        .home-link i {
+            width: 20px;
+            margin-right: 10px;
+            text-align: center;
+        }
+
+        .nav-spacer {
+            flex: 1;
+        }
+        
+        /* Tour card styles */
+        .tour-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .tour-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .tour-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .tour-title {
+            font-weight: bold;
+            font-size: 16px;
+            margin: 0;
+        }
+        
+        .tour-status {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .tour-status.unassigned {
+            background-color: #ffeeba;
+            color: #856404;
+        }
+        
+        .tour-status.assigned {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .tour-status.in-progress {
+            background-color: #b8daff;
+            color: #004085;
+        }
+        
+        .tour-content {
+            padding: 15px;
+        }
+        
+        .tour-details {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        
+        .tour-detail {
+            margin-right: 20px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+        }
+        
+        .tour-detail i {
+            color: var(--primary-color);
+            margin-right: 5px;
+            width: 16px;
+            text-align: center;
+        }
+        
+        .tour-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .guide-select-container {
+            border: 1px solid #eee;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 15px;
+            background-color: #f8f9fa;
+        }
+        
+        .guide-select-container h6 {
+            margin-bottom: 15px;
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+        
+        .guide-option {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border: 1px solid #eee;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            background-color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .guide-option:hover {
+            border-color: var(--primary-color);
+            background-color: #f0f7fc;
+        }
+        
+        .guide-option.selected {
+            border-color: var(--primary-color);
+            background-color: #e6f3fb;
+        }
+        
+        .guide-option input[type="radio"] {
+            margin-right: 10px;
+        }
+        
+        .guide-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            object-fit: cover;
+        }
+        
+        .guide-info {
+            flex: 1;
+        }
+        
+        .guide-name {
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        
+        .guide-meta {
+            font-size: 12px;
+            color: #6c757d;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        .guide-meta-item {
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .guide-meta-item i {
+            margin-right: 4px;
+            font-size: 10px;
+            color: var(--primary-color);
+        }
+        
+        /* Filters */
+        .filter-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .filter-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        .filter-title i {
+            margin-right: 8px;
+            color: var(--primary-color);
+        }
+        
+        /* Assignment table */
+        .assignment-table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+        
+        .assignment-table td {
+            vertical-align: middle;
+        }
+        
+        .guide-cell {
+            display: flex;
+            align-items: center;
+        }
+        
+        .guide-cell img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        .assignment-notes {
+            font-size: 14px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+        
+        /* Tabs */
+        .nav-tabs .nav-link {
+            color: var(--text-color);
+            border: none;
+            padding: 10px 15px;
+        }
+        
+        .nav-tabs .nav-link.active {
+            color: var(--primary-color);
+            font-weight: 600;
+            border-bottom: 2px solid var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Top Bar -->
+    <div class="mobile-topbar">
+        <button class="btn btn-link text-white p-0" onclick="toggleSidebar()">
+            <i class="fas fa-bars fa-lg"></i>
+        </button>
+        <span>Phân công tour</span>
+        <a href="/" class="btn btn-link text-white p-0">
+            <i class="fas fa-home fa-lg"></i>
+        </a>
+    </div>
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="sidebar-brand">
+            <i class="fas fa-tasks"></i> Manager Panel
+        </div>
+        <ul class="nav flex-column h-100">
+            <li class="nav-item">
+                <a class="nav-link" href="Manager.html">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="CreateItinerary.html">
+                    <i class="fas fa-route"></i> Quản lý lịch trình
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="AddGuide.html">
+                    <i class="fas fa-users"></i> Quản lý hướng dẫn viên
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="AssignTour.html">
+                    <i class="fas fa-clipboard-list"></i> Phân công tour
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#reports">
+                    <i class="fas fa-chart-bar"></i> Báo cáo
+                </a>
+            </li>
+            
+            <!-- Spacer to push the home link to the bottom -->
+            <li class="nav-spacer"></li>
+            
+            <li class="home-link">
+                <a href="/">
+                    <i class="fas fa-home"></i>
+                    <span>Về trang chủ</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="h3">
+                    <i class="fas fa-clipboard-check text-primary"></i> 
+                    Phân công tour
+                </h1>
+                <p class="text-muted">Quản lý và phân công hướng dẫn viên cho các tour</p>
+            </div>
+            <a href="Manager.html" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left"></i> Quay lại
+            </a>
+        </div>
+
+        <!-- Tabs -->
+        <ul class="nav nav-tabs mb-4">
+            <li class="nav-item">
+                <a class="nav-link active" data-bs-toggle="tab" href="#upcoming">Tour sắp tới</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#assigned">Đã phân công</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#completed">Đã hoàn thành</a>
+            </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content">
+            <!-- Upcoming Tours Tab -->
+            <div class="tab-pane fade show active" id="upcoming">
+                <!-- Filters -->
+                <div class="filter-section">
+                    <div class="filter-title">
+                        <i class="fas fa-filter"></i> Lọc tour
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 mb-3 mb-md-0">
+                            <label for="filterDestination" class="form-label">Điểm đến</label>
+                            <select class="form-select" id="filterDestination">
+                                <option value="" selected>Tất cả</option>
+                                <option value="north">Miền Bắc</option>
+                                <option value="central">Miền Trung</option>
+                                <option value="south">Miền Nam</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 mb-3 mb-md-0">
+                            <label for="filterTourType" class="form-label">Loại tour</label>
+                            <select class="form-select" id="filterTourType">
+                                <option value="" selected>Tất cả</option>
+                                <option value="domestic">Trong nước</option>
+                                <option value="international">Quốc tế</option>
+                                <option value="beach">Tour biển</option>
+                                <option value="mountain">Tour núi</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 mb-3 mb-md-0">
+                            <label for="filterStatus" class="form-label">Trạng thái</label>
+                            <select class="form-select" id="filterStatus">
+                                <option value="" selected>Tất cả</option>
+                                <option value="unassigned">Chưa phân công</option>
+                                <option value="assigned">Đã phân công</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 mb-3 mb-md-0 d-flex align-items-end">
+                            <button class="btn btn-primary w-100" id="applyFilter">
+                                <i class="fas fa-search me-2"></i> Áp dụng
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Unassigned Tours -->
+                <div class="tour-card" id="tour1">
+                    <div class="tour-header">
+                        <h3 class="tour-title">Tour Hạ Long 3 ngày 2 đêm</h3>
+                        <span class="tour-status unassigned">Chưa phân công</span>
+                    </div>
+                    <div class="tour-content">
+                        <div class="tour-details">
+                            <div class="tour-detail">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>15/06/2025 - 17/06/2025</span>
+                            </div>
+                            <div class="tour-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Hạ Long, Quảng Ninh</span>
+                            </div>
+                            <div class="tour-detail">
+                                <i class="fas fa-users"></i>
+                                <span>24 khách</span>
+                            </div>
+                            <div class="tour-detail">
+                                <i class="fas fa-tag"></i>
+                                <span>Tour biển</span>
+                            </div>
+                        </div>
+                        
+                        <div class="tour-actions">
+                            <button class="btn btn-sm btn-outline-primary assign-btn" data-tour-id="1">
+                                <i class="fas fa-user-plus"></i> Phân công HDV
+                            </button>
+                            <a href="#" class="btn btn-sm btn-outline-secondary">
+                                <i class="fas fa-info-circle"></i> Chi tiết
+                            </a>
+                        </div>
+                        
+                        <!-- Guide selection (initially hidden) -->
+                        <div class="guide-select-container" id="guide-select-1" style="display: none;">
+                            <h6>Chọn hướng dẫn viên</h6>
+                            
+                            <div class="guide-option">
+                                <input type="radio" name="guide-tour-1" id="guide-1-1">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" class="guide-avatar">
+                                <div class="guide-info">
+                                    <div class="guide-name">Nguyễn Văn A</div>
+                                    <div class="guide-meta">
+                                        <span class="guide-meta-item"><i class="fas fa-star"></i> HDV Nội địa</span>
+                                        <span class="guide-meta-item"><i class="fas fa-calendar-check"></i> 5 năm kinh nghiệm</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="guide-option">
+                                <input type="radio" name="guide-tour-1" id="guide-1-2">
+                                <img src="https://randomuser.me/api/portraits/women/44.jpg" class="guide-avatar">
+                                <div class="guide-info">
+                                    <div class="guide-name">Trần Thị B</div>
+                                    <div class="guide-meta">
+                                        <span class="guide-meta-item"><i class="fas fa-star"></i> HDV Quốc tế</span>
+                                        <span class="guide-meta-item"><i class="fas fa-calendar-check"></i> 7 năm kinh nghiệm</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="guide-option">
+                                <input type="radio" name="guide-tour-1" id="guide-1-3">
+                                <img src="https://randomuser.me/api/portraits/men/67.jpg" class="guide-avatar">
+                                <div class="guide-info">
+                                    <div class="guide-name">Lê Văn C</div>
+                                    <div class="guide-meta">
+                                        <span class="guide-meta-item"><i class="fas fa-star"></i> HDV Chuyên đề</span>
+                                        <span class="guide-meta-item"><i class="fas fa-calendar-check"></i> 3 năm kinh nghiệm</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3 mt-3">
+                                <label for="assignment-notes-1" class="form-label">Ghi chú phân công</label>
+                                <textarea class="form-control" id="assignment-notes-1" rows="2" placeholder="Thêm ghi chú về phân công tour này..."></textarea>
+                            </div>
+                            
+                            <div class="d-flex justify-content-end mt-3">
+                                <button class="btn btn-outline-secondary me-2 cancel-assign-btn" data-tour-id="1">
+                                    Hủy
+                                </button>
+                                <button class="btn btn-primary confirm-assign-btn" data-tour-id="1">
+                                    <i class="fas fa-check"></i> Xác nhận phân công
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tour-card">
+                    <div class="tour-header">
+                        <h3 class="tour-title">Tour Đà Lạt 4 ngày 3 đêm</h3>
+                        <span class="tour-status assigned">Đã phân công</span>
+                    </div>
+                    <div class="tour-content">
+                        <div class="tour-details">
+                            <div class="tour-detail">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>18/06/2025 - 21/06/2025</span>
+                            </div>
+                            <div class="tour-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Đà Lạt, Lâm Đồng</span>
+                            </div>
+                            <div class="tour-detail">
+                                <i class="fas fa-users"></i>
+                                <span>18 khách</span>
+                            </div>
+                            <div class="tour-detail">
+                                <i class="fas fa-tag"></i>
+                                <span>Tour núi</span>
+                            </div>
+                        </div>
+                        
+                        <div class="guide-option selected">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" class="guide-avatar">
+                            <div class="guide-info">
+                                <div class="guide-name">Nguyễn Văn A</div>
+                                <div class="guide-meta">
+                                    <span class="guide-meta-item"><i class="fas fa-star"></i> HDV Nội địa</span>
+                                    <span class="guide-meta-item"><i class="fas fa-calendar-check"></i> 5 năm kinh nghiệm</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tour-actions">
+                            <button class="btn btn-sm btn-outline-warning">
+                                <i class="fas fa-exchange-alt"></i> Đổi HDV
+                            </button>
+                            <a href="#" class="btn btn-sm btn-outline-secondary">
+                                <i class="fas fa-info-circle"></i> Chi tiết
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tour-card">
+                    <div class="tour-header">
+                        <h3 class="tour-title">Tour Phú Quốc 5 ngày 4 đêm</h3>
+                        <span class="tour-status unassigned">Chưa phân công</span>
+                    </div>
+                    <div class="tour-content">
+                        <div class="tour-details">
+                            <div class="tour-detail">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>20/06/2025 - 24/06/2025</span>
+                            </div>
+                            <div class="tour-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Phú Quốc, Kiên Giang</span>
+                            </div>
+                            <div class="tour-detail">
+                                <i class="fas fa-users"></i>
+                                <span>30 khách</span>
+                            </div>
+                            <div class="tour-detail">
+                                <i class="fas fa-tag"></i>
+                                <span>Tour biển</span>
+                            </div>
+                        </div>
+                        
+                        <div class="tour-actions">
+                            <button class="btn btn-sm btn-outline-primary assign-btn" data-tour-id="3">
+                                <i class="fas fa-user-plus"></i> Phân công HDV
+                            </button>
+                            <a href="#" class="btn btn-sm btn-outline-secondary">
+                                <i class="fas fa-info-circle"></i> Chi tiết
+                            </a>
+                        </div>
+                        
+                        <!-- Guide selection (initially hidden) -->
+                        <div class="guide-select-container" id="guide-select-3" style="display: none;">
+                            <!-- Guide options will go here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Assigned Tours Tab -->
+            <div class="tab-pane fade" id="assigned">
+                <div class="card">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0 text-primary">
+                            <i class="fas fa-user-check"></i> Danh sách tour đã phân công
+                        </h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table assignment-table">
+                                <thead>
+                                    <tr>
+                                        <th>Tên tour</th>
+                                        <th>Thời gian</th>
+                                        <th>Điểm đến</th>
+                                        <th>HDV</th>
+                                        <th>Trạng thái</th>
+                                        <th>Thao tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Tour Đà Lạt 4 ngày 3 đêm</td>
+                                        <td>18/06 - 21/06/2025</td>
+                                        <td>Đà Lạt, Lâm Đồng</td>
+                                        <td>
+                                            <div class="guide-cell">
+                                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Guide">
+                                                Nguyễn Văn A
+                                            </div>
+                                        </td>
+                                        <td><span class="badge bg-success">Đã phân công</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-danger">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tour Nha Trang 3 ngày 2 đêm</td>
+                                        <td>25/06 - 27/06/2025</td>
+                                        <td>Nha Trang, Khánh Hòa</td>
+                                        <td>
+                                            <div class="guide-cell">
+                                                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Guide">
+                                                Trần Thị B
+                                            </div>
+                                        </td>
+                                        <td><span class="badge bg-primary">Sắp diễn ra</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-danger">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tour Sapa 4 ngày 3 đêm</td>
+                                        <td>30/06 - 03/07/2025</td>
+                                        <td>Sapa, Lào Cai</td>
+                                        <td>
+                                            <div class="guide-cell">
+                                                <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Guide">
+                                                Lê Văn C
+                                            </div>
+                                        </td>
+                                        <td><span class="badge bg-warning text-dark">Chờ xác nhận</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-danger">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Completed Tours Tab -->
+            <div class="tab-pane fade" id="completed">
+                <div class="card">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0 text-primary">
+                            <i class="fas fa-check-circle"></i> Danh sách tour đã hoàn thành
+                        </h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table assignment-table">
+                                <thead>
+                                    <tr>
+                                        <th>Tên tour</th>
+                                        <th>Thời gian</th>
+                                        <th>Điểm đến</th>
+                                        <th>HDV</th>
+                                        <th>Đánh giá</th>
+                                        <th>Thao tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Tour Huế 2 ngày 1 đêm</td>
+                                        <td>01/06 - 02/06/2025</td>
+                                        <td>Huế</td>
+                                        <td>
+                                            <div class="guide-cell">
+                                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Guide">
+                                                Nguyễn Văn A
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-warning">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star-half-alt"></i>
+                                                <span class="ms-1 text-dark">4.5/5</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-info">
+                                                <i class="fas fa-file-alt"></i> Báo cáo
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tour Hội An 3 ngày 2 đêm</td>
+                                        <td>25/05 - 27/05/2025</td>
+                                        <td>Hội An, Quảng Nam</td>
+                                        <td>
+                                            <div class="guide-cell">
+                                                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Guide">
+                                                Trần Thị B
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-warning">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <span class="ms-1 text-dark">5/5</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-info">
+                                                <i class="fas fa-file-alt"></i> Báo cáo
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Toggle mobile sidebar
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('show');
+        }
+        
+        // Handle assign buttons
+        document.querySelectorAll('.assign-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const tourId = this.dataset.tourId;
+                const guideSelectContainer = document.getElementById(`guide-select-${tourId}`);
+                guideSelectContainer.style.display = 'block';
+                this.style.display = 'none';
+            });
+        });
+        
+        // Handle cancel buttons
+        document.querySelectorAll('.cancel-assign-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const tourId = this.dataset.tourId;
+                const guideSelectContainer = document.getElementById(`guide-select-${tourId}`);
+                guideSelectContainer.style.display = 'none';
+                document.querySelector(`.assign-btn[data-tour-id="${tourId}"]`).style.display = 'inline-block';
+            });
+        });
+        
+        // Handle confirm buttons
+        document.querySelectorAll('.confirm-assign-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const tourId = this.dataset.tourId;
+                alert('Đã phân công hướng dẫn viên thành công!');
+                
+                // In a real app, you would make an API call here
+                // For now, we'll just simulate a success message
+                
+                // Update UI to show assigned status
+                const tourCard = document.getElementById(`tour${tourId}`);
+                const tourHeader = tourCard.querySelector('.tour-header');
+                const tourStatus = tourHeader.querySelector('.tour-status');
+                
+                tourStatus.textContent = 'Đã phân công';
+                tourStatus.classList.remove('unassigned');
+                tourStatus.classList.add('assigned');
+                
+                // Hide guide selection
+                const guideSelectContainer = document.getElementById(`guide-select-${tourId}`);
+                guideSelectContainer.style.display = 'none';
+                
+                // Add selected guide to tour card
+                const selectedGuide = document.querySelector(`input[name="guide-tour-${tourId}"]:checked`);
+                if (selectedGuide) {
+                    const guideOption = selectedGuide.closest('.guide-option').cloneNode(true);
+                    guideOption.classList.add('selected');
+                    
+                    // Remove radio input
+                    const radioInput = guideOption.querySelector('input[type="radio"]');
+                    if (radioInput) {
+                        radioInput.remove();
+                    }
+                    
+                    // Insert before tour actions
+                    const tourActions = tourCard.querySelector('.tour-actions');
+                    tourCard.querySelector('.tour-content').insertBefore(guideOption, tourActions);
+                    
+                    // Update tour actions
+                    tourActions.innerHTML = `
+                        <button class="btn btn-sm btn-outline-warning">
+                            <i class="fas fa-exchange-alt"></i> Đổi HDV
+                        </button>
+                        <a href="#" class="btn btn-sm btn-outline-secondary">
+                            <i class="fas fa-info-circle"></i> Chi tiết
+                        </a>
+                    `;
+                }
+            });
+        });
+        
+        // Handle guide option selection
+        document.querySelectorAll('.guide-option').forEach(option => {
+            option.addEventListener('click', function(e) {
+                // If the click was directly on the radio input, don't handle it here
+                if (e.target.type === 'radio') return;
+                
+                // Find the radio input within this option and toggle it
+                const radioInput = this.querySelector('input[type="radio"]');
+                if (radioInput) {
+                    radioInput.checked = true;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

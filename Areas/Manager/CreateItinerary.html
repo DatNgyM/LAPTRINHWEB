@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tạo lịch trình mới - Quản lý</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #1abc9c;
+            --light-bg: #f4f6f9;
+            --text-color: #333;
+            --light-text: #ecf0f1;
+            --border-color: #ddd;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+        }
+        
+        body { 
+            background-color: var(--light-bg);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .sidebar {
+            height: 100vh;
+            background-color: var(--secondary-color);
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            overflow-y: auto;
+            color: var(--light-text);
+            z-index: 1000;
+        }
+        
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+        
+        .sidebar .nav-link {
+            color: var(--light-text);
+            padding: 12px 20px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .sidebar .nav-link i {
+            width: 20px;
+            margin-right: 10px;
+            text-align: center;
+        }
+        
+        .sidebar .nav-link:hover,
+        .sidebar .nav-link.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .sidebar-brand {
+            background-color: #1c2a35;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .sidebar-brand i {
+            margin-right: 10px;
+        }
+        
+        .card {
+            border: none;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .card-header {
+            border-bottom: 1px solid var(--border-color);
+            font-weight: 600;
+            padding: 15px 20px;
+        }
+        
+        .card-body {
+            padding: 20px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: #2980b9;
+            border-color: #2980b9;
+        }
+        
+        .btn-outline-secondary {
+            color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+        
+        .btn-outline-secondary:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar { 
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            .sidebar.show { 
+                transform: translateX(0); 
+            }
+            .main-content { 
+                margin-left: 0; 
+            }
+        }
+        
+        /* Top bar for mobile */
+        .mobile-topbar {
+            display: none;
+            background-color: var(--secondary-color);
+            padding: 15px;
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-topbar {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .main-content {
+                padding-top: 70px;
+            }
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+        }
+        
+        .form-section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        .form-section-title i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        /* Itinerary Timeline Styles */
+        .itinerary-day {
+            position: relative;
+            margin-bottom: 30px;
+            padding-left: 50px;
+        }
+        
+        .day-marker {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 36px;
+            height: 36px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .day-content {
+            position: relative;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            padding: 15px;
+        }
+        
+        .day-content:before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 15px;
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-right: 10px solid white;
+        }
+        
+        /* Activity styles */
+        .activity-item {
+            background-color: #f8f9fa;
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 12px;
+            position: relative;
+        }
+        
+        .remove-btn {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            background: none;
+            border: none;
+            color: var(--danger-color);
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        /* Day/Activity Buttons */
+        .btn-add {
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+        
+        .btn-add i {
+            margin-right: 8px;
+        }
+        
+        /* Preview Section */
+        .preview-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .preview-toggle {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+        }
+        
+        .preview-toggle i {
+            margin-right: 5px;
+        }
+        
+        .preview-content {
+            display: none;
+        }
+        
+        .preview-content.show {
+            display: block;
+        }
+        
+        .timeline-view {
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .timeline-view:before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #dee2e6;
+        }
+        
+        .timeline-event {
+            position: relative;
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+        
+        .timeline-event:before {
+            content: '';
+            position: absolute;
+            left: -5px;
+            top: 9px;
+            width: 12px;
+            height: 12px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+        }
+        
+        .timeline-event-content {
+            background-color: #f8f9fa;
+            border-radius: 6px;
+            padding: 12px;
+        }
+        
+        .home-link {
+            margin-top: auto;
+            border-top: 1px solid #34495e;
+        }
+
+        .home-link a {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .home-link a:hover {
+            background-color: #34495e;
+        }
+
+        .home-link i {
+            width: 20px;
+            margin-right: 10px;
+            text-align: center;
+        }
+
+        .nav-spacer {
+            flex: 1;
+        }
+
+        /* Summary cards */
+        .summary-item {
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            padding: 12px 15px;
+            margin-bottom: 15px;
+        }
+        
+        .summary-label {
+            font-size: 13px;
+            color: #6c757d;
+            margin-bottom: 5px;
+        }
+        
+        .summary-value {
+            font-size: 16px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Top Bar -->
+    <div class="mobile-topbar">
+        <button class="btn btn-link text-white p-0" onclick="toggleSidebar()">
+            <i class="fas fa-bars fa-lg"></i>
+        </button>
+        <span>Tạo lịch trình mới</span>
+        <a href="/" class="btn btn-link text-white p-0">
+            <i class="fas fa-home fa-lg"></i>
+        </a>
+    </div>
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="sidebar-brand">
+            <i class="fas fa-tasks"></i> Manager Panel
+        </div>
+        <ul class="nav flex-column h-100">
+            <li class="nav-item">
+                <a class="nav-link" href="Manager.html">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="#itinerary-management">
+                    <i class="fas fa-route"></i> Quản lý lịch trình
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#guide-management">
+                    <i class="fas fa-users"></i> Quản lý hướng dẫn viên
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#assignment-management">
+                    <i class="fas fa-clipboard-list"></i> Phân công tour
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#reports">
+                    <i class="fas fa-chart-bar"></i> Báo cáo
+                </a>
+            </li>
+            
+            <!-- Spacer to push the home link to the bottom -->
+            <li class="nav-spacer"></li>
+            
+            <li class="home-link">
+                <a href="/">
+                    <i class="fas fa-home"></i>
+                    <span>Về trang chủ</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="h3">
+                    <i class="fas fa-calendar-plus text-primary"></i> 
+                    Tạo lịch trình mới
+                </h1>
+                <p class="text-muted">Tạo lịch trình chi tiết cho tour du lịch</p>
+            </div>
+            <a href="Manager.html" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left"></i> Quay lại
+            </a>
+        </div>
+
+        <!-- Preview Section -->
+        <div class="preview-section">
+            <div class="preview-header">
+                <h5 class="mb-0">Xem trước lịch trình</h5>
+                <button type="button" class="preview-toggle" id="togglePreview">
+                    <i class="fas fa-eye"></i> Hiện xem trước
+                </button>
+            </div>
+            <div class="preview-content" id="previewContent">
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="summary-item">
+                            <div class="summary-label">Tên tour</div>
+                            <div class="summary-value" id="previewTourName">-</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="summary-item">
+                            <div class="summary-label">Địa điểm</div>
+                            <div class="summary-value" id="previewDestination">-</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="summary-item">
+                            <div class="summary-label">Thời gian</div>
+                            <div class="summary-value" id="previewDuration">-</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="summary-item">
+                            <div class="summary-label">Giá tour (người lớn)</div>
+                            <div class="summary-value" id="previewPrice">-</div>
+                        </div>
+                    </div>
+                </div>
+
+                <h6 class="text-primary mb-3">Chi tiết lịch trình</h6>
+                <div class="timeline-view" id="previewTimeline">
+                    <!-- Timeline items will be added here dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Card -->
+        <div class="card">
+            <div class="card-header bg-white">
+                <h5 class="mb-0 text-primary">
+                    <i class="fas fa-info-circle"></i> Thông tin lịch trình
+                </h5>
+            </div>
+            <div class="card-body">
+                <form id="createItineraryForm">
+                    <!-- Basic Info Section -->
+                    <div class="form-section">
+                        <div class="form-section-title">
+                            <i class="fas fa-file-alt"></i> Thông tin cơ bản
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="tourName" class="form-label">Tên tour <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="tourName" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="tourCode" class="form-label">Mã tour <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="tourCode" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="destination" class="form-label">Điểm đến <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="destination" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="tourType" class="form-label">Loại tour <span class="text-danger">*</span></label>
+                                <select class="form-select" id="tourType" required>
+                                    <option value="" selected disabled>Chọn loại tour</option>
+                                    <option value="domestic">Tour trong nước</option>
+                                    <option value="international">Tour quốc tế</option>
+                                    <option value="beach">Tour biển</option>
+                                    <option value="mountains">Tour núi</option>
+                                    <option value="culture">Tour văn hóa</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="startDate" class="form-label">Ngày bắt đầu <span class="text-danger">*</span></label>
+                                <input type="date" class="form-control" id="startDate" required>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="endDate" class="form-label">Ngày kết thúc <span class="text-danger">*</span></label>
+                                <input type="date" class="form-control" id="endDate" required>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="maxParticipants" class="form-label">Số người tối đa</label>
+                                <input type="number" class="form-control" id="maxParticipants" min="1" value="20">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Mô tả tour</label>
+                            <textarea class="form-control" id="description" rows="3"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Price Section -->
+                    <div class="form-section">
+                        <div class="form-section-title">
+                            <i class="fas fa-tags"></i> Thông tin giá
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="adultPrice" class="form-label">Giá người lớn (VNĐ) <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="adultPrice" min="0" step="1000" required>
+                                    <span class="input-group-text">VNĐ</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="childPrice" class="form-label">Giá trẻ em (VNĐ)</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="childPrice" min="0" step="1000">
+                                    <span class="input-group-text">VNĐ</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="infantPrice" class="form-label">Giá em bé (VNĐ)</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="infantPrice" min="0" step="1000">
+                                    <span class="input-group-text">VNĐ</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="priceIncludes" class="form-label">Giá bao gồm</label>
+                                <textarea class="form-control" id="priceIncludes" rows="3" placeholder="Ghi rõ các dịch vụ đã bao gồm trong giá"></textarea>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="priceExcludes" class="form-label">Giá không bao gồm</label>
+                                <textarea class="form-control" id="priceExcludes" rows="3" placeholder="Ghi rõ các dịch vụ không bao gồm trong giá"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Itinerary Details -->
+                    <div class="form-section">
+                        <div class="form-section-title">
+                            <i class="fas fa-map-marked-alt"></i> Chi tiết lịch trình
+                        </div>
+                        
+                        <button type="button" class="btn btn-outline-primary btn-add mb-4" id="addDayBtn">
+                            <i class="fas fa-plus-circle"></i> Thêm ngày mới
+                        </button>
+                        
+                        <div id="itineraryDays">
+                            <!-- Day items will be added here dynamically -->
+                            <div class="itinerary-day" data-day="1">
+                                <div class="day-marker">1</div>
+                                <div class="day-content">
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <h5 class="mb-0">Ngày 1</h5>
+                                        <button type="button" class="btn btn-sm btn-outline-danger remove-day-btn" style="display: none;">
+                                            <i class="fas fa-trash"></i> Xóa ngày
+                                        </button>
+                                    </div>
+                                    
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="day1Title" class="form-label">Tiêu đề ngày</label>
+                                            <input type="text" class="form-control day-title" id="day1Title" placeholder="Ví dụ: Khám phá Hội An">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="day1Location" class="form-label">Địa điểm chính</label>
+                                            <input type="text" class="form-control day-location" id="day1Location" placeholder="Ví dụ: Hội An, Quảng Nam">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="activities-container">
+                                        <!-- Activities will be added here -->
+                                    </div>
+                                    
+                                    <button type="button" class="btn btn-sm btn-outline-secondary mt-2 add-activity-btn">
+                                        <i class="fas fa-plus"></i> Thêm hoạt động
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Services Section -->
+                    <div class="form-section">
+                        <div class="form-section-title">
+                            <i class="fas fa-concierge-bell"></i> Dịch vụ đi kèm
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Dịch vụ bao gồm</label>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="serviceTransport" checked>
+                                    <label class="form-check-label" for="serviceTransport">
+                                        Phương tiện đưa đón
+                                    </label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="serviceHotel" checked>
+                                    <label class="form-check-label" for="serviceHotel">
+                                        Khách sạn
+                                    </label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="serviceMeals" checked>
+                                    <label class="form-check-label" for="serviceMeals">
+                                        Bữa ăn theo chương trình
+                                    </label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="serviceGuide" checked>
+                                    <label class="form-check-label" for="serviceGuide">
+                                        Hướng dẫn viên
+                                    </label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="serviceTickets">
+                                    <label class="form-check-label" for="serviceTickets">
+                                        Vé tham quan
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="serviceInsurance">
+                                    <label class="form-check-label" for="serviceInsurance">
+                                        Bảo hiểm du lịch
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <label for="specialNotes" class="form-label">Lưu ý đặc biệt</label>
+                                <textarea class="form-control" id="specialNotes" rows="7" placeholder="Thông tin và lưu ý đặc biệt cho tour"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Images Section -->
+                    <div class="form-section">
+                        <div class="form-section-title">
+                            <i class="fas fa-images"></i> Hình ảnh tour
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="mainImage" class="form-label">Ảnh đại diện tour</label>
+                            <input class="form-control" type="file" id="mainImage" accept="image/*">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="additionalImages" class="form-label">Hình ảnh bổ sung (tối đa 5 ảnh)</label>
+                            <input class="form-control" type="file" id="additionalImages" multiple accept="image/*">
+                        </div>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="form-actions">
+                        <div>
+                            <button type="button" class="btn btn-outline-secondary me-2">
+                                <i class="fas fa-save"></i> Lưu nháp
+                            </button>
+                            <button type="reset" class="btn btn-outline-secondary">
+                                <i class="fas fa-undo"></i> Làm mới
+                            </button>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-check-circle"></i> Tạo lịch trình
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Activity Template (hidden) -->
+    <template id="activityTemplate">
+        <div class="activity-item">
+            <button type="button" class="remove-btn">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="row mb-2">
+                <div class="col-md-12">
+                    <label class="form-label">Tên hoạt động</label>
+                    <input type="text" class="form-control activity-name" placeholder="Ví dụ: Tham quan Phố cổ Hội An">
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-6">
+                    <label class="form-label">Thời gian bắt đầu</label>
+                    <input type="time" class="form-control activity-start">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Thời gian kết thúc</label>
+                    <input type="time" class="form-control activity-end">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="form-label">Mô tả hoạt động</label>
+                    <textarea class="form-control activity-description" rows="2" placeholder="Mô tả chi tiết hoạt động"></textarea>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Variables
+        let dayCounter = 1;
+        
+        // Toggle mobile sidebar
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('show');
+        }
+        
+        // Toggle preview
+        document.getElementById('togglePreview').addEventListener('click', function() {
+            const previewContent = document.getElementById('previewContent');
+            const isVisible = previewContent.classList.contains('show');
+            
+            if (isVisible) {
+                previewContent.classList.remove('show');
+                this.innerHTML = '<i class="fas fa-eye"></i> Hiện xem trước';
+            } else {
+                previewContent.classList.add('show');
+                this.innerHTML = '<i class="fas fa-eye-slash"></i> Ẩn xem trước';
+                updatePreview();
+            }
+        });
+        
+        // Add new day
+        document.getElementById('addDayBtn').addEventListener('click', function() {
+            dayCounter++;
+            addDay(dayCounter);
+            
+            // Show remove buttons if there are more than one day
+            if (dayCounter > 1) {
+                document.querySelectorAll('.remove-day-btn').forEach(btn => {
+                    btn.style.display = 'block';
+                });
+            }
+        });
+        
+        // Add event listener for the first day's "Add Activity" button
+        document.querySelector('.add-activity-btn').addEventListener('click', function() {
+            addActivity(this.closest('.day-content').querySelector('.activities-container'));
+        });
+        
+        // Add a new day
+        function addDay(dayNum) {
+            const dayContainer = document.createElement('div');
+            dayContainer.className = 'itinerary-day';
+            dayContainer.dataset.day = dayNum;
+            
+            dayContainer.innerHTML = `
+                <div class="day-marker">${dayNum}</div>
+                <div class="day-content">
+                    <div class="d-flex justify-content-between mb-3">
+                        <h5 class="mb-0">Ngày ${dayNum}</h5>
+                        <button type="button" class="btn btn-sm btn-outline-danger remove-day-btn">
+                            <i class="fas fa-trash"></i> Xóa ngày
+                        </button>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="day${dayNum}Title" class="form-label">Tiêu đề ngày</label>
+                            <input type="text" class="form-control day-title" id="day${dayNum}Title" placeholder="Ví dụ: Khám phá Hội An">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="day${dayNum}Location" class="form-label">Địa điểm chính</label>
+                            <input type="text" class="form-control day-location" id="day${dayNum}Location" placeholder="Ví dụ: Hội An, Quảng Nam">
+                        </div>
+                    </div>
+                    
+                    <div class="activities-container">
+                        <!-- Activities will be added here -->
+                    </div>
+                    
+                    <button type="button" class="btn btn-sm btn-outline-secondary mt-2 add-activity-btn">
+                        <i class="fas fa-plus"></i> Thêm hoạt động
+                    </button>
+                </div>
+            `;
+            
+            document.getElementById('itineraryDays').appendChild(dayContainer);
+            
+            // Add event listeners for the new day
+            const removeBtn = dayContainer.querySelector('.remove-day-btn');
+            removeBtn.addEventListener('click', function() {
+                removeDay(dayContainer);
+            });
+            
+            const addActivityBtn = dayContainer.querySelector('.add-activity-btn');
+            addActivityBtn.addEventListener('click', function() {
+                addActivity(this.closest('.day-content').querySelector('.activities-container'));
+            });
+        }
+        
+        // Remove a day
+        function removeDay(dayElement) {
+            if (confirm('Bạn có chắc muốn xóa ngày này?')) {
+                dayElement.remove();
+                updateDayNumbers();
+                
+                // Hide remove buttons if only one day left
+                if (document.querySelectorAll('.itinerary-day').length <= 1) {
+                    document.querySelectorAll('.remove-day-btn').forEach(btn => {
+                        btn.style.display = 'none';
+                    });
+                }
+            }
+        }
+        
+        // Update day numbers after removing a day
+        function updateDayNumbers() {
+            const days = document.querySelectorAll('.itinerary-day');
+            days.forEach((day, index) => {
+                const dayNum = index + 1;
+                day.dataset.day = dayNum;
+                day.querySelector('.day-marker').textContent = dayNum;
+                day.querySelector('h5').textContent = `Ngày ${dayNum}`;
+                
+                // Update the labels and IDs
+                const titleInput = day.querySelector('.day-title');
+                const locationInput = day.querySelector('.day-location');
+                
+                titleInput.id = `day${dayNum}Title`;
+                titleInput.previousElementSibling.setAttribute('for', `day${dayNum}Title`);
+                
+                locationInput.id = `day${dayNum}Location`;
+                locationInput.previousElementSibling.setAttribute('for', `day${dayNum}Location`);
+            });
+            
+            dayCounter = days.length;
+        }
+        
+        // Add activity to a day
+        function addActivity(container) {
+            const template = document.getElementById('activityTemplate');
+            const activityElement = template.content.cloneNode(true);
+            
+            container.appendChild(activityElement);
+            
+            // Add event listener for the remove button
+            const removeButton = container.lastElementChild.querySelector('.remove-btn');
+            removeButton.addEventListener('click', function() {
+                this.closest('.activity-item').remove();
+            });
+        }
+        
+        // Update preview
+        function updatePreview() {
+            // Update basic info in preview
+            document.getElementById('previewTourName').textContent = document.getElementById('tourName').value || '-';
+            document.getElementById('previewDestination').textContent = document.getElementById('destination').value || '-';
+            
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+            
+            if (startDate && endDate) {
+                const start = new Date(startDate);
+                const end = new Date(endDate);
+                const diffTime = Math.abs(end - start);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                document.getElementById('previewDuration').textContent = `${diffDays} ngày ${diffDays-1} đêm`;
+            } else {
+                document.getElementById('previewDuration').textContent = '-';
+            }
+            
+            const adultPrice = document.getElementById('adultPrice').value;
+            document.getElementById('previewPrice').textContent = adultPrice ? new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(adultPrice) : '-';
+            
+            // Update timeline preview
+            const timelineContainer = document.getElementById('previewTimeline');
+            timelineContainer.innerHTML = '';
+            
+            const days = document.querySelectorAll('.itinerary-day');
+            days.forEach((day, index) => {
+                const dayNum = index + 1;
+                const dayTitle = day.querySelector('.day-title').value || `Ngày ${dayNum}`;
+                const dayLocation = day.querySelector('.day-location').value || '';
+                
+                const timelineEvent = document.createElement('div');
+                timelineEvent.className = 'timeline-event';
+                
+                let eventContent = `
+                    <div class="timeline-event-content">
+                        <h6 class="mb-1"><strong>Ngày ${dayNum}: ${dayTitle}</strong></h6>
+                        ${dayLocation ? `<p class="small text-muted mb-2">${dayLocation}</p>` : ''}
+                `;
+                
+                // Add activities
+                const activities = day.querySelectorAll('.activity-item');
+                if (activities.length > 0) {
+                    eventContent += '<ul class="mb-0">';
+                    activities.forEach(activity => {
+                        const activityName = activity.querySelector('.activity-name').value;
+                        const activityStart = activity.querySelector('.activity-start').value;
+                        const activityEnd = activity.querySelector('.activity-end').value;
+                        
+                        if (activityName) {
+                            let timeInfo = '';
+                            if (activityStart && activityEnd) {
+                                timeInfo = `${activityStart} - ${activityEnd}: `;
+                            } else if (activityStart) {
+                                timeInfo = `${activityStart}: `;
+                            }
+                            
+                            eventContent += `<li>${timeInfo}${activityName}</li>`;
+                        }
+                    });
+                    eventContent += '</ul>';
+                } else {
+                    eventContent += '<p class="text-muted small mb-0">Chưa có hoạt động nào</p>';
+                }
+                
+                eventContent += '</div>';
+                timelineEvent.innerHTML = eventContent;
+                timelineContainer.appendChild(timelineEvent);
+            });
+        }
+        
+        // Form submission
+        document.getElementById('createItineraryForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Form validation
+            if (!this.checkValidity()) {
+                e.stopPropagation();
+                this.classList.add('was-validated');
+                return;
+            }
+            
+            // In a real application, you would send the data to the server here
+            alert('Lịch trình đã được tạo thành công!');
+            
+            // Reset form or redirect
+            // window.location.href = 'Manager.html';
+        });
+    </script>
+</body>
+</html>

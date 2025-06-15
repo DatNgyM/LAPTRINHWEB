@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý lịch trình - Quản lý</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #1abc9c;
+            --light-bg: #f4f6f9;
+            --text-color: #333;
+            --light-text: #ecf0f1;
+            --border-color: #ddd;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+        }
+        
+        body { 
+            background-color: var(--light-bg);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .sidebar {
+            height: 100vh;
+            background-color: var(--secondary-color);
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            overflow-y: auto;
+            color: var(--light-text);
+            z-index: 1000;
+        }
+        
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+        
+        .sidebar .nav-link {
+            color: var(--light-text);
+            padding: 12px 20px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .sidebar .nav-link i {
+            width: 20px;
+            margin-right: 10px;
+            text-align: center;
+        }
+        
+        .sidebar .nav-link:hover,
+        .sidebar .nav-link.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .sidebar-brand {
+            background-color: #1c2a35;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .sidebar-brand i {
+            margin-right: 10px;
+        }
+        
+        .card {
+            border: none;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .card-header {
+            border-bottom: 1px solid var(--border-color);
+            font-weight: 600;
+            padding: 15px 20px;
+        }
+        
+        .card-body {
+            padding: 20px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: #2980b9;
+            border-color: #2980b9;
+        }
+        
+        .btn-outline-secondary {
+            color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+        
+        .btn-outline-secondary:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar { 
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            .sidebar.show { 
+                transform: translateX(0); 
+            }
+            .main-content { 
+                margin-left: 0; 
+            }
+        }
+        
+        /* Top bar for mobile */
+        .mobile-topbar {
+            display: none;
+            background-color: var(--secondary-color);
+            padding: 15px;
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-topbar {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .main-content {
+                padding-top: 70px;
+            }
+        }
+        
+        .home-link {
+            margin-top: auto;
+            border-top: 1px solid #34495e;
+        }
+
+        .home-link a {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .home-link a:hover {
+            background-color: #34495e;
+        }
+
+        .home-link i {
+            width: 20px;
+            margin-right: 10px;
+            text-align: center;
+        }
+
+        .nav-spacer {
+            flex: 1;
+        }
+
+        /* Itinerary Card */
+        .itinerary-card {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            background-color: white;
+            transition: transform 0.3s ease;
+        }
+        
+        .itinerary-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .itinerary-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .itinerary-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+        
+        .itinerary-content {
+            padding: 20px;
+        }
+        
+        .itinerary-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+        }
+        
+        .itinerary-details {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        
+        .itinerary-detail {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #555;
+        }
+        
+        .itinerary-detail i {
+            color: var(--primary-color);
+            margin-right: 5px;
+            width: 16px;
+            text-align: center;
+        }
+        
+        .itinerary-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #eee;
+        }
+        
+        .itinerary-price {
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+        
+        .itinerary-price small {
+            font-weight: normal;
+            color: #6c757d;
+        }
+        
+        /* Filters */
+        .filter-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .filter-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        .filter-title i {
+            margin-right: 8px;
+            color: var(--primary-color);
+        }
+        
+        /* Status indicators */
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .status-active {
+            background-color: var(--success-color);
+        }
+        
+        .status-inactive {
+            background-color: var(--danger-color);
+        }
+        
+        .status-draft {
+            background-color: var(--warning-color);
+        }
+        
+        /* Tabs */
+        .nav-tabs .nav-link {
+            color: var(--text-color);
+            border: none;
+            padding: 10px 15px;
+        }
+        
+        .nav-tabs .nav-link.active {
+            color: var(--primary-color);
+            font-weight: 600;
+            border-bottom: 2px solid var(--primary-color);
+        }
+        
+        /* Stats cards */
+        .stat-card {
+            border-radius: 8px;
+            padding: 20px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
+            color: white;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Top Bar -->
+    <div class="mobile-topbar">
+        <button class="btn btn-link text-white p-0" onclick="toggleSidebar()">
+            <i class="fas fa-bars fa-lg"></i>
+        </button>
+        <span>Quản lý lịch trình</span>
+        <a href="/" class="btn btn-link text-white p-0">
+            <i class="fas fa-home fa-lg"></i>
+        </a>
+    </div>
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="sidebar-brand">
+            <i class="fas fa-tasks"></i> Manager Panel
+        </div>
+        <ul class="nav flex-column h-100">
+            <li class="nav-item">
+                <a class="nav-link" href="Manager.html">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="ItineraryManagement.html">
+                    <i class="fas fa-route"></i> Quản lý lịch trình
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="AddGuide.html">
+                    <i class="fas fa-users"></i> Quản lý hướng dẫn viên
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="AssignTour.html">
+                    <i class="fas fa-clipboard-list"></i> Phân công tour
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#reports">
+                    <i class="fas fa-chart-bar"></i> Báo cáo
+                </a>
+            </li>
+            
+            <!-- Spacer to push the home link to the bottom -->
+            <li class="nav-spacer"></li>
+            
+            <li class="home-link">
+                <a href="/">
+                    <i class="fas fa-home"></i>
+                    <span>Về trang chủ</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="h3">
+                    <i class="fas fa-route text-primary"></i> 
+                    Quản lý lịch trình
+                </h1>
+                <p class="text-muted">Quản lý lịch trình tour du lịch</p>
+            </div>
+            <a href="CreateItinerary.html" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Tạo lịch trình mới
+            </a>
+        </div>
+
+        <!-- Stats Overview -->
+        <div class="row mb-4">
+            <div class="col-xl-3 col-md-6">
+                <div class="stat-card bg-primary text-white">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4>45</h4>
+                            <p class="mb-0">Tổng lịch trình</p>
+                        </div>
+                        <i class="fas fa-route fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="stat-card bg-success text-white">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4>32</h4>
+                            <p class="mb-0">Lịch trình hoạt động</p>
+                        </div>
+                        <i class="fas fa-check-circle fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="stat-card bg-warning text-white">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4>8</h4>
+                            <p class="mb-0">Lịch trình bản nháp</p>
+                        </div>
+                        <i class="fas fa-edit fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="stat-card bg-info text-white">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4>5</h4>
+                            <p class="mb-0">Lịch trình đặc biệt</p>
+                        </div>
+                        <i class="fas fa-star fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <ul class="nav nav-tabs mb-4">
+            <li class="nav-item">
+                <a class="nav-link active" data-bs-toggle="tab" href="#all-itineraries">Tất cả</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#active">Đang hoạt động</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#inactive">Không hoạt động</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#drafts">Bản nháp</a>
+            </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content">
+            <!-- All Itineraries Tab -->
+            <div class="tab-pane fade show active" id="all-itineraries">
+                <!-- Filters -->
+                <div class="filter-section">
+                    <div class="filter-title">
+                        <i class="fas fa-filter"></i> Bộ lọc
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 mb-3 mb-md-0">
+                            <label for="filterDestination" class="form-label">Điểm đến</label>
+                            <select class="form-select" id="filterDestination">
+                                <option value="" selected>Tất cả</option>
+                                <option value="north">Miền Bắc</option>
+                                <option value="central">Miền Trung</option>
+                                <option value="south">Miền Nam</option>
+                                <option value="international">Quốc tế</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 mb-3 mb-md-0">
+                            <label for="filterType" class="form-label">Loại tour</label>
+                            <select class="form-select" id="filterType">
+                                <option value="" selected>Tất cả</option>
+                                <option value="culture">Văn hóa</option>
+                                <option value="beach">Biển</option>
+                                <option value="mountain">Núi</option>
+                                <option value="adventure">Mạo hiểm</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 mb-3 mb-md-0">
+                            <label for="filterDuration" class="form-label">Thời gian</label>
+                            <select class="form-select" id="filterDuration">
+                                <option value="" selected>Tất cả</option>
+                                <option value="short">1-2 ngày</option>
+                                <option value="medium">3-5 ngày</option>
+                                <option value="long">6+ ngày</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 mb-3 mb-md-0 d-flex align-items-end">
+                            <button class="btn btn-primary w-100" id="applyFilter">
+                                <i class="fas fa-search me-2"></i> Áp dụng
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Search & Sort -->
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="input-group" style="max-width: 400px;">
+                        <input type="text" class="form-control" placeholder="Tìm kiếm lịch trình...">
+                        <button class="btn btn-outline-secondary" type="button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <div class="d-flex">
+                        <select class="form-select me-2" style="width: auto;">
+                            <option selected>Sắp xếp theo</option>
+                            <option value="newest">Mới nhất</option>
+                            <option value="oldest">Cũ nhất</option>
+                            <option value="price-low">Giá: thấp đến cao</option>
+                            <option value="price-high">Giá: cao đến thấp</option>
+                            <option value="a-z">A-Z</option>
+                        </select>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-outline-secondary active">
+                                <i class="fas fa-th-large"></i>
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary">
+                                <i class="fas fa-list"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Itinerary Grid -->
+                <div class="row">
+                    <!-- Itinerary Card 1 -->
+                    <div class="col-xl-4 col-md-6">
+                        <div class="itinerary-card">
+                            <div class="itinerary-image" style="background-image: url('https://images.unsplash.com/photo-1528127269322-539801943592?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGhhJTIwbG9uZyUyMGJheSUyMHZpZXRuYW18ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60');">
+                                <div class="itinerary-badge bg-success text-white">Đang hoạt động</div>
+                            </div>
+                            <div class="itinerary-content">
+                                <h3 class="itinerary-title">Tour Hạ Long 3 ngày 2 đêm</h3>
+                                <div class="itinerary-details">
+                                    <div class="itinerary-detail">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>Hạ Long, Quảng Ninh</span>
+                                    </div>
+                                    <div class="itinerary-detail">
+                                        <i class="fas fa-calendar-alt"></i>
+                                        <span>3 ngày 2 đêm</span>
+                                    </div>
+                                    <div class="itinerary-detail">
+                                        <i class="fas fa-tag"></i>
+                                        <span>Tour biển</span>
+                                    </div>
+                                    <div class="itinerary-detail">
+                                        <i class="fas fa-code"></i>
+                                        <span>HL-003</span>
+                                    </div>
+                                </div>
+                                <div class="btn-group w-100">
+                                    <a href="#" class="btn btn-outline-primary">
+                                        <i class="fas fa-eye"></i> Xem
+                                    </a>
+                                    <a href="edit-itinerary.html?id=HL-003" class="btn btn-outline-secondary">
+                                        <i class="fas fa-edit"></i> Sửa
+                                    </a>
+                                    <a href="delete-itinerary.html?id=HL-003" class="btn btn-outline-danger">
+                                        <i class="fas fa-trash"></i> Xóa
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="itinerary-footer">
+                                <div class="itinerary-price">
+                                    4,500,000 VNĐ <small>/người</small>
+                                </div>
+                                <div class="text-muted">
+                                    <i class="fas fa-calendar-check"></i> Cập nhật 03/06/2025
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Itinerary Card 2 -->
+                    <div class="col-xl-4 col-md-6">
+                        <div class="itinerary-card">
+                            <div class="itinerary-image" style="background-image: url('https://images.unsplash.com/photo-1575986711002-b1e7452c8b17?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8ZGElMjBsYXQlMjB2aWV0bmFtfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60');">
+                                <div class="itinerary-badge bg-success text-white">Đang hoạt động</div>
+                            </div>
+                            <div class="itinerary-content">
+                                <h3 class="itinerary-title">Tour Đà Lạt 4 ngày 3 đêm</h3>
+                                <div class="itinerary-details">
+                                    <div class="itinerary-detail">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>Đà Lạt, Lâm Đồng</span>
+                                    </div>
+                                    <div class="itinerary-detail">
+                                        <i class="fas fa-calendar-alt"></i>
+                                        <span>4 ngày 3 đêm</span>
+                                    </div>
+                                    <div class="itinerary-detail">
+                                        <i class="fas fa-tag"></i>
+                                        <span>Tour núi</span>
+                                    </div>
+                                    <div class="itinerary-detail">
+                                        <i class="fas fa-code"></i>
+                                        <span>DL-004</span>
+                                    </div>
+                                </div>
+                                <div class="btn-group w-100">
+                                    <a href="#" class="btn btn-outline-primary">
+                                        <i class="fas fa-eye"></i> Xem
+                                    </a>
+                                    <a href="edit-itinerary.html?id=DL-004" class="btn btn-outline-secondary">
+                                        <i class="fas fa-edit"></i> Sửa
+                                    </a>
+                                    <a href="delete-itinerary.html?id=DL-004" class="btn btn-outline-danger">
+                                        <i class="fas fa-trash"></i> Xóa
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="itinerary-footer">
+                                <div class="itinerary-price">
+                                    5,200,000 VNĐ <small>/người</small>
+                                </div>
+                                <div class="text-muted">
+                                    <i class="fas fa-calendar-check"></i> Cập nhật 01/06/2025
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Itinerary Card 3 -->
+                    <div class="col-xl-4 col-md-6">
+                        <div class="itinerary-card">
+                            <div class="itinerary-image" style="background-image: url('https://images.unsplash.com/photo-1564239148760-5f3bfbc32d78?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGh1JTIwcXVvYyUyMHZpZXRuYW18ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60');">
+                                <div class="itinerary-badge bg-success text-white">Đang hoạt động</div>
+                            </div>
+                            <div class="itinerary-content">
+                                <h3 class="itinerary-title">Tour Phú Quốc 5 ngày 4 đêm</h3>
+                                <div class="itinerary-details">
+                                    <div class="itinerary-detail">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>Phú Quốc, Kiên Giang</span>
+                                    </div>
+                                    <div class="itinerary-detail">
+                                        <i class="fas fa-calendar-alt"></i>
+                                        <span>5 ngày 4 đêm</span>
+                                    </div>
+                                    <div class="itinerary-detail">
+                                        <i class="fas fa-tag"></i>
+                                        <span>Tour biển</span>
+                                    </div>
+                                    <div class="itinerary-detail">
+                                        <i class="fas fa-code"></i>
+                                        <span>PQ-005</span>
+                                    </div>
+                                </div>
+                                <div class="btn-group w-100">
+                                    <a href="#" class="btn btn-outline-primary">
+                                        <i class="fas fa-eye"></i> Xem
+                                    </a>
+                                    <a href="edit-itinerary.html?id=PQ-005" class="btn btn-outline-secondary">
+                                        <i class="fas fa-edit"></i> Sửa
+                                    </a>
+                                    <a href="delete-itinerary.html?id=PQ-005" class="btn btn-outline-danger">
+                                        <i class="fas fa-trash"></i> Xóa
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="itinerary-footer">
+                                <div class="itinerary-price">
+                                    6,800,000 VNĐ <small>/người</small>
+                                </div>
+                                <div class="text-muted">
+                                    <i class="fas fa-calendar-check"></i> Cập nhật 02/06/2025
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Itinerary Card 4 -->
+                    <div class="col-xl-4 col-md-6">
+                        <div class="itinerary-card">
+                            <div class="itinerary-image" style="background-image: url('https://images.unsplash.com/photo-1583417319070-4a69db38a482?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2FwYSUyMHZpZXRuYW18ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60');">
+                                <div class="itinerary-badge bg-warning text-dark">Bản nháp</div>
+                            </div>
+                            <div class="itinerary-content">
+                                <h3 class="itinerary-title">Tour Sapa 4 ngày 3 đêm</h3>
+                                <div class="itinerary-details">
+                                    <div class="itinerary-detail">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>Sapa, Lào Cai</span>
+                                    </div>
+                                    <div class="itinerary-detail">
+                                        <i class="fas fa-calendar-alt"></i>
+                                        <span>4 ngày 3 đêm</span>
+                                    </div>
+                                    <div class="itinerary-detail">
+                                        <i class="fas fa-tag"></i>
+                                        <span>Tour núi</span>
+                                    </div>
+                                    <div class="itinerary-detail">
+                                        <i class="fas fa-code"></i>
+                                        <span>SP-008</span>
+                                    </div>
+                                </div>
+                                <div class="btn-group w-100">
+                                    <a href="#" class="btn btn-outline-primary">
+                                        <i class="fas fa-eye"></i> Xem
+                                    </a>
+                                    <a href="edit-itinerary.html?id=SP-008" class="btn btn-outline-secondary">
+                                        <i class="fas fa-edit"></i> Sửa
+                                    </a>
+                                    <a href="delete-itinerary.html?id=SP-008" class="btn btn-outline-danger">
+                                        <i class="fas fa-trash"></i> Xóa
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="itinerary-footer">
+                                <div class="itinerary-price">
+                                    5,500,000 VNĐ <small>/người</small>
+                                </div>
+                                <div class="text-muted">
+                                    <i class="fas fa-calendar-check"></i> Cập nhật 02/06/2025
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Itinerary Card 5 -->
+                    <div class="col-xl-4 col-md-6">
+                        <div class="itinerary-card">
+                            <div class="itinerary-image" style="background-image: url('https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bmhhJTIwdHJhbmclMjB2aWV0bmFtfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60');">
+                                <div class="itinerary-badge bg-success text-white">Đang hoạt động</div>
+                            </div>
+                            <div class="itinerary-content">
+                                <h3 class="itinerary-title">Tour Nha Trang 3 ngày 2 đêm</h3>
+                                <div class="itinerary-details">
+                                    <div class="itinerary-detail">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>Nha Trang, Khánh Hòa</span>
+                                    </div>
+                                    <div class="itinerary-detail">
+                                        <i class="fas fa-calendar-alt"></i>
+                                        <span>3 ngày 2 đêm</span>
+                                    </div>
+                                    <div class="itinerary-detail">
+                                        <i class="fas fa-tag"></i>
+                                        <span>Tour biển</span>
+                                    </div>
+                                    <div class="itinerary-detail">
+                                        <i class="fas fa-code"></i>
+                                        <span>NT-006</span>
+                                    </div>
+                                </div>
+                                <div class="btn-group w-100">
+                                    <a href="#" class="btn btn-outline-primary">
+                                        <i class="fas fa-eye"></i> Xem
+                                    </a>
+                                    <a href="edit-itinerary.html?id=NT-006" class="btn btn-outline-secondary">
+                                        <i class="fas fa-edit"></i> Sửa
+                                    </a>
+                                    <a href="delete-itinerary.html?id=NT-006" class="btn btn-outline-danger">
+                                        <i class="fas fa-trash"></i> Xóa
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="itinerary-footer">
+                                <div class="itinerary-price">
+                                    4,200,000 VNĐ <small>/người</small>
+                                </div>
+                                <div class="text-muted">
+                                    <i class="fas fa-calendar-check"></i> Cập nhật 03/06/2025
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Itinerary Card 6 -->
+                    <div class="col-xl-4 col-md-6">
+                        <div class="itinerary-card">
+                            <div class="itinerary-image" style="background-image: url('https://images.unsplash.com/photo-1591161555818-7b9bd2863661?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8aG9pJTIwYW4lMjB2aWV0bmFtfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60');">
+                                <div class="itinerary-badge bg-danger text-white">Không hoạt động</div>
+                            </div>
+                            <div class="itinerary-content">
+                                <h3 class="itinerary-title">Tour Hội An - Đà Nẵng 4 ngày 3 đêm</h3>
+                                <div class="itinerary-details">
+                                    <div class="itinerary-detail">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>Hội An, Quảng Nam</span>
+                                    </div>
+                                    <div class="itinerary-detail">
+                                        <i class="fas fa-calendar-alt"></i>
+                                        <span>4 ngày 3 đêm</span>
+                                    </div>
+                                    <div class="itinerary-detail">
+                                        <i class="fas fa-tag"></i>
+                                        <span>Tour văn hóa</span>
+                                    </div>
+                                    <div class="itinerary-detail">
+                                        <i class="fas fa-code"></i>
+                                        <span>HA-007</span>
+                                    </div>
+                                </div>
+                                <div class="btn-group w-100">
+                                    <a href="#" class="btn btn-outline-primary">
+                                        <i class="fas fa-eye"></i> Xem
+                                    </a>
+                                    <a href="edit-itinerary.html?id=HA-007" class="btn btn-outline-secondary">
+                                        <i class="fas fa-edit"></i> Sửa
+                                    </a>
+                                    <a href="delete-itinerary.html?id=HA-007" class="btn btn-outline-danger">
+                                        <i class="fas fa-trash"></i> Xóa
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="itinerary-footer">
+                                <div class="itinerary-price">
+                                    5,000,000 VNĐ <small>/người</small>
+                                </div>
+                                <div class="text-muted">
+                                    <i class="fas fa-calendar-check"></i> Cập nhật 31/05/2025
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <nav class="mt-4">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1">Trước</a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Tiếp</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+            <!-- Active Itineraries Tab -->
+            <div class="tab-pane fade" id="active">
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i> Hiển thị 32 lịch trình đang hoạt động
+                </div>
+                
+                <!-- Content similar to All tab but filtered for active itineraries -->
+                <!-- For brevity, not duplicating all cards here -->
+            </div>
+
+            <!-- Inactive Itineraries Tab -->
+            <div class="tab-pane fade" id="inactive">
+                <div class="alert alert-warning">
+                    <i class="fas fa-info-circle me-2"></i> Hiển thị 5 lịch trình không hoạt động
+                </div>
+                
+                <!-- Content similar to All tab but filtered for inactive itineraries -->
+                <!-- For brevity, not duplicating all cards here -->
+            </div>
+
+            <!-- Draft Itineraries Tab -->
+            <div class="tab-pane fade" id="drafts">
+                <div class="alert alert-secondary">
+                    <i class="fas fa-info-circle me-2"></i> Hiển thị 8 lịch trình bản nháp
+                </div>
+                
+                <!-- Content similar to All tab but filtered for draft itineraries -->
+                <!-- For brevity, not duplicating all cards here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Xác nhận xóa</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Bạn có chắc chắn muốn xóa lịch trình này? Hành động này không thể hoàn tác.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-danger">Xóa</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Toggle mobile sidebar
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('show');
+        }
+        
+        // Delete button event handlers
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add event listeners for delete buttons
+            document.querySelectorAll('.btn-outline-danger').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Show the delete confirmation modal
+                    const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+                    deleteModal.show();
+                });
+            });
+            
+            // Filter button functionality
+            document.getElementById('applyFilter').addEventListener('click', function() {
+                const destination = document.getElementById('filterDestination').value;
+                const type = document.getElementById('filterType').value;
+                const duration = document.getElementById('filterDuration').value;
+                
+                // In a real application, you would filter the results based on these values
+                // For this demo, just show an alert with the selected filters
+                alert(`Filtering with: Destination=${destination}, Type=${type}, Duration=${duration}`);
+            });
+        });
+    </script>
+</body>
+</html>

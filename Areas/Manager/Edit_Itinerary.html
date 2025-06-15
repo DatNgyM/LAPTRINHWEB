@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sửa lịch trình - Quản lý</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #1abc9c;
+            --light-bg: #f4f6f9;
+            --text-color: #333;
+            --light-text: #ecf0f1;
+            --border-color: #ddd;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+        }
+        
+        body { 
+            background-color: var(--light-bg);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .sidebar {
+            height: 100vh;
+            background-color: var(--secondary-color);
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            overflow-y: auto;
+            color: var(--light-text);
+            z-index: 1000;
+        }
+        
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+        
+        .sidebar .nav-link {
+            color: var(--light-text);
+            padding: 12px 20px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .sidebar .nav-link i {
+            width: 20px;
+            margin-right: 10px;
+            text-align: center;
+        }
+        
+        .sidebar .nav-link:hover,
+        .sidebar .nav-link.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .sidebar-brand {
+            background-color: #1c2a35;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .sidebar-brand i {
+            margin-right: 10px;
+        }
+        
+        .card {
+            border: none;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .card-header {
+            border-bottom: 1px solid var(--border-color);
+            font-weight: 600;
+            padding: 15px 20px;
+        }
+        
+        .card-body {
+            padding: 20px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: #2980b9;
+            border-color: #2980b9;
+        }
+        
+        .btn-outline-secondary {
+            color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+        
+        .btn-outline-secondary:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar { 
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            .sidebar.show { 
+                transform: translateX(0); 
+            }
+            .main-content { 
+                margin-left: 0; 
+            }
+        }
+        
+        /* Top bar for mobile */
+        .mobile-topbar {
+            display: none;
+            background-color: var(--secondary-color);
+            padding: 15px;
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-topbar {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .main-content {
+                padding-top: 70px;
+            }
+        }
+        
+        .home-link {
+            margin-top: auto;
+            border-top: 1px solid #34495e;
+        }
+
+        .home-link a {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .home-link a:hover {
+            background-color: #34495e;
+        }
+
+        .home-link i {
+            width: 20px;
+            margin-right: 10px;
+            text-align: center;
+        }
+
+        .nav-spacer {
+            flex: 1;
+        }
+        
+        /* Form styles */
+        .form-label {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-control:focus, 
+        .form-select:focus {
+            box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
+            border-color: var(--primary-color);
+        }
+        
+        .image-preview {
+            width: 100%;
+            height: 200px;
+            background-color: #f8f9fa;
+            border: 1px dashed var(--border-color);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        
+        .image-preview img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .day-card {
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: white;
+        }
+        
+        .day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .timeline-item {
+            display: flex;
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 15px;
+        }
+        
+        .timeline-time {
+            min-width: 80px;
+            margin-right: 15px;
+        }
+        
+        .timeline-content {
+            flex-grow: 1;
+        }
+        
+        .timeline-actions {
+            width: 80px;
+            text-align: right;
+        }
+        
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .form-section {
+            margin-bottom: 25px;
+        }
+        
+        .form-section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        /* Loader animation */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .spinner {
+            display: inline-block;
+            width: 1rem;
+            height: 1rem;
+            vertical-align: text-bottom;
+            border: 0.2em solid currentColor;
+            border-right-color: transparent;
+            border-radius: 50%;
+            animation: spin .75s linear infinite;
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Top Bar -->
+    <div class="mobile-topbar">
+        <button class="btn btn-link text-white p-0" onclick="toggleSidebar()">
+            <i class="fas fa-bars fa-lg"></i>
+        </button>
+        <span>Sửa lịch trình</span>
+        <a href="/" class="btn btn-link text-white p-0">
+            <i class="fas fa-home fa-lg"></i>
+        </a>
+    </div>
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="sidebar-brand">
+            <i class="fas fa-tasks"></i> Manager Panel
+        </div>
+        <ul class="nav flex-column h-100">
+            <li class="nav-item">
+                <a class="nav-link" href="Manager.html">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="itinerary-management.html">
+                    <i class="fas fa-route"></i> Quản lý lịch trình
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="AddGuide.html">
+                    <i class="fas fa-users"></i> Quản lý hướng dẫn viên
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="AssignTour.html">
+                    <i class="fas fa-clipboard-list"></i> Phân công tour
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#reports">
+                    <i class="fas fa-chart-bar"></i> Báo cáo
+                </a>
+            </li>
+            
+            <!-- Spacer to push the home link to the bottom -->
+            <li class="nav-spacer"></li>
+            
+            <li class="home-link">
+                <a href="/">
+                    <i class="fas fa-home"></i>
+                    <span>Về trang chủ</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="h3">
+                    <i class="fas fa-edit text-primary"></i> 
+                    Sửa lịch trình
+                </h1>
+                <p class="text-muted">Chỉnh sửa chi tiết và lịch trình tour</p>
+            </div>
+            <div>
+                <a href="itinerary-management.html" class="btn btn-outline-secondary me-2">
+                    <i class="fas fa-arrow-left"></i> Quay lại
+                </a>
+                <button type="submit" form="editTourForm" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Lưu thay đổi
+                </button>
+            </div>
+        </div>
+
+        <!-- Form Content -->
+        <form id="editTourForm">
+            <div class="row">
+                <!-- Left Column - Basic Info -->
+                <div class="col-lg-8">
+                    <div class="card mb-4">
+                        <div class="card-header bg-white">
+                            <h5 class="mb-0">Thông tin cơ bản</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label for="tourName" class="form-label">Tên tour</label>
+                                <input type="text" class="form-control" id="tourName" value="Tour Hạ Long 3 ngày 2 đêm" required>
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="tourCode" class="form-label">Mã tour</label>
+                                    <input type="text" class="form-control" id="tourCode" value="HL-003" required readonly>
+                                    <div class="form-text text-muted">Mã tour không thể thay đổi</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="tourType" class="form-label">Loại tour</label>
+                                    <select class="form-select" id="tourType" required>
+                                        <option>Chọn loại tour</option>
+                                        <option value="beach" selected>Tour biển</option>
+                                        <option value="mountain">Tour núi</option>
+                                        <option value="culture">Tour văn hóa</option>
+                                        <option value="adventure">Tour mạo hiểm</option>
+                                        <option value="eco">Tour sinh thái</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="tourDestination" class="form-label">Điểm đến</label>
+                                <input type="text" class="form-control" id="tourDestination" value="Hạ Long, Quảng Ninh" required>
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="duration" class="form-label">Thời gian</label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" id="durationDays" value="3" required>
+                                        <span class="input-group-text">ngày</span>
+                                        <input type="number" class="form-control" id="durationNights" value="2" required>
+                                        <span class="input-group-text">đêm</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="groupSize" class="form-label">Kích thước nhóm</label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" id="minGroupSize" value="5" required>
+                                        <span class="input-group-text">đến</span>
+                                        <input type="number" class="form-control" id="maxGroupSize" value="20" required>
+                                        <span class="input-group-text">người</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="price" class="form-label">Giá tour (VNĐ)</label>
+                                    <input type="text" class="form-control" id="price" value="4,500,000" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="status" class="form-label">Trạng thái</label>
+                                    <select class="form-select" id="status" required>
+                                        <option value="active" selected>Đang hoạt động</option>
+                                        <option value="inactive">Không hoạt động</option>
+                                        <option value="draft">Bản nháp</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="description" class="form-label">Mô tả ngắn</label>
+                                <textarea class="form-control" id="description" rows="3">Tour khám phá Vịnh Hạ Long - Kỳ quan thiên nhiên thế giới với nhiều hoạt động thú vị như chèo kayak, tham quan hang động, và thưởng thức ẩm thực địa phương.</textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Detailed Description -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-white">
+                            <h5 class="mb-0">Mô tả chi tiết</h5>
+                        </div>
+                        <div class="card-body">
+                            <textarea class="form-control" id="detailedDescription" rows="6">
+Tour Hạ Long 3 ngày 2 đêm mang đến cho quý khách trải nghiệm tuyệt vời khám phá Vịnh Hạ Long - di sản thiên nhiên thế giới được UNESCO công nhận. Quý khách sẽ được:
+
+- Khám phá vẻ đẹp hùng vĩ của hơn 1600 hòn đảo đá vôi
+- Tham quan các hang động kỳ thú như hang Sửng Sốt, hang Thiên Cung
+- Trải nghiệm đêm nghỉ trên du thuyền cao cấp giữa vịnh
+- Tham gia các hoạt động thú vị như chèo kayak, tắm biển, câu mực đêm
+- Thưởng thức ẩm thực địa phương với các món hải sản tươi ngon
+
+Đội ngũ hướng dẫn viên chuyên nghiệp, nhiệt tình sẽ đồng hành cùng quý khách trong suốt hành trình, mang đến những trải nghiệm đáng nhớ tại Hạ Long.</textarea>
+                        </div>
+                    </div>
+
+                    <!-- Itinerary Days -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">Lịch trình chi tiết</h5>
+                            <button type="button" class="btn btn-sm btn-outline-primary" title="Thêm ngày">
+                                <i class="fas fa-plus"></i> Thêm ngày
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <!-- Day 1 -->
+                            <div class="day-card">
+                                <div class="day-header">
+                                    <h6 class="mb-0">Ngày 1: Hà Nội - Hạ Long</h6>
+                                    <div>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary me-1">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-outline-danger">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Timeline -->
+                                <div class="timeline">
+                                    <div class="timeline-item">
+                                        <div class="timeline-time">
+                                            <input type="time" class="form-control form-control-sm" value="07:30">
+                                        </div>
+                                        <div class="timeline-content">
+                                            <input type="text" class="form-control" value="Xe và hướng dẫn viên đón khách tại điểm hẹn ở Hà Nội">
+                                        </div>
+                                        <div class="timeline-actions">
+                                            <button type="button" class="btn btn-sm btn-link text-danger">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="timeline-item">
+                                        <div class="timeline-time">
+                                            <input type="time" class="form-control form-control-sm" value="10:30">
+                                        </div>
+                                        <div class="timeline-content">
+                                            <input type="text" class="form-control" value="Dừng chân nghỉ ngơi và dùng bữa trưa tại nhà hàng địa phương">
+                                        </div>
+                                        <div class="timeline-actions">
+                                            <button type="button" class="btn btn-sm btn-link text-danger">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="timeline-item">
+                                        <div class="timeline-time">
+                                            <input type="time" class="form-control form-control-sm" value="12:30">
+                                        </div>
+                                        <div class="timeline-content">
+                                            <input type="text" class="form-control" value="Đến cảng Hạ Long, làm thủ tục lên du thuyền">
+                                        </div>
+                                        <div class="timeline-actions">
+                                            <button type="button" class="btn btn-sm btn-link text-danger">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="timeline-item">
+                                        <div class="timeline-time">
+                                            <input type="time" class="form-control form-control-sm" value="14:30">
+                                        </div>
+                                        <div class="timeline-content">
+                                            <input type="text" class="form-control" value="Tham quan hang Sửng Sốt">
+                                        </div>
+                                        <div class="timeline-actions">
+                                            <button type="button" class="btn btn-sm btn-link text-danger">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="timeline-item">
+                                        <div class="timeline-time">
+                                            <input type="time" class="form-control form-control-sm" value="17:00">
+                                        </div>
+                                        <div class="timeline-content">
+                                            <input type="text" class="form-control" value="Hoạt động tự do: bơi lội hoặc chèo kayak">
+                                        </div>
+                                        <div class="timeline-actions">
+                                            <button type="button" class="btn btn-sm btn-link text-danger">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="timeline-item">
+                                        <div class="timeline-time">
+                                            <input type="time" class="form-control form-control-sm" value="19:00">
+                                        </div>
+                                        <div class="timeline-content">
+                                            <input type="text" class="form-control" value="Ăn tối trên du thuyền">
+                                        </div>
+                                        <div class="timeline-actions">
+                                            <button type="button" class="btn btn-sm btn-link text-danger">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="d-flex justify-content-center mt-3">
+                                        <button type="button" class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-plus"></i> Thêm hoạt động
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Day 2 -->
+                            <div class="day-card">
+                                <div class="day-header">
+                                    <h6 class="mb-0">Ngày 2: Khám phá Vịnh Hạ Long</h6>
+                                    <div>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary me-1">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-outline-danger">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Timeline -->
+                                <div class="timeline">
+                                    <div class="timeline-item">
+                                        <div class="timeline-time">
+                                            <input type="time" class="form-control form-control-sm" value="06:00">
+                                        </div>
+                                        <div class="timeline-content">
+                                            <input type="text" class="form-control" value="Tham gia lớp tập Tai Chi buổi sáng trên boong tàu">
+                                        </div>
+                                        <div class="timeline-actions">
+                                            <button type="button" class="btn btn-sm btn-link text-danger">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="timeline-item">
+                                        <div class="timeline-time">
+                                            <input type="time" class="form-control form-control-sm" value="07:30">
+                                        </div>
+                                        <div class="timeline-content">
+                                            <input type="text" class="form-control" value="Ăn sáng trên tàu">
+                                        </div>
+                                        <div class="timeline-actions">
+                                            <button type="button" class="btn btn-sm btn-link text-danger">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="timeline-item">
+                                        <div class="timeline-time">
+                                            <input type="time" class="form-control form-control-sm" value="09:00">
+                                        </div>
+                                        <div class="timeline-content">
+                                            <input type="text" class="form-control" value="Tham quan làng chài Cửa Vạn">
+                                        </div>
+                                        <div class="timeline-actions">
+                                            <button type="button" class="btn btn-sm btn-link text-danger">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="timeline-item">
+                                        <div class="timeline-time">
+                                            <input type="time" class="form-control form-control-sm" value="12:00">
+                                        </div>
+                                        <div class="timeline-content">
+                                            <input type="text" class="form-control" value="Ăn trưa trên tàu">
+                                        </div>
+                                        <div class="timeline-actions">
+                                            <button type="button" class="btn btn-sm btn-link text-danger">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="timeline-item">
+                                        <div class="timeline-time">
+                                            <input type="time" class="form-control form-control-sm" value="14:00">
+                                        </div>
+                                        <div class="timeline-content">
+                                            <input type="text" class="form-control" value="Tham quan hang Thiên Cung">
+                                        </div>
+                                        <div class="timeline-actions">
+                                            <button type="button" class="btn btn-sm btn-link text-danger">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="timeline-item">
+                                        <div class="timeline-time">
+                                            <input type="time" class="form-control form-control-sm" value="16:30">
+                                        </div>
+                                        <div class="timeline-content">
+                                            <input type="text" class="form-control" value="Lớp học nấu ăn trên tàu">
+                                        </div>
+                                        <div class="timeline-actions">
+                                            <button type="button" class="btn btn-sm btn-link text-danger">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="timeline-item">
+                                        <div class="timeline-time">
+                                            <input type="time" class="form-control form-control-sm" value="19:00">
+                                        </div>
+                                        <div class="timeline-content">
+                                            <input type="text" class="form-control" value="Ăn tối và câu mực đêm">
+                                        </div>
+                                        <div class="timeline-actions">
+                                            <button type="button" class="btn btn-sm btn-link text-danger">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="d-flex justify-content-center mt-3">
+                                        <button type="button" class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-plus"></i> Thêm hoạt động
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Day 3 -->
+                            <div class="day-card">
+                                <div class="day-header">
+                                    <h6 class="mb-0">Ngày 3: Hạ Long - Hà Nội</h6>
+                                    <div>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary me-1">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-outline-danger">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Timeline -->
+                                <div class="timeline">
+                                    <div class="timeline-item">
+                                        <div class="timeline-time">
+                                            <input type="time" class="form-control form-control-sm" value="06:30">
+                                        </div>
+                                        <div class="timeline-content">
+                                            <input type="text" class="form-control" value="Ngắm bình minh và tham gia lớp Tai Chi">
+                                        </div>
+                                        <div class="timeline-actions">
+                                            <button type="button" class="btn btn-sm btn-link text-danger">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="timeline-item">
+                                        <div class="timeline-time">
+                                            <input type="time" class="form-control form-control-sm" value="07:30">
+                                        </div>
+                                        <div class="timeline-content">
+                                            <input type="text" class="form-control" value="Ăn sáng nhẹ">
+                                        </div>
+                                        <div class="timeline-actions">
+                                            <button type="button" class="btn btn-sm btn-link text-danger">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="timeline-item">
+                                        <div class="timeline-time">
+                                            <input type="time" class="form-control form-control-sm" value="08:30">
+                                        </div>
+                                        <div class="timeline-content">
+                                            <input type="text" class="form-control" value="Tham quan đảo Ti Top, tự do tắm biển hoặc leo núi ngắm cảnh vịnh">
+                                        </div>
+                                        <div class="timeline-actions">
+                                            <button type="button" class="btn btn-sm btn-link text-danger">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="timeline-item">
+                                        <div class="timeline-time">
+                                            <input type="time" class="form-control form-control-sm" value="10:30">
+                                        </div>
+                                        <div class="timeline-content">
+                                            <input type="text" class="form-control" value="Làm thủ tục trả phòng, ăn brunch trên tàu">
+                                        </div>
+                                        <div class="timeline-actions">
+                                            <button type="button" class="btn btn-sm btn-link text-danger">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="timeline-item">
+                                        <div class="timeline-time">
+                                            <input type="time" class="form-control form-control-sm" value="11:30">
+                                        </div>
+                                        <div class="timeline-content">
+                                            <input type="text" class="form-control" value="Cập bến, lên xe trở về Hà Nội">
+                                        </div>
+                                        <div class="timeline-actions">
+                                            <button type="button" class="btn btn-sm btn-link text-danger">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="timeline-item">
+                                        <div class="timeline-time">
+                                            <input type="time" class="form-control form-control-sm" value="16:00">
+                                        </div>
+                                        <div class="timeline-content">
+                                            <input type="text" class="form-control" value="Về đến Hà Nội, kết thúc chương trình">
+                                        </div>
+                                        <div class="timeline-actions">
+                                            <button type="button" class="btn btn-sm btn-link text-danger">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="d-flex justify-content-center mt-3">
+                                        <button type="button" class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-plus"></i> Thêm hoạt động
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Inclusions & Exclusions -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-white">
+                            <h5 class="mb-0">Dịch vụ bao gồm & không bao gồm</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6 class="mb-3">Bao gồm</h6>
+                                    <div class="mb-3">
+                                        <div class="input-group mb-2">
+                                            <input type="text" class="form-control" value="Xe đưa đón chất lượng cao">
+                                            <button type="button" class="btn btn-outline-danger">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                        <div class="input-group mb-2">
+                                            <input type="text" class="form-control" value="2 đêm nghỉ trên du thuyền">
+                                            <button type="button" class="btn btn-outline-danger">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                        <div class="input-group mb-2">
+                                            <input type="text" class="form-control" value="Các bữa ăn theo chương trình">
+                                            <button type="button" class="btn btn-outline-danger">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                        <div class="input-group mb-2">
+                                            <input type="text" class="form-control" value="Vé tham quan các điểm trong chương trình">
+                                            <button type="button" class="btn btn-outline-danger">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                        <div class="input-group mb-2">
+                                            <input type="text" class="form-control" value="Hướng dẫn viên tiếng Việt">
+                                            <button type="button" class="btn btn-outline-danger">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Thêm mục bao gồm">
+                                            <button type="button" class="btn btn-outline-primary">
+                                                <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <h6 class="mb-3">Không bao gồm</h6>
+                                    <div class="mb-3">
+                                        <div class="input-group mb-2">
+                                            <input type="text" class="form-control" value="Đồ uống ngoài chương trình">
+                                            <button type="button" class="btn btn-outline-danger">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                        <div class="input-group mb-2">
+                                            <input type="text" class="form-control" value="Chi phí cá nhân">
+                                            <button type="button" class="btn btn-outline-danger">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                        <div class="input-group mb-2">
+                                            <input type="text" class="form-control" value="Tiền tip cho hướng dẫn viên và lái xe">
+                                            <button type="button" class="btn btn-outline-danger">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                        <div class="input-group mb-2">
+                                            <input type="text" class="form-control" value="Các dịch vụ không đề cập trong chương trình">
+                                            <button type="button" class="btn btn-outline-danger">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Thêm mục không bao gồm">
+                                            <button type="button" class="btn btn-outline-primary">
+                                                <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Column - Additional Info -->
+                <div class="col-lg-4">
+                    <!-- Tour Images -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-white">
+                            <h5 class="mb-0">Hình ảnh tour</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="image-preview mb-3">
+                                <img src="https://images.unsplash.com/photo-1528127269322-539801943592?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGhhJTIwbG9uZyUyMGJheSUyMHZpZXRuYW18ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60" alt="Tour preview">
+                            </div>
+                            <div class="mb-3">
+                                <label for="mainImage" class="form-label">Hình ảnh chính</label>
+                                <input class="form-control" type="file" id="mainImage">
+                            </div>
+                            
+                            <h6 class="mb-2">Hình ảnh bổ sung</h6>
+                            <div class="row g-2 mb-3">
+                                <div class="col-4">
+                                    <div class="border rounded overflow-hidden position-relative" style="height: 70px;">
+                                        <img src="https://images.unsplash.com/photo-1573049386484-52ff8d0f447a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGhhJTIwbG9uZyUyMGJheSUyMHZpZXRuYW18ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60" alt="Tour image" class="w-100 h-100" style="object-fit: cover;">
+                                        <button type="button" class="btn btn-sm btn-danger position-absolute" style="top: 2px; right: 2px; padding: 0 5px;">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="border rounded overflow-hidden position-relative" style="height: 70px;">
+                                        <img src="https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8aGElMjBsb25nJTIwYmF5JTIwdmlldG5hbXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60" alt="Tour image" class="w-100 h-100" style="object-fit: cover;">
+                                        <button type="button" class="btn btn-sm btn-danger position-absolute" style="top: 2px; right: 2px; padding: 0 5px;">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="border rounded overflow-hidden position-relative" style="height: 70px;">
+                                        <img src="https://images.unsplash.com/photo-1564926386903-8671ed2c6be6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGhhJTIwbG9uZyUyMGJheSUyMHZpZXRuYW18ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60" alt="Tour image" class="w-100 h-100" style="object-fit: cover;">
+                                        <button type="button" class="btn btn-sm btn-danger position-absolute" style="top: 2px; right: 2px; padding: 0 5px;">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="additionalImages" class="form-label">Thêm hình ảnh</label>
+                                <input class="form-control" type="file" id="additionalImages" multiple>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Departure Information -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-white">
+                            <h5 class="mb-0">Thông tin khởi hành</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label for="departurePoint" class="form-label">Điểm khởi hành</label>
+                                <input type="text" class="form-control" id="departurePoint" value="Hà Nội">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="departureTime" class="form-label">Giờ khởi hành</label>
+                                <input type="time" class="form-control" id="departureTime" value="07:30">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">Lịch khởi hành</label>
+                                <select class="form-select mb-2">
+                                    <option selected>Chọn loại lịch trình</option>
+                                    <option value="fixed">Ngày cố định</option>
+                                    <option value="daily" selected>Hàng ngày</option>
+                                    <option value="weekly">Hàng tuần</option>
+                                    <option value="monthly">Hàng tháng</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">Ngày khởi hành (nếu cố định)</label>
+                                <div class="input-group mb-2">
+                                    <input type="date" class="form-control" value="2025-06-20">
+                                    <button type="button" class="btn btn-outline-danger">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                                <div class="input-group mb-2">
+                                    <input type="date" class="form-control" value="2025-06-27">
+                                    <button type="button" class="btn btn-outline-danger">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                                <div class="input-group">
+                                    <input type="date" class="form-control">
+                                    <button type="button" class="btn btn-outline-primary">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Additional Services -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-white">
+                            <h5 class="mb-0">Dịch vụ bổ sung</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="servicePickUp" checked>
+                                <label class="form-check-label d-flex justify-content-between align-items-center" for="servicePickUp">
+                                    <span>Đón từ khách sạn</span>
+                                    <input type="text" class="form-control form-control-sm" placeholder="Giá" style="width: 100px;" value="200,000">
+                                </label>
+                            </div>
+                            
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="serviceGuide" checked>
+                                <label class="form-check-label d-flex justify-content-between align-items-center" for="serviceGuide">
+                                    <span>Hướng dẫn viên nói tiếng Anh</span>
+                                    <input type="text" class="form-control form-control-sm" placeholder="Giá" style="width: 100px;" value="500,000">
+                                </label>
+                            </div>
+                            
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="serviceInsurance" checked>
+                                <label class="form-check-label d-flex justify-content-between align-items-center" for="serviceInsurance">
+                                    <span>Bảo hiểm du lịch</span>
+                                    <input type="text" class="form-control form-control-sm" placeholder="Giá" style="width: 100px;" value="100,000">
+                                </label>
+                            </div>
+                            
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" id="serviceUpgrade">
+                                <label class="form-check-label d-flex justify-content-between align-items-center" for="serviceUpgrade">
+                                    <span>Nâng cấp phòng VIP</span>
+                                    <input type="text" class="form-control form-control-sm" placeholder="Giá" style="width: 100px;" value="1,000,000">
+                                </label>
+                            </div>
+                            
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Thêm dịch vụ">
+                                <input type="text" class="form-control" placeholder="Giá" style="max-width: 100px;">
+                                <button type="button" class="btn btn-outline-primary">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Pricing Options -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-white">
+                            <h5 class="mb-0">Tùy chọn giá</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label class="form-label">Người lớn (>12 tuổi)</label>
+                                <input type="text" class="form-control" value="4,500,000">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">Trẻ em (6-11 tuổi)</label>
+                                <input type="text" class="form-control" value="2,250,000">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">Trẻ nhỏ (2-5 tuổi)</label>
+                                <input type="text" class="form-control" value="1,125,000">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">Em bé (<2 tuổi)</label>
+                                <input type="text" class="form-control" value="Miễn phí">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">Phụ thu phòng đơn</label>
+                                <input type="text" class="form-control" value="900,000">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Notes & Requirements -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-white">
+                            <h5 class="mb-0">Ghi chú & yêu cầu</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label for="specialNotes" class="form-label">Ghi chú đặc biệt</label>
+                                <textarea class="form-control" id="specialNotes" rows="3">- Khách cần mang theo giấy tờ tùy thân
+- Mang theo đồ bơi và khăn cá nhân
+- Vui lòng thông báo trước nếu có chế độ ăn đặc biệt</textarea>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="cancellationPolicy" class="form-label">Chính sách hủy tour</label>
+                                <textarea class="form-control" id="cancellationPolicy" rows="3">- Hủy trước 7 ngày: hoàn 80% tổng giá tour
+- Hủy trước 3-7 ngày: hoàn 50% tổng giá tour
+- Hủy dưới 3 ngày: không hoàn tiền</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="d-flex justify-content-between">
+                <a href="itinerary-management.html" class="btn btn-outline-secondary">
+                    <i class="fas fa-times"></i> Hủy
+                </a>
+                <div>
+                    <button type="button" class="btn btn-outline-primary me-2">
+                        <i class="fas fa-save"></i> Lưu bản nháp
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-check"></i> Cập nhật lịch trình
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Modal Delete Confirmation -->
+    <div class="modal fade" id="deleteConfirmModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Xác nhận xóa</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Bạn có chắc chắn muốn xóa mục này? Hành động này không thể hoàn tác.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Xóa</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Toggle mobile sidebar
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('show');
+        }
+    </script>
+    <script src="js/edit-itinerary.js"></script>
+</body>
+</html>

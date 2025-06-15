@@ -7,78 +7,274 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        body { background-color: #f8f9fa; }
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #1abc9c;
+            --light-bg: #f4f6f9;
+            --text-color: #333;
+            --light-text: #ecf0f1;
+            --border-color: #ddd;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+        }
+        
+        body { 
+            background-color: var(--light-bg);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
         .sidebar {
             height: 100vh;
-            background: linear-gradient(180deg, #6f42c1 0%, #e83e8c 100%);
+            background-color: var(--secondary-color);
             position: fixed;
             left: 0;
             top: 0;
             width: 250px;
             overflow-y: auto;
+            color: var(--light-text);
+            z-index: 1000;
         }
+        
         .main-content {
             margin-left: 250px;
             padding: 20px;
         }
+        
         .sidebar .nav-link {
-            color: #fff;
+            color: var(--light-text);
             padding: 12px 20px;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
         }
+        
+        .sidebar .nav-link i {
+            width: 20px;
+            margin-right: 10px;
+            text-align: center;
+        }
+        
         .sidebar .nav-link:hover,
         .sidebar .nav-link.active {
-            background-color: rgba(255,255,255,0.2);
+            background-color: var(--primary-color);
             color: white;
         }
+        
         .sidebar-brand {
-            background-color: rgba(0,0,0,0.2);
+            background-color: #1c2a35;
             padding: 20px;
             text-align: center;
             color: white;
             font-weight: bold;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
+        
+        .sidebar-brand i {
+            margin-right: 10px;
+        }
+        
         .stat-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-radius: 15px;
+            border-radius: 8px;
             padding: 20px;
             transition: transform 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
         }
+        
         .stat-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
+        
+        .card {
+            border: none;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .card-header {
+            border-bottom: 1px solid var(--border-color);
+            font-weight: 600;
+            padding: 15px 20px;
+        }
+        
+        .card-body {
+            padding: 20px;
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-outline-success {
+            color: var(--success-color);
+            border-color: var(--success-color);
+        }
+        
+        .btn-outline-success:hover {
+            background-color: var(--success-color);
+            color: white;
+        }
+        
+        .btn-outline-warning {
+            color: var(--warning-color);
+            border-color: var(--warning-color);
+        }
+        
+        .btn-outline-warning:hover {
+            background-color: var(--warning-color);
+            color: white;
+        }
+        
+        .table {
+            margin-bottom: 0;
+        }
+        
+        .table td, .table th {
+            padding: 12px 15px;
+            vertical-align: middle;
+        }
+        
+        .badge {
+            padding: 6px 10px;
+            font-weight: normal;
+        }
+        
         @media (max-width: 768px) {
-            .sidebar { transform: translateX(-100%); }
-            .sidebar.show { transform: translateX(0); }
-            .main-content { margin-left: 0; }
+            .sidebar { 
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            .sidebar.show { 
+                transform: translateX(0); 
+            }
+            .main-content { 
+                margin-left: 0; 
+            }
+        }
+        
+        /* Top bar for mobile */
+        .mobile-topbar {
+            display: none;
+            background-color: var(--secondary-color);
+            padding: 15px;
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-topbar {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .main-content {
+                padding-top: 70px;
+            }
+        }
+        
+        /* Custom styling for action cards */
+        .action-card {
+            border-left: 4px solid var(--primary-color);
+            transition: all 0.3s ease;
+        }
+        
+        .action-card:hover {
+            transform: translateY(-3px);
+        }
+        
+        .action-card.primary {
+            border-left-color: var(--primary-color);
+        }
+        
+        .action-card.success {
+            border-left-color: var(--success-color);
+        }
+        
+        .action-card.warning {
+            border-left-color: var(--warning-color);
+        }
+        
+        .home-link {
+            margin-top: auto;
+            border-top: 1px solid #34495e;
+        }
+
+        .home-link a {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .home-link a:hover {
+            background-color: #34495e;
+        }
+
+        .home-link i {
+            width: 20px;
+            margin-right: 10px;
+            text-align: center;
+        }
+
+        .nav-spacer {
+            flex: 1;
         }
     </style>
 </head>
 <body>
+    <!-- Mobile Top Bar -->
+    <div class="mobile-topbar">
+        <button class="btn btn-link text-white p-0" onclick="toggleSidebar()">
+            <i class="fas fa-bars fa-lg"></i>
+        </button>
+        <span>Manager Panel</span>
+        <a href="/" class="btn btn-link text-white p-0">
+            <i class="fas fa-home fa-lg"></i>
+        </a>
+    </div>
+
     <!-- Sidebar -->
     <nav class="sidebar">
         <div class="sidebar-brand">
             <i class="fas fa-tasks"></i> Manager Panel
         </div>
-        <ul class="nav flex-column">
+        <ul class="nav flex-column h-100">
             <li class="nav-item">
                 <a class="nav-link active" href="#dashboard">
                     <i class="fas fa-tachometer-alt"></i> Dashboard
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#itinerary-management">
+                <a class="nav-link" href="itinerary-management.html">
                     <i class="fas fa-route"></i> Quản lý lịch trình
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#guide-management">
+                <a class="nav-link" href="AddGuide.html">
                     <i class="fas fa-users"></i> Quản lý hướng dẫn viên
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#assignment-management">
+                <a class="nav-link" href="AssignTour.html">
                     <i class="fas fa-clipboard-list"></i> Phân công tour
                 </a>
             </li>
@@ -87,10 +283,14 @@
                     <i class="fas fa-chart-bar"></i> Báo cáo
                 </a>
             </li>
-            <hr class="text-white">
-            <li class="nav-item">
-                <a class="nav-link" href="#logout">
-                    <i class="fas fa-sign-out-alt"></i> Đăng xuất
+            
+            <!-- Spacer to push the home link to the bottom -->
+            <li class="nav-spacer"></li>
+            
+            <li class="home-link">
+                <a href="/">
+                    <i class="fas fa-home"></i>
+                    <span>Về trang chủ</span>
                 </a>
             </li>
         </ul>
@@ -98,11 +298,6 @@
 
     <!-- Main Content -->
     <div class="main-content">
-        <!-- Mobile Menu Toggle -->
-        <button class="btn btn-primary d-md-none mb-3" onclick="toggleSidebar()">
-            <i class="fas fa-bars"></i> Menu
-        </button>
-
         <!-- Header -->
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
@@ -113,61 +308,53 @@
                 <p class="text-muted">Quản lý lịch trình và hướng dẫn viên</p>
             </div>
             <div class="text-muted">
-                <i class="fas fa-calendar"></i> @DateTime.Now.ToString("dd/MM/yyyy")
+                <i class="fas fa-calendar"></i> <span id="currentDate">03/06/2025</span>
             </div>
         </div>
 
         <!-- Stats Overview -->
         <div class="row mb-4">
             <div class="col-xl-3 col-md-6">
-                <div class="card bg-primary text-white">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <h4>45</h4>
-                                <p class="mb-0">Tổng lịch trình</p>
-                            </div>
-                            <i class="fas fa-route fa-2x"></i>
+                <div class="stat-card bg-primary text-white">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4>45</h4>
+                            <p class="mb-0">Tổng lịch trình</p>
                         </div>
+                        <i class="fas fa-route fa-2x"></i>
                     </div>
                 </div>
             </div>
             <div class="col-xl-3 col-md-6">
-                <div class="card bg-success text-white">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <h4>12</h4>
-                                <p class="mb-0">Hướng dẫn viên</p>
-                            </div>
-                            <i class="fas fa-users fa-2x"></i>
+                <div class="stat-card bg-success text-white">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4>12</h4>
+                            <p class="mb-0">Hướng dẫn viên</p>
                         </div>
+                        <i class="fas fa-users fa-2x"></i>
                     </div>
                 </div>
             </div>
             <div class="col-xl-3 col-md-6">
-                <div class="card bg-warning text-white">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <h4>8</h4>
-                                <p class="mb-0">Tour đang diễn ra</p>
-                            </div>
-                            <i class="fas fa-play-circle fa-2x"></i>
+                <div class="stat-card bg-warning text-white">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4>8</h4>
+                            <p class="mb-0">Tour đang diễn ra</p>
                         </div>
+                        <i class="fas fa-play-circle fa-2x"></i>
                     </div>
                 </div>
             </div>
             <div class="col-xl-3 col-md-6">
-                <div class="card bg-info text-white">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <h4>25</h4>
-                                <p class="mb-0">Phân công chờ duyệt</p>
-                            </div>
-                            <i class="fas fa-clock fa-2x"></i>
+                <div class="stat-card bg-info text-white">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4>25</h4>
+                            <p class="mb-0">Phân công chờ duyệt</p>
                         </div>
+                        <i class="fas fa-clock fa-2x"></i>
                     </div>
                 </div>
             </div>
@@ -176,21 +363,21 @@
         <!-- Quick Actions -->
         <div class="row mb-4">
             <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header bg-primary text-white">
-                        <h5 class="mb-0">
+                <div class="card action-card primary">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0 text-primary">
                             <i class="fas fa-plus"></i> Thao tác nhanh
                         </h5>
                     </div>
                     <div class="card-body">
                         <div class="d-grid gap-2">
-                            <a href="#" class="btn btn-outline-primary">
+                            <a href="CreateItinerary.html" class="btn btn-outline-primary">
                                 <i class="fas fa-route"></i> Tạo lịch trình mới
                             </a>
-                            <a href="#" class="btn btn-outline-success">
+                            <a href="AddGuide.html" class="btn btn-outline-success">
                                 <i class="fas fa-user-plus"></i> Thêm hướng dẫn viên
                             </a>
-                            <a href="#" class="btn btn-outline-warning">
+                            <a href="AssignTour.html" class="btn btn-outline-warning">
                                 <i class="fas fa-clipboard-list"></i> Phân công tour
                             </a>
                         </div>
@@ -199,25 +386,28 @@
             </div>
 
             <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header bg-info text-white">
-                        <h5 class="mb-0">
+                <div class="card action-card warning">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0 text-warning">
                             <i class="fas fa-exclamation-triangle"></i> Cần chú ý
                         </h5>
                     </div>
                     <div class="card-body">
                         <ul class="list-unstyled mb-0">
-                            <li class="mb-2">
-                                <i class="fas fa-circle text-warning me-2"></i>
-                                3 tour chưa có hướng dẫn viên
+                            <li class="mb-2 d-flex align-items-center">
+                                <i class="fas fa-circle text-warning me-2 small"></i>
+                                <span>3 tour chưa có hướng dẫn viên</span>
+                                <a href="#" class="ms-auto text-primary"><i class="fas fa-arrow-right"></i></a>
                             </li>
-                            <li class="mb-2">
-                                <i class="fas fa-circle text-danger me-2"></i>
-                                2 lịch trình cần cập nhật
+                            <li class="mb-2 d-flex align-items-center">
+                                <i class="fas fa-circle text-danger me-2 small"></i>
+                                <span>2 lịch trình cần cập nhật</span>
+                                <a href="#" class="ms-auto text-primary"><i class="fas fa-arrow-right"></i></a>
                             </li>
-                            <li class="mb-2">
-                                <i class="fas fa-circle text-info me-2"></i>
-                                5 phân công chờ xác nhận
+                            <li class="mb-2 d-flex align-items-center">
+                                <i class="fas fa-circle text-info me-2 small"></i>
+                                <span>5 phân công chờ xác nhận</span>
+                                <a href="#" class="ms-auto text-primary"><i class="fas fa-arrow-right"></i></a>
                             </li>
                         </ul>
                     </div>
@@ -227,12 +417,12 @@
 
         <!-- Recent Activities -->
         <div class="card">
-            <div class="card-header bg-secondary text-white">
-                <h5 class="mb-0">
+            <div class="card-header bg-white">
+                <h5 class="mb-0 text-secondary">
                     <i class="fas fa-history"></i> Hoạt động gần đây
                 </h5>
             </div>
-            <div class="card-body">
+            <div class="card-body p-0">
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
@@ -266,9 +456,26 @@
                                 <td>Tour Phú Quốc 5N4Đ</td>
                                 <td><span class="badge bg-warning">Chờ duyệt</span></td>
                             </tr>
+                            <tr>
+                                <td>15:30 - 02/06/2025</td>
+                                <td>Thêm hướng dẫn viên mới</td>
+                                <td>Lê Văn C</td>
+                                <td>-</td>
+                                <td><span class="badge bg-success">Hoàn thành</span></td>
+                            </tr>
+                            <tr>
+                                <td>14:20 - 02/06/2025</td>
+                                <td>Tạo lịch trình mới</td>
+                                <td>-</td>
+                                <td>Tour Đà Lạt 4N3Đ</td>
+                                <td><span class="badge bg-success">Hoàn thành</span></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
+            </div>
+            <div class="card-footer bg-white text-center">
+                <a href="#" class="text-primary">Xem tất cả hoạt động <i class="fas fa-arrow-right ms-1"></i></a>
             </div>
         </div>
     </div>
@@ -278,6 +485,17 @@
         function toggleSidebar() {
             document.querySelector('.sidebar').classList.toggle('show');
         }
+        
+        // Set current date
+        document.addEventListener('DOMContentLoaded', function() {
+            const now = new Date();
+            const formattedDate = now.toLocaleDateString('vi-VN', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            });
+            document.getElementById('currentDate').textContent = formattedDate;
+        });
     </script>
 </body>
 </html>
