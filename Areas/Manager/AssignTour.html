@@ -602,38 +602,74 @@
                         <div class="guide-select-container" id="guide-select-1" style="display: none;">
                             <h6>Chọn hướng dẫn viên</h6>
                             
-                            <div class="guide-option">
-                                <input type="radio" name="guide-tour-1" id="guide-1-1">
-                                <img src="https://randomuser.me/api/portraits/men/32.jpg" class="guide-avatar">
-                                <div class="guide-info">
-                                    <div class="guide-name">Nguyễn Văn A</div>
-                                    <div class="guide-meta">
-                                        <span class="guide-meta-item"><i class="fas fa-star"></i> HDV Nội địa</span>
-                                        <span class="guide-meta-item"><i class="fas fa-calendar-check"></i> 5 năm kinh nghiệm</span>
+                            <div class="guide-option" data-guide-id="HDV-001">
+                                <input type="radio" name="guideSelect" id="guide1" class="visually-hidden">
+                                <div class="d-flex align-items-center">
+                                    <img src="https://randomuser.me/api/portraits/men/32.jpg" class="guide-avatar">
+                                    
+                                    <div class="guide-info flex-grow-1">
+                                        <div class="guide-name">Nguyễn Văn A</div>
+                                        <div class="guide-meta">
+                                            <span class="guide-meta-item"><i class="fas fa-star"></i> HDV Nội địa</span>
+                                            <span class="guide-meta-item"><i class="fas fa-calendar-check"></i> 5 năm kinh nghiệm</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="guide-actions">
+                                        <a href="AddGuide.html?view=HDV-001" class="btn btn-sm btn-outline-info me-1">
+                                            <i class="fas fa-info-circle"></i>
+                                        </a>
+                                        <a href="Delete_AssginTour.html?id=HDV-001" class="btn btn-sm btn-outline-danger">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
                             
-                            <div class="guide-option">
-                                <input type="radio" name="guide-tour-1" id="guide-1-2">
-                                <img src="https://randomuser.me/api/portraits/women/44.jpg" class="guide-avatar">
-                                <div class="guide-info">
-                                    <div class="guide-name">Trần Thị B</div>
-                                    <div class="guide-meta">
-                                        <span class="guide-meta-item"><i class="fas fa-star"></i> HDV Quốc tế</span>
-                                        <span class="guide-meta-item"><i class="fas fa-calendar-check"></i> 7 năm kinh nghiệm</span>
+                            <div class="guide-option" data-guide-id="HDV-002">
+                                <input type="radio" name="guideSelect" id="guide2" class="visually-hidden">
+                                <div class="d-flex align-items-center">
+                                    <img src="https://randomuser.me/api/portraits/women/44.jpg" class="guide-avatar">
+                                    
+                                    <div class="guide-info flex-grow-1">
+                                        <div class="guide-name">Trần Thị B</div>
+                                        <div class="guide-meta">
+                                            <span class="guide-meta-item"><i class="fas fa-star"></i> HDV Quốc tế</span>
+                                            <span class="guide-meta-item"><i class="fas fa-calendar-check"></i> 7 năm kinh nghiệm</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="guide-actions">
+                                        <a href="AddGuide.html?view=HDV-002" class="btn btn-sm btn-outline-info me-1">
+                                            <i class="fas fa-info-circle"></i>
+                                        </a>
+                                        <a href="Delete_AssginTour.html?id=HDV-002" class="btn btn-sm btn-outline-danger">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
                             
-                            <div class="guide-option">
-                                <input type="radio" name="guide-tour-1" id="guide-1-3">
-                                <img src="https://randomuser.me/api/portraits/men/67.jpg" class="guide-avatar">
-                                <div class="guide-info">
-                                    <div class="guide-name">Lê Văn C</div>
-                                    <div class="guide-meta">
-                                        <span class="guide-meta-item"><i class="fas fa-star"></i> HDV Chuyên đề</span>
-                                        <span class="guide-meta-item"><i class="fas fa-calendar-check"></i> 3 năm kinh nghiệm</span>
+                            <div class="guide-option" data-guide-id="HDV-003">
+                                <input type="radio" name="guideSelect" id="guide3" class="visually-hidden">
+                                <div class="d-flex align-items-center">
+                                    <img src="https://randomuser.me/api/portraits/men/67.jpg" class="guide-avatar">
+                                    
+                                    <div class="guide-info flex-grow-1">
+                                        <div class="guide-name">Lê Văn C</div>
+                                        <div class="guide-meta">
+                                            <span class="guide-meta-item"><i class="fas fa-star"></i> HDV Chuyên đề</span>
+                                            <span class="guide-meta-item"><i class="fas fa-calendar-check"></i> 3 năm kinh nghiệm</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="guide-actions">
+                                        <a href="AddGuide.html?view=HDV-003" class="btn btn-sm btn-outline-info me-1">
+                                            <i class="fas fa-info-circle"></i>
+                                        </a>
+                                        <a href="Delete_AssginTour.html?id=HDV-003" class="btn btn-sm btn-outline-danger">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -777,13 +813,15 @@
                                             </div>
                                         </td>
                                         <td><span class="badge bg-success">Đã phân công</span></td>
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-primary">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button class="btn btn-sm btn-outline-danger">
-                                                <i class="fas fa-times"></i>
-                                            </button>
+                                        <td class="text-end">
+                                            <div class="btn-group">
+                                                <a href="AddGuide.html?view=HDV-001" class="btn btn-sm btn-outline-primary">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                <a href="Delete_AssginTour.html?id=HDV-001" class="btn btn-sm btn-outline-danger">
+                                                    <i class="fas fa-times"></i>
+                                                </a>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr>
@@ -797,13 +835,15 @@
                                             </div>
                                         </td>
                                         <td><span class="badge bg-primary">Sắp diễn ra</span></td>
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-primary">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button class="btn btn-sm btn-outline-danger">
-                                                <i class="fas fa-times"></i>
-                                            </button>
+                                        <td class="text-end">
+                                            <div class="btn-group">
+                                                <a href="AddGuide.html?view=HDV-002" class="btn btn-sm btn-outline-primary">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                <a href="Delete_AssginTour.html?id=HDV-002" class="btn btn-sm btn-outline-danger">
+                                                    <i class="fas fa-times"></i>
+                                                </a>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr>
@@ -817,13 +857,15 @@
                                             </div>
                                         </td>
                                         <td><span class="badge bg-warning text-dark">Chờ xác nhận</span></td>
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-primary">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button class="btn btn-sm btn-outline-danger">
-                                                <i class="fas fa-times"></i>
-                                            </button>
+                                        <td class="text-end">
+                                            <div class="btn-group">
+                                                <a href="AddGuide.html?view=HDV-003" class="btn btn-sm btn-outline-primary">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                <a href="Delete_AssginTour.html?id=HDV-003" class="btn btn-sm btn-outline-danger">
+                                                    <i class="fas fa-times"></i>
+                                                </a>
+                                            </div>
                                         </td>
                                     </tr>
                                 </tbody>
