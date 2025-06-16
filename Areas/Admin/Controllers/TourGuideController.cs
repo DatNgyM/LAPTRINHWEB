@@ -25,7 +25,7 @@ namespace LAPTRINHWEB.Areas.Admin.Controllers
         }
 
         // Thêm mới (GET)
-        public IActionResult Create()
+        public IActionResult Add()
         {
             return View();
         }
@@ -33,7 +33,7 @@ namespace LAPTRINHWEB.Areas.Admin.Controllers
         // Thêm mới (POST)
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(TourGuide tourGuide)
+        public IActionResult Add(TourGuide tourGuide)
         {
             if (ModelState.IsValid)
             {

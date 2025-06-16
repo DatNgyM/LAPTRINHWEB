@@ -21,8 +21,8 @@
         </div>
         <nav>
             <ul>
-                <li><a asp-controller="Home" asp-action="HomePage">Trang chủ</a></li>
-                <li><a asp-controller="Tour" asp-action="ListTour" class="active">Tour</a></li>
+                <li><a asp-area="" asp-controller="Home" asp-action="HomePage">Trang chủ</a></li>
+                <li><a asp-area="" asp-controller="Tour" asp-action="ListTour" class="active">Tour</a></li>
                 <li><a href="#">Điểm đến</a></li>
                 <li><a href="#">Đánh giá</a></li>
                 <li><a href="#">Liên hệ</a></li>
@@ -102,7 +102,10 @@
                     </div>
 
                     <div class="booking-actions">
-                        <button class="btn-book-now" onclick="showBookingInfo()">Đặt ngay</button>
+                        <form asp-area="" asp-controller="Booking" asp-action="Index" method="get" style="display:inline;">
+                            <input type="hidden" name="tourId" value="@Model.ID_Tour" />
+                            <button type="submit" class="btn-book-now">Đặt ngay</button>
+                        </form>
                         <button class="btn-add-wishlist"><i class="far fa-heart"></i> Lưu</button>
                         <button class="btn-share"><i class="fas fa-share-alt"></i> Chia sẻ</button>
                     </div>
@@ -149,18 +152,60 @@
                         <h3>Lịch trình tour</h3>
                         @if (Model.Itineraries != null && Model.Itineraries.Any())
                         {
-                            @foreach (var itinerary in Model.Itineraries.OrderBy(i => i.Day_Number))
+                            foreach (var itinerary in Model.Itineraries.OrderBy(i => i.Day_Number))
                             {
-                                <div class="day-itinerary">
-                                    <h4>@itinerary.Title</h4>
+                                <div class="day-itinerary" style="margin-bottom: 30px;">
+                                    <h4>Ngày @itinerary.Day_Number: @itinerary.Title</h4>
                                     
+                                    @* Hiển thị các địa điểm trong ngày *@
+                                    @if (itinerary.ItineraryLocations != null && itinerary.ItineraryLocations.Any())
+                                    {
+                                        <div class="itinerary-locations" style="margin-bottom: 10px;">
+                                            <strong>Địa điểm:</strong>
+                                            <ul>
+                                                @foreach (var loc in itinerary.ItineraryLocations)
+                                                {
+                                                    <li>
+                                                        @loc.Location?.Name
+                                                        @if (loc.Visit_Time.HasValue)
+                                                        {
+                                                            <span style="color: #888;">(Thời gian: @loc.Visit_Time.Value.ToString(@"hh\:mm"))</span>
+                                                        }
+                                                    </li>
+                                                }
+                                            </ul>
+                                        </div>
+                                    }
+
+                                    @* Hiển thị chi tiết hoạt động trong ngày *@
+                                    @if (itinerary.Details != null && itinerary.Details.Any())
+                                    {
+                                        <div class="itinerary-details">
+                                            <strong>Chi tiết hoạt động:</strong>
+                                            <ul>
+                                                @foreach (var detail in itinerary.Details.OrderBy(d => d.Time))
+                                                {
+                                                    <li>
+                                                        <span style="color: #007bff;">@detail.Time:</span>
+                                                        <span>@detail.Activities</span>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="itinerary-details">
+                                            <em>Chưa có chi tiết hoạt động cho ngày này.</em>
+                                        </div>
+                                    }
                                 </div>
                             }
                         }
-                        @* else
+                        else
                         {
                             <p>Lịch trình chi tiết sẽ được cập nhật sớm.</p>
-                        } *@
+                        }
                     </div>
                     
                     <div class="tab-pane" id="includes">
@@ -188,7 +233,7 @@
 
     <!-- Back to List -->
     <div class="back-to-list">
-        <a asp-action="ListTour" class="btn-back">← Quay lại danh sách tour</a>
+        <a asp-area="" asp-action="ListTour" class="btn-back">← Quay lại danh sách tour</a>
     </div>
 
     <!-- Footer -->
@@ -203,16 +248,11 @@
             document.querySelector('.main-image img').src = src;
         }
 
-        function showBookingInfo() {
-            alert('Chức năng đặt tour sẽ được phát triển trong phiên bản tiếp theo.');
-        }
-
         // Tab functionality
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
                 document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
-                
                 this.classList.add('active');
                 document.getElementById(this.dataset.tab).classList.add('active');
             });

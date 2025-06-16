@@ -52,6 +52,10 @@ namespace LAPTRINHWEB.Models
         [Column("Status")]
         public TourStatus Status { get; set; } = TourStatus.Active;
 
+        [Column("DepartureDate")]
+        [DataType(DataType.Date)]
+        public DateTime DepartureDate { get; set; }
+
         // Navigation properties
         public virtual ICollection<TourImage> TourImages { get; set; } = new List<TourImage>();
         public virtual ICollection<Itinerary> Itineraries { get; set; } = new List<Itinerary>();

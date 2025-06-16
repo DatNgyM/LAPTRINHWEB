@@ -23,11 +23,8 @@ namespace LAPTRINHWEB.Models
         public DateTime Booking_Date { get; set; }
 
         [Required]
-        [Column("Number_Adults")]
-        public int Number_Adults { get; set; }
-
-        [Column("Number_Children")]
-        public int Number_Children { get; set; } = 0;
+        [Column("Quantity")]
+        public int Quantity { get; set; }
 
         [Required]
         [Column("Total_Price")]
@@ -36,10 +33,6 @@ namespace LAPTRINHWEB.Models
 
         [Column("Status")]
         public BookingStatus Status { get; set; } = BookingStatus.Pending;
-
-        [Column("Note", TypeName = "ntext")]
-        [DataType(DataType.Text)]
-        public string Note { get; set; }
 
         public string? UserId { get; set; }
         public virtual ApplicationUser? User { get; set; }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LAPTRINHWEB.Migrations
 {
     [DbContext(typeof(TourDbContext))]
-    [Migration("20250614081531_ResyncDatabase")]
-    partial class ResyncDatabase
+    [Migration("20250616142039_AddDepartureDateToTour")]
+    partial class AddDepartureDateToTour
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -174,19 +174,9 @@ namespace LAPTRINHWEB.Migrations
                         .HasColumnType("int")
                         .HasColumnName("ID_Tour");
 
-                    b.Property<string>("Note")
-                        .HasColumnType("ntext")
-                        .HasColumnName("Note");
-
-                    b.Property<int>("Number_Adults")
+                    b.Property<int>("Quantity")
                         .HasColumnType("int")
-                        .HasColumnName("Number_Adults");
-
-                    b.Property<int>("Number_Children")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0)
-                        .HasColumnName("Number_Children");
+                        .HasColumnName("Quantity");
 
                     b.Property<int>("Status")
                         .ValueGeneratedOnAdd()
@@ -380,6 +370,10 @@ namespace LAPTRINHWEB.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID_Tour"));
 
+                    b.Property<DateTime>("DepartureDate")
+                        .HasColumnType("date")
+                        .HasColumnName("DepartureDate");
+
                     b.Property<string>("Description")
                         .HasColumnType("ntext")
                         .HasColumnName("Description");
@@ -484,6 +478,11 @@ namespace LAPTRINHWEB.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID_Guide"));
 
+                    b.Property<string>("Area")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("Area");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(150)
@@ -491,6 +490,7 @@ namespace LAPTRINHWEB.Migrations
                         .HasColumnName("Email");
 
                     b.Property<string>("Experience")
+                        .IsRequired()
                         .HasColumnType("ntext")
                         .HasColumnName("Experience");
 
@@ -505,6 +505,11 @@ namespace LAPTRINHWEB.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("varchar(15)")
                         .HasColumnName("Phone");
+
+                    b.Property<string>("Specialization")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)")
+                        .HasColumnName("Specialization");
 
                     b.HasKey("ID_Guide");
 

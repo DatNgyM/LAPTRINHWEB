@@ -225,6 +225,8 @@
                         <div class="tour-guide-name">@Model.FullName</div>
                         <div class="tour-guide-email">@Model.Email</div>
                         <div>Kinh nghiệm: @Model.Experience năm</div>
+                        <div>Khu vực: @Model.Area</div>
+                        <div>Chuyên môn: @Model.Specialization</div>
                     </div>
                 </div>
                 <div style="background-color: #f8f9fa; padding: 20px; border-radius: 5px; margin-bottom: 20px;">
@@ -238,7 +240,14 @@
                             <th>Số điện thoại:</th>
                             <td>@Model.Phone</td>
                         </tr>
-
+                        <tr>
+                            <th>Khu vực:</th>
+                            <td>@Model.Area</td>
+                        </tr>
+                        <tr>
+                            <th>Chuyên môn:</th>
+                            <td>@Model.Specialization</td>
+                        </tr>
                     </table>
                 </div>
                 <form asp-action="Delete" method="post">

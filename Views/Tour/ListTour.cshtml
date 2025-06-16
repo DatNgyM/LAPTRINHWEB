@@ -1,6 +1,7 @@
 @model List<LAPTRINHWEB.Models.Tour>
 @{
     ViewData["Title"] = "Danh sách Tour";
+    var durations = ViewBag.Durations as Dictionary<int, int>;
 }
 
 <!DOCTYPE html>
@@ -24,8 +25,8 @@
         </div>
         <nav>
             <ul>
-                <li><a asp-controller="Home" asp-action="HomePage">Home</a></li>
-                <li><a asp-controller="Tour" asp-action="ListTour" class="active">Tour</a></li>
+                <li><a asp-area="" asp-controller="Home" asp-action="HomePage">Home</a></li>
+                <li><a asp-area="" asp-controller="Tour" asp-action="ListTour" class="active">Tour</a></li>
                 <li><a href="#">Destination</a></li>
                 <li><a href="#">Evaluate</a></li>
                 <li><a href="#">Contact</a></li>
@@ -156,7 +157,9 @@
                                     }
                                 </div>
                                 <div class="tour-content">
-                                    <h3><a asp-action="Detail" asp-route-id="@tour.ID_Tour">@tour.Name_Tour</a></h3>
+                                    <h3>
+                                        <a asp-area="" asp-action="Detail" asp-route-id="@tour.ID_Tour">@tour.Name_Tour</a>
+                                    </h3>
                                     <div class="tour-rating">
                                         <i class="fas fa-star"></i>
                                         <i class="fas fa-star"></i>
@@ -166,7 +169,20 @@
                                         <span>(@(tour.Bookings?.Count ?? 0) đánh giá)</span>
                                     </div>
                                     <div class="tour-meta">
-                                        <span><i class="fas fa-clock"></i> @tour.DurationText</span>
+                                        <span>
+                                            <i class="fas fa-clock"></i>
+                                            @{
+                                                if (durations != null && durations.ContainsKey(tour.ID_Tour))
+                                                {
+                                                    <text>@durations[tour.ID_Tour] ngày (theo tìm kiếm)</text>
+                                                }
+                                                else
+                                                {
+                                                    <text>@tour.Duration ngày</text>
+                                                }
+                                            }
+                                        </span>
+                                        <span><i class="fas fa-calendar-alt"></i> Khởi hành: @tour.DepartureDate.ToString("dd/MM/yyyy")</span>
                                         <span><i class="fas fa-users"></i> Tối đa @tour.Max_Capacity người</span>
                                         <span><i class="fas fa-map-marker-alt"></i> @tour.Start_Location - @tour.End_Location</span>
                                     </div>
@@ -182,7 +198,7 @@
                                             }
                                         </div>
                                         <div class="tour-actions">
-                                            <a asp-action="Detail" asp-route-id="@tour.ID_Tour" class="btn-view-details">
+                                            <a asp-area="" asp-action="Detail" asp-route-id="@tour.ID_Tour" class="btn-view-details">
                                                 <i class="fas fa-eye me-2"></i>Xem chi tiết
                                             </a>
                                         </div>

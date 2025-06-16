@@ -54,6 +54,7 @@ namespace LAPTRINHWEB.Models
                 entity.Property(e => e.Duration).IsRequired();
                 entity.Property(e => e.Max_Capacity).IsRequired();
                 entity.Property(e => e.Status).HasDefaultValue(TourStatus.Active);
+                entity.Property(e => e.DepartureDate).HasColumnType("date"); // Thêm dòng này
 
                 entity.HasIndex(e => e.Name_Tour);
             });
@@ -238,11 +239,9 @@ namespace LAPTRINHWEB.Models
                 entity.HasKey(e => e.ID_Booking);
                 entity.ToTable("Bookings");
                 entity.Property(e => e.Booking_Date).IsRequired();
-                entity.Property(e => e.Number_Adults).IsRequired();
-                entity.Property(e => e.Number_Children).HasDefaultValue(0);
+                entity.Property(e => e.Quantity).IsRequired();
                 entity.Property(e => e.Total_Price).HasColumnType("decimal(18,2)");
                 entity.Property(e => e.Status).HasDefaultValue(BookingStatus.Pending);
-                entity.Property(e => e.Note).HasColumnType("ntext");
                 entity.Property(e => e.UserId).IsRequired(false);
 
                 entity.HasOne(e => e.User)

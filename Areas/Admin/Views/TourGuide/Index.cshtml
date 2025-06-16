@@ -249,7 +249,7 @@
     <div class="content">
         <div class="header">
             <h2>Quản lý Hướng dẫn viên</h2>
-            <a href="@Url.Action("Create", "TourGuide", new { area = "Admin" })" class="btn">
+            <a href="@Url.Action("Add", "TourGuide", new { area = "Admin" })" class="btn">
                 <i class="fas fa-plus"></i> Thêm HDV mới
             </a>
         </div>
@@ -266,9 +266,9 @@
                     <th>Hướng dẫn viên</th>
                     <th>Email</th>
                     <th>Số điện thoại</th>
-                    <th>Ngôn ngữ</th>
                     <th>Kinh nghiệm</th>
-                    <th>Trạng thái</th>
+                    <th>Khu vực</th>
+                    <th>Chuyên môn</th>
                     <th>Thao tác</th>
                 </tr>
             </thead>
@@ -279,15 +279,14 @@
                         <td>@guide.ID_Guide</td>
                         <td>
                             <div class="tour-guide-info">
-
                                 <span>@guide.FullName</span>
                             </div>
                         </td>
                         <td>@guide.Email</td>
                         <td>@guide.Phone</td>
-
                         <td>@guide.Experience năm</td>
-
+                        <td>@guide.Area</td>
+                        <td>@guide.Specialization</td>
                         <td class="action-buttons">
                             <a href="@Url.Action("Edit", "TourGuide", new { id = guide.ID_Guide, area = "Admin" })"
                                 class="btn edit-btn">

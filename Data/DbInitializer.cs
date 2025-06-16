@@ -247,16 +247,17 @@ namespace LAPTRINHWEB.Data
             if (!context.TourGuides.Any())
             {
                 var tourGuides = new List<TourGuide>
-                {
-                    new TourGuide { FullName = "Nguyễn Văn Minh", Phone = "0987654321", Email = "nguyenvanminh@guide.com", Experience = "8 năm hướng dẫn tour miền Bắc, chuyên Hạ Long - Sapa" },
-                    new TourGuide { FullName = "Trần Thị Hoa", Phone = "0912345678", Email = "tranthihoa@guide.com", Experience = "6 năm hướng dẫn tour miền Trung, chuyên Hội An - Huế - Đà Nẵng" },
-                    new TourGuide { FullName = "Lê Văn Tuấn", Phone = "0923456789", Email = "levantuan@guide.com", Experience = "5 năm hướng dẫn tour miền Nam, chuyên TP.HCM - Mekong Delta" },
-                    new TourGuide { FullName = "Phạm Thị Lan", Phone = "0934567890", Email = "phamthilan@guide.com", Experience = "7 năm hướng dẫn tour biển đảo, chuyên Phú Quốc - Nha Trang" },
-                    new TourGuide { FullName = "Hoàng Văn Sơn", Phone = "0945678901", Email = "hoangvanson@guide.com", Experience = "4 năm hướng dẫn tour cao nguyên, chuyên Đà Lạt - Sapa" },
-                    new TourGuide { FullName = "Ngô Thị Mai", Phone = "0956789012", Email = "ngothimai@guide.com", Experience = "9 năm hướng dẫn tour văn hóa, chuyên Huế - Hội An" },
-                    new TourGuide { FullName = "Vũ Văn Hải", Phone = "0967890123", Email = "vuvanhai@guide.com", Experience = "3 năm hướng dẫn tour phiêu lưu, chuyên trekking Sapa" },
-                    new TourGuide { FullName = "Đỗ Thị Linh", Phone = "0978901234", Email = "dothilinh@guide.com", Experience = "5 năm hướng dẫn tour ẩm thực, chuyên tour ẩm thực TP.HCM" }
-                };
+        {
+            new TourGuide { FullName = "Nguyễn Văn Minh", Phone = "0987654321", Email = "nguyenvanminh@guide.com", Experience = 8, Area = "Miền Bắc", Specialization = "Hạ Long - Sapa" },
+            new TourGuide { FullName = "Trần Thị Hoa", Phone = "0912345678", Email = "tranthihoa@guide.com", Experience = 6, Area = "Miền Trung", Specialization = "Hội An - Huế - Đà Nẵng" },
+            new TourGuide { FullName = "Lê Văn Tuấn", Phone = "0923456789", Email = "levantuan@guide.com", Experience = 5, Area = "Miền Nam", Specialization = "TP.HCM - Mekong Delta" },
+            new TourGuide { FullName = "Phạm Thị Lan", Phone = "0934567890", Email = "phamthilan@guide.com", Experience = 7, Area = "Biển đảo", Specialization = "Phú Quốc - Nha Trang" },
+            new TourGuide { FullName = "Hoàng Văn Sơn", Phone = "0945678901", Email = "hoangvanson@guide.com", Experience = 4, Area = "Cao nguyên", Specialization = "Đà Lạt - Sapa" },
+            new TourGuide { FullName = "Ngô Thị Mai", Phone = "0956789012", Email = "ngothimai@guide.com", Experience = 9, Area = "Văn hóa", Specialization = "Huế - Hội An" },
+            new TourGuide { FullName = "Vũ Văn Hải", Phone = "0967890123", Email = "vuvanhai@guide.com", Experience = 3, Area = "Phiêu lưu", Specialization = "Trekking Sapa" },
+            new TourGuide { FullName = "Đỗ Thị Linh", Phone = "0978901234", Email = "dothilinh@guide.com", Experience = 5, Area = "Ẩm thực", Specialization = "Ẩm thực TP.HCM" }
+        };
+
                 context.TourGuides.AddRange(tourGuides);
                 await context.SaveChangesAsync();
                 Console.WriteLine($"✅ Seeded {tourGuides.Count} tour guides");
@@ -281,7 +282,8 @@ namespace LAPTRINHWEB.Data
                         Price = 4500000,
                         Discount = 500000,
                         Max_Capacity = 30,
-                        Status = TourStatus.Active
+                        Status = TourStatus.Active,
+                        DepartureDate = DateTime.Today.AddDays(7)
                     },
                     new Tour
                     {
@@ -293,7 +295,8 @@ namespace LAPTRINHWEB.Data
                         Price = 5200000,
                         Discount = 700000,
                         Max_Capacity = 20,
-                        Status = TourStatus.Active
+                        Status = TourStatus.Active,
+                        DepartureDate = DateTime.Today.AddDays(10)
                     },
                     new Tour
                     {
@@ -305,7 +308,8 @@ namespace LAPTRINHWEB.Data
                         Price = 3800000,
                         Discount = 300000,
                         Max_Capacity = 25,
-                        Status = TourStatus.Active
+                        Status = TourStatus.Active,
+                        DepartureDate = DateTime.Today.AddDays(14)
                     },
                     new Tour
                     {
@@ -317,7 +321,8 @@ namespace LAPTRINHWEB.Data
                         Price = 2800000,
                         Discount = 0,
                         Max_Capacity = 35,
-                        Status = TourStatus.Active
+                        Status = TourStatus.Active,
+                        DepartureDate = DateTime.Today.AddDays(12)
                     },
                     new Tour
                     {
@@ -329,7 +334,8 @@ namespace LAPTRINHWEB.Data
                         Price = 3200000,
                         Discount = 200000,
                         Max_Capacity = 40,
-                        Status = TourStatus.Active
+                        Status = TourStatus.Active,
+                        DepartureDate = DateTime.Today.AddDays(9)
                     },
                     new Tour
                     {
@@ -341,7 +347,8 @@ namespace LAPTRINHWEB.Data
                         Price = 6800000,
                         Discount = 800000,
                         Max_Capacity = 30,
-                        Status = TourStatus.Active
+                        Status = TourStatus.Active,
+                        DepartureDate = DateTime.Today.AddDays(15)
                     },
                     new Tour
                     {
@@ -353,7 +360,8 @@ namespace LAPTRINHWEB.Data
                         Price = 4200000,
                         Discount = 400000,
                         Max_Capacity = 25,
-                        Status = TourStatus.Active
+                        Status = TourStatus.Active,
+                        DepartureDate = DateTime.Today.AddDays(11)
                     },
                     new Tour
                     {
@@ -365,7 +373,8 @@ namespace LAPTRINHWEB.Data
                         Price = 2200000,
                         Discount = 0,
                         Max_Capacity = 30,
-                        Status = TourStatus.Active
+                        Status = TourStatus.Active,
+                        DepartureDate = DateTime.Today.AddDays(8)
                     },
                     new Tour
                     {
@@ -377,7 +386,8 @@ namespace LAPTRINHWEB.Data
                         Price = 5500000,
                         Discount = 600000,
                         Max_Capacity = 35,
-                        Status = TourStatus.Active
+                        Status = TourStatus.Active,
+                        DepartureDate = DateTime.Today.AddDays(13)
                     },
                     new Tour
                     {
@@ -389,7 +399,8 @@ namespace LAPTRINHWEB.Data
                         Price = 9800000,
                         Discount = 1200000,
                         Max_Capacity = 25,
-                        Status = TourStatus.Active
+                        Status = TourStatus.Active,
+                        DepartureDate = DateTime.Today.AddDays(20)
                     }
                 };
                 context.Tours.AddRange(tours);

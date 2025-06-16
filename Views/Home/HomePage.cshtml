@@ -21,8 +21,8 @@
         </div>
         <nav>
             <ul>
-                <li><a asp-controller="Home" asp-action="HomePage" class="active">Home</a></li>
-                <li><a asp-controller="Tour" asp-action="ListTour">Tour</a></li>
+                <li><a asp-area="" asp-controller="Home" asp-action="HomePage" class="active">Home</a></li>
+                <li><a asp-area="" asp-controller="Tour" asp-action="ListTour">Tour</a></li>
                 <li><a href="#">Destination</a></li>
                 <li><a href="#">Evaluate</a></li>
                 <li><a href="#">Contact</a></li>
@@ -125,32 +125,32 @@
                 </div>
             }
 
-            <div class="search-form">
-                <div class="form-row">
-                    <div class="input-group">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <input type="text" placeholder="From where">
+           <div class="search-form">
+                <form asp-area="" asp-controller="Tour" asp-action="ListTour" method="get">
+                    <div class="form-row">
+                        <div class="input-group">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <input type="text" name="destination" class="form-control" placeholder="Nhập nơi đến" />
+                        </div>
+                        <div class="input-group">
+                            <i class="far fa-calendar" onclick="document.getElementById('startDate').showPicker()" style="cursor:pointer"></i>
+                            <input type="date" id="startDate" name="startDate" class="form-control" 
+                                min="@DateTime.Today.ToString("yyyy-MM-dd")"
+                                placeholder="Ngày bắt đầu" style="cursor:pointer" />
+                        </div>
+                        <div class="input-group">
+                            <i class="far fa-calendar" onclick="document.getElementById('endDate').showPicker()" style="cursor:pointer"></i>
+                            <input type="date" id="endDate" name="endDate" class="form-control"
+                                min="@DateTime.Today.ToString("yyyy-MM-dd")"
+                                placeholder="Ngày kết thúc" style="cursor:pointer" />
+                        </div>
                     </div>
-                    <div class="input-group">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <input type="text" placeholder="To where">
+                    <div class="form-row">
+                        <button class="search-btn" type="submit">
+                            <i class="fas fa-search me-2"></i>Tìm kiếm tour
+                        </button>
                     </div>
-                </div>
-                <div class="form-row">
-                    <div class="input-group">
-                        <i class="far fa-calendar"></i>
-                        <input type="text" placeholder="mm/dd/yyyy">
-                    </div>
-                    <div class="input-group">
-                        <i class="far fa-calendar"></i>
-                        <input type="text" placeholder="mm/dd/yyyy">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <button class="search-btn">
-                        <i class="fas fa-search me-2"></i>Tìm kiếm tour
-                    </button>
-                </div>
+                </form>
             </div>
         </div>
     </section>
@@ -181,7 +181,7 @@
                     @foreach (var tour in flashDeals)
                     {
                         <div class="deal-card">
-                            <a asp-controller="Tour" asp-action="Detail" asp-route-id="@tour.ID_Tour" class="tour-link">
+                            <a asp-area="" asp-controller="Tour" asp-action="Detail" asp-route-id="@tour.ID_Tour" class="tour-link">
                                 <img src="@(tour.TourImages.FirstOrDefault()?.Image_URL ?? "/img/default-tour.jpg")"
                                     alt="@tour.Name_Tour" onerror="this.src='/img/default-tour.jpg'">
                                 <div class="deal-info">
@@ -339,6 +339,27 @@
     <!-- JavaScript Files -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/js/main.js"></script>
+    <script>
+        // Đặt min cho ngày bắt đầu và ngày kết thúc là hôm nay
+        document.addEventListener('DOMContentLoaded', function () {
+            var startInput = document.getElementById('startDate');
+            var endInput = document.getElementById('endDate');
+            var today = new Date();
+            var minDate = today.toISOString().split('T')[0];
+            if (startInput) startInput.setAttribute('min', minDate);
+            if (endInput) endInput.setAttribute('min', minDate);
+
+            // Khi chọn ngày bắt đầu, ngày kết thúc không được nhỏ hơn ngày bắt đầu
+            if (startInput && endInput) {
+                startInput.addEventListener('change', function () {
+                    endInput.min = startInput.value;
+                    if (endInput.value < startInput.value) {
+                        endInput.value = startInput.value;
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>

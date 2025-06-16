@@ -4,6 +4,7 @@ using LAPTRINHWEB.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LAPTRINHWEB.Migrations
 {
     [DbContext(typeof(TourDbContext))]
-    partial class TourDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250616133116_UpdateTourGuideModel")]
+    partial class UpdateTourGuideModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -366,10 +369,6 @@ namespace LAPTRINHWEB.Migrations
                         .HasColumnName("ID_Tour");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID_Tour"));
-
-                    b.Property<DateTime>("DepartureDate")
-                        .HasColumnType("date")
-                        .HasColumnName("DepartureDate");
 
                     b.Property<string>("Description")
                         .HasColumnType("ntext")

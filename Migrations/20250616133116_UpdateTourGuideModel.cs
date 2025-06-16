@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LAPTRINHWEB.Migrations
 {
     /// <inheritdoc />
-    public partial class ResyncDatabase : Migration
+    public partial class UpdateTourGuideModel : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -98,7 +98,9 @@ namespace LAPTRINHWEB.Migrations
                     FullName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Phone = table.Column<string>(type: "varchar(15)", maxLength: 15, nullable: false),
                     Email = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: false),
-                    Experience = table.Column<string>(type: "ntext", nullable: true)
+                    Experience = table.Column<string>(type: "ntext", nullable: false),
+                    Area = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    Specialization = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -258,11 +260,9 @@ namespace LAPTRINHWEB.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ID_Tour = table.Column<int>(type: "int", nullable: false),
                     Booking_Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Number_Adults = table.Column<int>(type: "int", nullable: false),
-                    Number_Children = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
                     Total_Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    Note = table.Column<string>(type: "ntext", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>

@@ -29,9 +29,17 @@ namespace LAPTRINHWEB.Models
         [Column("Email", TypeName = "varchar(150)")]
         public string Email { get; set; }
 
-        [Column("Experience", TypeName = "ntext")]
-        [DataType(DataType.Text)]
-        public string Experience { get; set; }
+        [Required]
+        [Column("Experience", TypeName = "int")]
+        public int Experience { get; set; }
+
+        [StringLength(100)]
+        [Column("Area", TypeName = "nvarchar(100)")]
+        public string Area { get; set; }
+
+        [StringLength(150)]
+        [Column("Specialization", TypeName = "nvarchar(150)")]
+        public string Specialization { get; set; }
 
         // Navigation properties
         public ICollection<TourGuideAssignment> TourGuideAssignments { get; set; } = new List<TourGuideAssignment>();
