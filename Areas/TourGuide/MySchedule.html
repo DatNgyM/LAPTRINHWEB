@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch trình của tôi - Hướng dẫn viên</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css">
+    <style>
+        body { background-color: #f8f9fa; }
+        .sidebar {
+            height: 100vh;
+            background: linear-gradient(180deg, #3b7ddd 0%, #2e60b1 100%);
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            overflow-y: auto;
+        }
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+        .sidebar .nav-link {
+            color: #fff;
+            padding: 12px 20px;
+            transition: all 0.3s ease;
+        }
+        .sidebar .nav-link:hover,
+        .sidebar .nav-link.active {
+            background-color: rgba(255,255,255,0.2);
+            color: white;
+        }
+        .sidebar-brand {
+            background-color: rgba(0,0,0,0.2);
+            padding: 20px;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+        }
+        .calendar-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .schedule-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+        .schedule-card:hover {
+            transform: translateY(-5px);
+        }
+        .fc .fc-button-primary {
+            background-color: #3b7ddd;
+            border-color: #3b7ddd;
+        }
+        .fc .fc-button-primary:hover {
+            background-color: #2e60b1;
+            border-color: #2e60b1;
+        }
+        .fc .fc-daygrid-day.fc-day-today {
+            background-color: rgba(59, 125, 221, 0.1);
+        }
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background-color: #3b7ddd;
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -39px;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #3b7ddd;
+            border: 4px solid white;
+        }
+        .timeline-content {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        @media (max-width: 768px) {
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.show { transform: translateX(0); }
+            .main-content { margin-left: 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="sidebar-brand">
+            <i class="fas fa-route"></i> TourGuide Panel
+        </div>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" href="TourGuide.html">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="ToursAssigned.html">
+                    <i class="fas fa-map-marked-alt"></i> Tour được phân công
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="Schedule.html">
+                    <i class="fas fa-calendar-alt"></i> Lịch trình của tôi
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="Profile.html">
+                    <i class="fas fa-user"></i> Thông tin cá nhân
+                </a>
+            </li>
+            <hr class="text-white">
+            <li class="nav-item">
+                <a class="nav-link" href="#logout">
+                    <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Mobile Menu Toggle -->
+        <button class="btn btn-primary d-md-none mb-3" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i> Menu
+        </button>
+
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="h3">
+                    <i class="fas fa-calendar-alt text-primary"></i> 
+                    Lịch trình của tôi
+                </h1>
+                <p class="text-muted">Quản lý lịch làm việc và các tour đã được phân công</p>
+            </div>
+            <div class="text-muted">
+                <i class="fas fa-calendar"></i> @DateTime.Now.ToString("dd/MM/yyyy")
+            </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="card bg-primary text-white">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h4>2</h4>
+                                <p class="mb-0">Tour trong tuần này</p>
+                            </div>
+                            <i class="fas fa-calendar-week fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-info text-white">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h4>5</h4>
+                                <p class="mb-0">Tour trong tháng</p>
+                            </div>
+                            <i class="fas fa-calendar-alt fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-success text-white">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h4>12</h4>
+                                <p class="mb-0">Ngày làm việc</p>
+                            </div>
+                            <i class="fas fa-briefcase fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-warning text-white">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h4>3</h4>
+                                <p class="mb-0">Yêu cầu mới</p>
+                            </div>
+                            <i class="fas fa-bell fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calendar -->
+        <div class="calendar-container mb-4">
+            <div id="calendar"></div>
+        </div>
+
+        <!-- Today's Schedule -->
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="fas fa-tasks"></i> Lịch trình hôm nay - 16/06/2025</h5>
+            </div>
+            <div class="card-body">
+                <div class="timeline">
+                    <!-- Morning -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h5 class="mb-0">07:00 - 08:00</h5>
+                                <span class="badge bg-info">Buổi sáng</span>
+                            </div>
+                            <p>Đón khách tại sảnh khách sạn Mường Thanh Hạ Long</p>
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-map-marker-alt text-primary me-2"></i> 
+                                <span>Khách sạn Mường Thanh, Bãi Cháy, Hạ Long</span>
+                            </div>
+                            <div class="mt-2">
+                                <span class="badge bg-light text-dark">Tour: VN12345</span>
+                                <span class="badge bg-light text-dark">25 khách</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Late Morning -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h5 class="mb-0">08:30 - 11:30</h5>
+                                <span class="badge bg-info">Buổi sáng</span>
+                            </div>
+                            <p>Tham quan Vịnh Hạ Long - Du thuyền ngắm cảnh</p>
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-map-marker-alt text-primary me-2"></i> 
+                                <span>Cảng tàu du lịch Hạ Long</span>
+                            </div>
+                            <div class="mt-2">
+                                <span class="badge bg-light text-dark">Tour: VN12345</span>
+                                <span class="badge bg-primary">Du thuyền Phoenix</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lunch -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h5 class="mb-0">12:00 - 13:30</h5>
+                                <span class="badge bg-warning text-dark">Ăn trưa</span>
+                            </div>
+                            <p>Ăn trưa trên tàu - Hải sản đặc sản Hạ Long</p>
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-map-marker-alt text-primary me-2"></i> 
+                                <span>Du thuyền Phoenix</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Afternoon -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h5 class="mb-0">14:00 - 16:00</h5>
+                                <span class="badge bg-success">Buổi chiều</span>
+                            </div>
+                            <p>Tham quan Hang Sửng Sốt và đảo Ti Tốp</p>
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-map-marker-alt text-primary me-2"></i> 
+                                <span>Hang Sửng Sốt → Đảo Ti Tốp</span>
+                            </div>
+                            <div class="mt-2">
+                                <span class="badge bg-light text-dark">Tour: VN12345</span>
+                                <span class="badge bg-light text-dark">Cần chuẩn bị: Nước uống, khăn lau</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Evening -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h5 class="mb-0">18:00 - 20:00</h5>
+                                <span class="badge bg-danger">Buổi tối</span>
+                            </div>
+                            <p>Ăn tối và Check-in khách sạn Mường Thanh</p>
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-map-marker-alt text-primary me-2"></i> 
+                                <span>Nhà hàng Hương Biển → Khách sạn Mường Thanh</span>
+                            </div>
+                            <div class="mt-2">
+                                <span class="badge bg-light text-dark">Tour: VN12345</span>
+                                <span class="badge bg-light text-dark">Chuẩn bị danh sách phân phòng</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upcoming Schedule -->
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="fas fa-calendar-week"></i> Lịch trình sắp tới</h5>
+            </div>
+            <div class="card-body">
+                <div class="accordion" id="upcomingSchedule">
+                    <!-- Day 1 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="day1Heading">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#day1Collapse" aria-expanded="true" aria-controls="day1Collapse">
+                                <strong>Ngày mai - 17/06/2025</strong> - Hạ Long → Ninh Bình
+                            </button>
+                        </h2>
+                        <div id="day1Collapse" class="accordion-collapse collapse show" aria-labelledby="day1Heading">
+                            <div class="accordion-body">
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <strong>07:00 - 08:00</strong>: Ăn sáng tại khách sạn
+                                            </div>
+                                            <span class="badge bg-info">Buổi sáng</span>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <strong>08:30 - 11:30</strong>: Di chuyển từ Hạ Long đến Ninh Bình
+                                            </div>
+                                            <span class="badge bg-info">Buổi sáng</span>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <strong>12:00 - 13:30</strong>: Ăn trưa tại nhà hàng Đặc sản Ninh Bình
+                                            </div>
+                                            <span class="badge bg-warning text-dark">Ăn trưa</span>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <strong>14:00 - 17:00</strong>: Tham quan Tràng An và Hang Múa
+                                            </div>
+                                            <span class="badge bg-success">Buổi chiều</span>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <strong>18:00 - 20:00</strong>: Ăn tối và nhận phòng khách sạn
+                                            </div>
+                                            <span class="badge bg-danger">Buổi tối</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Day 2 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="day2Heading">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#day2Collapse" aria-expanded="false" aria-controls="day2Collapse">
+                                <strong>18/06/2025</strong> - Ninh Bình → Sapa
+                            </button>
+                        </h2>
+                        <div id="day2Collapse" class="accordion-collapse collapse" aria-labelledby="day2Heading">
+                            <div class="accordion-body">
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <strong>07:00 - 08:00</strong>: Ăn sáng tại khách sạn
+                                            </div>
+                                            <span class="badge bg-info">Buổi sáng</span>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <strong>08:30 - 12:30</strong>: Di chuyển từ Ninh Bình đến Sapa
+                                            </div>
+                                            <span class="badge bg-info">Buổi sáng</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Day 3 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="day3Heading">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#day3Collapse" aria-expanded="false" aria-controls="day3Collapse">
+                                <strong>20/06/2025</strong> - Tour Phú Quốc 3N2Đ (Bắt đầu)
+                            </button>
+                        </h2>
+                        <div id="day3Collapse" class="accordion-collapse collapse" aria-labelledby="day3Heading">
+                            <div class="accordion-body">
+                                <div class="alert alert-warning">
+                                    <i class="fas fa-exclamation-triangle"></i> Tour mới bắt đầu - Đảm bảo có mặt tại sân bay Tân Sơn Nhất lúc 07:00
+                                </div>
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <strong>07:00 - 08:00</strong>: Check-in tại sân bay Tân Sơn Nhất
+                                            </div>
+                                            <span class="badge bg-info">Buổi sáng</span>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <strong>09:00 - 10:30</strong>: Bay từ TP.HCM đến Phú Quốc
+                                            </div>
+                                            <span class="badge bg-info">Buổi sáng</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                events: [
+                    {
+                        title: 'Tour Hạ Long - Sapa',
+                        start: '2025-06-15',
+                        end: '2025-06-20',
+                        backgroundColor: '#3b7ddd',
+                        borderColor: '#3b7ddd'
+                    },
+                    {
+                        title: 'Tour Phú Quốc',
+                        start: '2025-06-20',
+                        end: '2025-06-23',
+                        backgroundColor: '#ffc107',
+                        borderColor: '#ffc107',
+                        textColor: '#000'
+                    },
+                    {
+                        title: 'Tour Đà Nẵng - Hội An',
+                        start: '2025-06-25',
+                        end: '2025-06-29',
+                        backgroundColor: '#ffc107',
+                        borderColor: '#ffc107',
+                        textColor: '#000'
+                    },
+                    {
+                        title: 'Họp công ty',
+                        start: '2025-06-24',
+                        backgroundColor: '#6c757d',
+                        borderColor: '#6c757d'
+                    },
+                    {
+                        title: 'Tour Miền Tây',
+                        start: '2025-06-10',
+                        end: '2025-06-12',
+                        backgroundColor: '#6c757d',
+                        borderColor: '#6c757d'
+                    }
+                ]
+            });
+            
+            calendar.render();
+        });
+
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('show');
+        }
+    </script>
+</body>
+</html>
