@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Quản lý Tour</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/manager.css" />
+    <style>
+        .manager-container {
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #2c3e50;
+            color: white;
+            transition: width 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .sidebar-header {
+            padding: 20px 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            background-color: #1a2530;
+            display: flex;
+            align-items: center;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-item {
+            margin: 5px 0;
+        }
+
+        .sidebar-item a {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            color: #ecf0f1;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .sidebar-item a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-item.active a {
+            background-color: #3498db;
+        }
+
+        .sidebar-item i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .main-header {
+            background-color: #fff;
+            border-bottom: 1px solid #e6e6e6;
+            padding: 15px 0;
+        }
+
+        .page-title {
+            margin: 0;
+            display: inline-block;
+        }
+
+        .menu-toggle {
+            background: none;
+            border: none;
+            color: #2c3e50;
+            margin-right: 15px;
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .user-menu .dropdown-toggle {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .user-menu .dropdown-toggle::after {
+            display: none;
+        }
+
+        .main-body {
+            padding: 20px;
+            overflow-y: auto;
+            flex: 1;
+            background-color: #f5f5f5;
+        }
+
+        /* Collapsed sidebar */
+        .manager-container.sidebar-collapsed .sidebar {
+            width: 70px;
+        }
+
+        .manager-container.sidebar-collapsed .sidebar-header span,
+        .manager-container.sidebar-collapsed .sidebar-item span {
+            display: none;
+        }
+
+        .manager-container.sidebar-collapsed .sidebar-item a {
+            justify-content: center;
+            padding: 15px;
+        }
+
+        .manager-container.sidebar-collapsed .sidebar-item i {
+            margin: 0;
+        }
+
+        /* Card styles */
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            background-color: white;
+            border-bottom: 1px solid #f0f0f0;
+            font-weight: bold;
+            padding: 15px 20px;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        /* Table styles */
+        .table {
+            width: 100%;
+            margin-bottom: 0;
+        }
+
+        .table th {
+            font-weight: 600;
+            border-top: none;
+            background-color: #f9fafb;
+        }
+
+        /* Badge styles */
+        .badge {
+            padding: 6px 10px;
+            font-weight: 500;
+            border-radius: 4px;
+        }
+
+        /* Custom Badges */
+        .badge.bg-success {
+            background-color: #27ae60 !important;
+        }
+
+        .badge.bg-info {
+            background-color: #3498db !important;
+        }
+
+        .badge.bg-warning {
+            background-color: #f39c12 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="manager-container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-tasks me-2"></i>
+                <span>Manager Panel</span>
+            </div>
+            <ul class="sidebar-menu">
+                <li
+                    class="sidebar-item @(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
+                    <a href="@Url.Action("Index", "Manager")">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li
+                    class="sidebar-item @(ViewContext.RouteData.Values["Action"].ToString() == "Itineraries" ? "active" : "")">
+                    <a href="@Url.Action("Itineraries", "Manager")">
+                        <i class="fas fa-route"></i>
+                        <span>Quản lý lịch trình</span>
+                    </a>
+                </li>
+                <li
+                    class="sidebar-item @(ViewContext.RouteData.Values["Action"].ToString() == "Guides" ? "active" : "")">
+                    <a href="@Url.Action("Guides", "Manager")">
+                        <i class="fas fa-user-tie"></i>
+                        <span>Quản lý hướng dẫn viên</span>
+                    </a>
+                </li>
+                <li
+                    class="sidebar-item @(ViewContext.RouteData.Values["Action"].ToString() == "Assignments" ? "active" : "")">
+                    <a href="@Url.Action("Assignments", "Manager")">
+                        <i class="fas fa-tasks"></i>
+                        <span>Phân công tour</span>
+                    </a>
+                </li>
+                <li
+                    class="sidebar-item @(ViewContext.RouteData.Values["Action"].ToString() == "Reports" ? "active" : "")">
+                    <a href="@Url.Action("Reports", "Manager")">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Báo cáo</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <header class="main-header">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button class="btn menu-toggle" id="menu-toggle">
+                                <i class="fas fa-bars"></i>
+                            </button>
+                            <h4 class="page-title">@ViewData["Title"]</h4>
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <div class="user-menu">
+                                <div class="dropdown">
+                                    <a href="#" class="dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        <img src="~/images/avatar.jpg" class="user-avatar" alt="User Avatar">
+                                        <span>Admin</span>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                        <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Hồ sơ</a>
+                                        </li>
+                                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Cài đặt</a>
+                                        </li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li>
+                                            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout"
+                                                asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                                <button type="submit" class="dropdown-item"><i
+                                                        class="fas fa-sign-out-alt me-2"></i>Đăng xuất</button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <main class="main-body">
+                <div class="container-fluid">
+                    @RenderBody()
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        $(document).ready(function () {
+            $("#menu-toggle").click(function () {
+                $(".manager-container").toggleClass("sidebar-collapsed");
+            });
+        });
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

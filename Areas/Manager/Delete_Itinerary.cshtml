@@ -1,0 +1,35 @@
+@page
+@model DeleteItineraryModel
+@{
+    ViewData["Title"] = "Xóa lịch trình";
+    Layout = "_Layout";
+}
+
+<div class="main-content">
+    <div class="delete-banner bg-danger text-white p-3 mb-4 rounded">
+        <i class="fas fa-exclamation-triangle fa-2x me-3"></i>
+        <span>Xác nhận xóa lịch trình: <strong>@Model.TourName</strong></span>
+    </div>
+
+    <form method="post">
+        <div class="card mb-4">
+            <div class="card-header">
+                Thông tin lịch trình
+            </div>
+            <div class="card-body">
+                <p>Mã tour: <strong>@Model.TourCode</strong></p>
+                <p>Loại tour: <strong>@Model.TourType</strong></p>
+                <p>Giá: <strong>@Model.Price</strong></p>
+                <p class="text-danger">Hành động này không thể hoàn tác!</p>
+            </div>
+            <div class="card-footer d-flex justify-content-between">
+                <a asp-page="/ItineraryManagement" class="btn btn-outline-secondary">
+                    <i class="fas fa-times"></i> Hủy
+                </a>
+                <button type="submit" class="btn btn-danger">
+                    <i class="fas fa-trash"></i> Xóa vĩnh viễn
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

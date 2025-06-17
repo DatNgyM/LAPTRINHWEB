@@ -1,0 +1,101 @@
+@page
+@model AssignTourModel
+@{
+    ViewData["Title"] = "Phân công tour";
+    Layout = "_Layout";
+}
+
+<div class="main-content">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3">
+                <i class="fas fa-clipboard-list text-primary"></i> 
+                Phân công tour
+            </h1>
+            <p class="text-muted">Danh sách các tour cần phân công cho hướng dẫn viên</p>
+        </div>
+        <a asp-page="/CreateAssignment" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Tạo phân công
+        </a>
+    </div>
+
+    <form method="get" class="filter-form mb-4">
+        <div class="row">
+            <div class="col-md-3 mb-2">
+                <label>Trạng thái:</label>
+                <select name="status" class="form-select">
+                    <option value="">Tất cả</option>
+                    <option value="active" selected>Hoạt động</option>
+                    <option value="completed">Hoàn thành</option>
+                </select>
+            </div>
+            <div class="col-md-3 mb-2">
+                <label>Loại tour:</label>
+                <select name="tourType" class="form-select">
+                    <option value="">Tất cả</option>
+                    <option value="beach">Tour biển</option>
+                    <option value="mountain">Tour núi</option>
+                    <option value="culture">Tour văn hóa</option>
+                </select>
+            </div>
+            <div class="col-md-3 mb-2">
+                <label>Tên hướng dẫn viên:</label>
+                <input type="text" name="guideName" class="form-control" />
+            </div>
+            <div class="col-md-3 mb-2 d-flex align-items-end">
+                <button class="btn btn-outline-primary w-100">
+                    <i class="fas fa-search"></i> Lọc
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <div class="card">
+        <div class="card-header">
+            Danh sách tour
+        </div>
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Mã tour</th>
+                        <th>Tên tour</th>
+                        <th>Hướng dẫn viên</th>
+                        <th>Thời gian</th>
+                        <th>Trạng thái</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var tour in Model.AssignedTours)
+                {
+                    <tr>
+                        <td>@tour.Code</td>
+                        <td>@tour.Name</td>
+                        <td>@tour.GuideName</td>
+                        <td>@tour.DateRange</td>
+                        <td>
+                            @if (tour.Status == "active")
+                            {
+                                <span class="badge bg-success">Hoạt động</span>
+                            }
+                            else if (tour.Status == "completed")
+                            {
+                                <span class="badge bg-secondary">Hoàn thành</span>
+                            }
+                        </td>
+                        <td>
+                            <a asp-page="/EditAssignTour" asp-route-id="@tour.Id" class="btn btn-sm btn-outline-secondary">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a asp-page="/DeleteAssignTour" asp-route-id="@tour.Id" class="btn btn-sm btn-outline-danger">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

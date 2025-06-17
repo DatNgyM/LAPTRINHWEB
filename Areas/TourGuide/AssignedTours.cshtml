@@ -1,0 +1,187 @@
+@model List<LAPTRINHWEB.Models.Tour>
+@{
+    ViewData["Title"] = "Tour được phân công - Hướng dẫn viên";
+    Layout = "_TourGuideLayout";
+}
+
+<!-- Header -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="h3">
+            <i class="fas fa-map-marked-alt text-primary"></i> 
+            Tour được phân công
+        </h1>
+        <p class="text-muted">Danh sách các tour được phân công cho bạn</p>
+    </div>
+    <div class="text-muted">
+        <i class="fas fa-calendar"></i> @DateTime.Now.ToString("dd/MM/yyyy")
+    </div>
+</div>
+
+<!-- Filter Options -->
+<form asp-action="AssignedTours" method="get" class="filter-form mb-4">
+    <div class="row">
+        <div class="col-md-3 mb-2">
+            <label>Trạng thái:</label>
+            <select name="status" class="form-select">
+                <option value="">Tất cả</option>
+                <option value="active" @(ViewBag.CurrentStatus == "active" ? "selected" : "")>Đang diễn ra</option>
+                <option value="upcoming" @(ViewBag.CurrentStatus == "upcoming" ? "selected" : "")>Sắp tới</option>
+                <option value="completed" @(ViewBag.CurrentStatus == "completed" ? "selected" : "")>Đã hoàn thành</option>
+            </select>
+        </div>
+        <div class="col-md-3 mb-2">
+            <label>Từ ngày:</label>
+            <input type="date" name="fromDate" value="@ViewBag.FromDate" class="form-control">
+        </div>
+        <div class="col-md-3 mb-2">
+            <label>Đến ngày:</label>
+            <input type="date" name="toDate" value="@ViewBag.ToDate" class="form-control">
+        </div>
+        <div class="col-md-3 mb-2">
+            <label>Tìm kiếm:</label>
+            <div class="input-group">
+                <input type="text" name="search" value="@ViewBag.CurrentSearch" class="form-control" placeholder="Tên tour...">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="mt-3">
+        <button type="submit" class="btn btn-primary">
+            <i class="fas fa-filter"></i> Lọc
+        </button>
+        <a asp-action="AssignedTours" class="btn btn-outline-secondary ms-2">
+            <i class="fas fa-redo"></i> Đặt lại
+        </a>
+    </div>
+</form>
+
+<!-- Tour Cards -->
+@if (Model == null || !Model.Any())
+{
+    <div class="text-center py-5 bg-white shadow-sm rounded-3">
+        <i class="fas fa-calendar-times fa-4x text-muted mb-3"></i>
+        <h4>Không tìm thấy tour nào</h4>
+        <p class="text-muted">Thử thay đổi các bộ lọc hoặc xem lại sau.</p>
+    </div>
+}
+else
+{
+    <div class="row">
+        @foreach (var tour in Model)
+        {
+            string statusClass = "";
+            string statusText = "";
+            
+            var today = DateTime.Today;
+            
+            if (tour.Start_Date <= today && tour.End_Date >= today)
+            {
+                statusClass = "bg-success";
+                statusText = "Đang diễn ra";
+            }
+            else if (tour.Start_Date > today)
+            {
+                statusClass = "bg-warning text-dark";
+                statusText = "Sắp tới";
+            }
+            else
+            {
+                statusClass = "bg-secondary";
+                statusText = "Đã hoàn thành";
+            }
+            
+            <div class="col-lg-6 mb-4">
+                <div class="tour-card position-relative">
+                    <div class="tour-image" style="background-image: url('@(tour.TourImages?.FirstOrDefault()?.Image_URL ?? "/img/default-tour.jpg")')"></div>
+                    <div class="tour-status badge @statusClass">@statusText</div>
+                    <div class="tour-details">
+                        <h4>@tour.Name_Tour</h4>
+                        <div class="mb-3">
+                            <div><i class="fas fa-map-marker-alt text-primary"></i> @tour.Start_Location → @tour.End_Location</div>
+                            <div><i class="fas fa-users text-primary"></i> @(tour.Bookings != null ? tour.Bookings.Sum(b => b.Number_Of_People ?? 0) : 0) khách</div>
+                        </div>
+                        <div class="d-flex justify-content-between mb-3">
+                            <div>
+                                <i class="fas fa-calendar-alt text-primary"></i> @tour.Start_Date.ToString("dd/MM/yyyy") - @tour.End_Date.ToString("dd/MM/yyyy")
+                            </div>
+                            <div>
+                                <span class="badge bg-primary">@tour.ID_Tour</span>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="tour-actions">
+                            <a asp-action="TourDetail" asp-route-id="@tour.ID_Tour" class="btn btn-primary">
+                                <i class="fas fa-eye"></i> Xem chi tiết
+                            </a>
+                            <a asp-action="MySchedule" asp-route-tourId="@tour.ID_Tour" class="btn btn-outline-primary">
+                                <i class="fas fa-clipboard-list"></i> Lịch trình
+                            </a>
+                            
+                            @if (tour.Start_Date <= today && tour.End_Date >= today)
+                            {
+                                <a asp-action="TourPassengers" asp-route-id="@tour.ID_Tour" class="btn btn-outline-secondary">
+                                    <i class="fas fa-users"></i> DS khách
+                                </a>
+                            }
+                            else if (tour.End_Date < today)
+                            {
+                                <a asp-action="TourReport" asp-route-id="@tour.ID_Tour" class="btn btn-outline-secondary">
+                                    <i class="fas fa-file-alt"></i> Báo cáo
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Pagination -->
+    @if (ViewBag.TotalPages > 1)
+    {
+        <div class="d-flex justify-content-center mt-4">
+            <nav aria-label="Phân trang">
+                <ul class="pagination">
+                    <li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")">
+                        <a class="page-link" asp-action="AssignedTours" 
+                           asp-route-page="@(ViewBag.CurrentPage - 1)"
+                           asp-route-search="@ViewBag.CurrentSearch"
+                           asp-route-status="@ViewBag.CurrentStatus"
+                           asp-route-fromDate="@ViewBag.FromDate"
+                           asp-route-toDate="@ViewBag.ToDate">
+                            Trước
+                        </a>
+                    </li>
+
+                    @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                    {
+                        <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                            <a class="page-link" asp-action="AssignedTours" 
+                               asp-route-page="@i"
+                               asp-route-search="@ViewBag.CurrentSearch"
+                               asp-route-status="@ViewBag.CurrentStatus"
+                               asp-route-fromDate="@ViewBag.FromDate"
+                               asp-route-toDate="@ViewBag.ToDate">
+                                @i
+                            </a>
+                        </li>
+                    }
+
+                    <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPages ? "disabled" : "")">
+                        <a class="page-link" asp-action="AssignedTours" 
+                           asp-route-page="@(ViewBag.CurrentPage + 1)"
+                           asp-route-search="@ViewBag.CurrentSearch"
+                           asp-route-status="@ViewBag.CurrentStatus"
+                           asp-route-fromDate="@ViewBag.FromDate"
+                           asp-route-toDate="@ViewBag.ToDate">
+                            Tiếp
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    }
+}

@@ -1,0 +1,393 @@
+@{
+    ViewData["Title"] = "Lịch trình của tôi - Hướng dẫn viên";
+    Layout = "_TourGuideLayout";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css">
+    <style>
+        .calendar-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .schedule-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .schedule-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .fc .fc-button-primary {
+            background-color: #3b7ddd;
+            border-color: #3b7ddd;
+        }
+
+        .fc .fc-button-primary:hover {
+            background-color: #2e60b1;
+            border-color: #2e60b1;
+        }
+
+        .fc .fc-daygrid-day.fc-day-today {
+            background-color: rgba(59, 125, 221, 0.1);
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background-color: #3b7ddd;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -39px;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #3b7ddd;
+            border: 4px solid white;
+        }
+
+        .timeline-content {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+}
+
+<!-- Header -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="h3">
+            <i class="fas fa-calendar-alt text-primary"></i>
+            Lịch trình của tôi
+        </h1>
+        <p class="text-muted">Quản lý lịch làm việc và các tour đã được phân công</p>
+    </div>
+    <div class="text-muted">
+        <i class="fas fa-calendar"></i> @DateTime.Now.ToString("dd/MM/yyyy")
+    </div>
+</div>
+
+<!-- Quick Stats -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card bg-primary text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4>@(ViewBag.ToursThisWeek?.Count ?? 0)</h4>
+                        <p class="mb-0">Tour trong tuần này</p>
+                    </div>
+                    <i class="fas fa-calendar-week fa-2x"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-info text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4>@(ViewBag.ToursThisMonth?.Count ?? 0)</h4>
+                        <p class="mb-0">Tour trong tháng</p>
+                    </div>
+                    <i class="fas fa-calendar-alt fa-2x"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-success text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4>@ViewBag.WorkingDays</h4>
+                        <p class="mb-0">Ngày làm việc</p>
+                    </div>
+                    <i class="fas fa-briefcase fa-2x"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-warning text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4>
+                            @{
+                                var upcomingCount = 0;
+                                if (ViewBag.ToursThisWeek != null)
+                                {
+                                    var today = DateTime.Today;
+                                    foreach (var tour in ViewBag.ToursThisWeek)
+                                    {
+                                        if (tour.Start_Date > today)
+                                        {
+                                            upcomingCount++;
+                                        }
+                                    }
+                                }
+                            }
+                            @upcomingCount
+                        </h4>
+                        <p class="mb-0">Tour sắp tới</p>
+                    </div>
+                    <i class="fas fa-bell fa-2x"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Calendar -->
+<div class="calendar-container mb-4">
+    <div id="calendar"></div>
+</div>
+
+<!-- Today's Schedule -->
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0"><i class="fas fa-tasks"></i> Lịch trình hôm nay - @ViewBag.TodayDate</h5>
+    </div>
+    <div class="card-body">
+        @if (ViewBag.TodaySchedule != null && ViewBag.TodaySchedule.Details != null &&
+                ViewBag.TodaySchedule.Details.Any())
+        {
+            <div class="timeline">
+                @foreach (var detail in ViewBag.TodaySchedule.Details)
+                {
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h5 class="mb-0">@detail.Time</h5>
+
+                                @{
+                                    string badgeClass = "bg-info";
+                                    string timeLabel = "Buổi sáng";
+
+                                    if (detail.Time.Contains("12:") || detail.Time.Contains("13:"))
+                                    {
+                                        badgeClass = "bg-warning text-dark";
+                                        timeLabel = "Ăn trưa";
+                                    }
+                                    else if (detail.Time.StartsWith("14:") || detail.Time.StartsWith("15:") ||
+                                    detail.Time.StartsWith("16:") || detail.Time.StartsWith("17:"))
+                                    {
+                                        badgeClass = "bg-success";
+                                        timeLabel = "Buổi chiều";
+                                    }
+                                    else if (detail.Time.StartsWith("18:") || detail.Time.StartsWith("19:") ||
+                                    detail.Time.StartsWith("20:") || detail.Time.StartsWith("21:"))
+                                    {
+                                        badgeClass = "bg-danger";
+                                        timeLabel = "Buổi tối";
+                                    }
+                                }
+
+                                <span class="badge @badgeClass">@timeLabel</span>
+                            </div>
+                            <p>@detail.Activities</p>
+
+                            @if (ViewBag.TodaySchedule.Locations != null && ViewBag.TodaySchedule.Locations.Any())
+                            {
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                                    <span>
+                                        @{
+                                            var locationNames = new List<string>();
+                                            foreach (var location in ViewBag.TodaySchedule.Locations)
+                                            {
+                                                locationNames.Add(location.Name);
+                                            }
+                                        }
+                                        @string.Join(" → ", locationNames)
+                                    </span>
+                                </div>
+                            }
+
+                            <div class="mt-2">
+                                <span class="badge bg-light text-dark">Tour: @ViewBag.TodaySchedule.Tour.ID_Tour</span>
+                                <span class="badge bg-primary">@ViewBag.TodaySchedule.Tour.Name_Tour</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="text-center py-4">
+                <i class="far fa-calendar-times fa-4x text-muted mb-3"></i>
+                <h5>Không có lịch trình nào cho hôm nay</h5>
+                <p class="text-muted">Bạn có thể kiểm tra lại các ngày khác trong lịch.</p>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Upcoming Schedule -->
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0"><i class="fas fa-calendar-week"></i> Lịch trình sắp tới</h5>
+    </div>
+    <div class="card-body">
+        <div class="accordion" id="upcomingSchedule">
+            @{
+                var upcomingTours = new List<LAPTRINHWEB.Models.Tour>();
+                var today = DateTime.Today;
+
+                if (ViewBag.ToursThisWeek != null)
+                {
+                    foreach (var tour in ViewBag.ToursThisWeek)
+                    {
+                        if (tour.Start_Date >= today)
+                        {
+                            upcomingTours.Add(tour);
+                        }
+                    }
+
+                    upcomingTours = upcomingTours.OrderBy(t => t.Start_Date)
+                    .Take(3)
+                    .ToList();
+                }
+            }
+
+            @if (upcomingTours.Any())
+            {
+                for (int i = 0; i < upcomingTours.Count; i++)
+                {
+                    var tour = upcomingTours[i];
+                    var dayName = tour.Start_Date.ToString("dddd, dd/MM/yyyy");
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="day@(i)Heading">
+                            <button class="accordion-button @(i > 0 ? "collapsed" : "")" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#day@(i)Collapse" aria-expanded="@(i == 0 ? "true" : "false")"
+                                aria-controls="day@(i)Collapse">
+                                <strong>@dayName</strong> - @tour.Name_Tour
+                            </button>
+                        </h2>
+                        <div id="day@(i)Collapse" class="accordion-collapse collapse @(i == 0 ? "show" : "")"
+                            aria-labelledby="day@(i)Heading">
+                            <div class="accordion-body">
+                                @if (tour.Itineraries != null && tour.Itineraries.Any())
+                                {
+                                    var firstDay = tour.Itineraries.FirstOrDefault(it => it.Day_Number == 1);
+
+                                    if (firstDay != null && firstDay.Details != null && firstDay.Details.Any())
+                                    {
+                                        <ul class="list-group">
+                                            @foreach (var detail in firstDay.Details)
+                                            {
+                                                <li class="list-group-item">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <div>
+                                                            <strong>@detail.Time</strong>: @detail.Activities
+                                                        </div>
+
+                                                        @{
+                                                            string badgeClass = "bg-info";
+                                                            string timeLabel = "Buổi sáng";
+
+                                                            if (detail.Time.Contains("12:") || detail.Time.Contains("13:"))
+                                                            {
+                                                                badgeClass = "bg-warning text-dark";
+                                                                timeLabel = "Ăn trưa";
+                                                            }
+                                                            else if (detail.Time.StartsWith("14:") || detail.Time.StartsWith("15:") ||
+                                                            detail.Time.StartsWith("16:") || detail.Time.StartsWith("17:"))
+                                                            {
+                                                                badgeClass = "bg-success";
+                                                                timeLabel = "Buổi chiều";
+                                                            }
+                                                            else if (detail.Time.StartsWith("18:") || detail.Time.StartsWith("19:") ||
+                                                            detail.Time.StartsWith("20:") || detail.Time.StartsWith("21:"))
+                                                            {
+                                                                badgeClass = "bg-danger";
+                                                                timeLabel = "Buổi tối";
+                                                            }
+                                                        }
+
+                                                        <span class="badge @badgeClass">@timeLabel</span>
+                                                    </div>
+                                                </li>
+                                            }
+                                        </ul>
+                                    }
+                                    else
+                                    {
+                                        <div class="alert alert-info">
+                                            <i class="fas fa-info-circle"></i> Chưa có thông tin chi tiết về lịch trình ngày đầu tiên.
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <div class="alert alert-info">
+                                        <i class="fas fa-info-circle"></i> Chưa có thông tin chi tiết về lịch trình.
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="text-center py-4">
+                    <i class="far fa-calendar-check fa-4x text-muted mb-3"></i>
+                    <h5>Không có lịch trình sắp tới trong tuần này</h5>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                events: @Html.Raw(ViewBag.CalendarEvents ?? "[]")
+                });
+
+            calendar.render();
+        });
+    </script>
+}

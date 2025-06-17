@@ -1,0 +1,61 @@
+@page
+@model CreateItineraryModel
+@{
+    ViewData["Title"] = "Tạo lịch trình";
+    Layout = "_Layout";
+}
+
+<div class="main-content">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3">
+                <i class="fas fa-plus text-primary"></i> 
+                Tạo lịch trình
+            </h1>
+            <p class="text-muted">Tạo mới lịch trình tour du lịch</p>
+        </div>
+        <a asp-page="/ItineraryManagement" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left"></i> Quay lại
+        </a>
+    </div>
+
+    <form method="post">
+        <div class="card">
+            <div class="card-header">
+                Thông tin lịch trình
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label asp-for="Itinerary.TourName" class="form-label">Tên tour</label>
+                    <input asp-for="Itinerary.TourName" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Itinerary.TourCode" class="form-label">Mã tour</label>
+                    <input asp-for="Itinerary.TourCode" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Itinerary.TourType" class="form-label">Loại tour</label>
+                    <select asp-for="Itinerary.TourType" class="form-select">
+                        <option value="">Chọn loại tour</option>
+                        <option value="beach">Tour biển</option>
+                        <option value="mountain">Tour núi</option>
+                        <option value="culture">Tour văn hóa</option>
+                        <option value="adventure">Tour mạo hiểm</option>
+                        <option value="eco">Tour sinh thái</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Itinerary.Destination" class="form-label">Điểm đến</label>
+                    <input asp-for="Itinerary.Destination" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Itinerary.Description" class="form-label">Mô tả</label>
+                    <textarea asp-for="Itinerary.Description" class="form-control" rows="4"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Lưu
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

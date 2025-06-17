@@ -172,6 +172,62 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/DAT DAT/Documents/GitHub/LAPTRINHWEB/Areas/Manager/AddGuide.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlclxBZGRHdWlkZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DAT DAT/Documents/GitHub/LAPTRINHWEB/Areas/Manager/Add_Itinerary.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlclxBZGRfSXRpbmVyYXJ5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DAT DAT/Documents/GitHub/LAPTRINHWEB/Areas/Manager/AssignTour.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlclxBc3NpZ25Ub3VyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DAT DAT/Documents/GitHub/LAPTRINHWEB/Areas/Manager/CreateItinerary.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlclxDcmVhdGVJdGluZXJhcnkuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DAT DAT/Documents/GitHub/LAPTRINHWEB/Areas/Manager/Delete_AssginTour.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlclxEZWxldGVfQXNzZ2luVG91ci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DAT DAT/Documents/GitHub/LAPTRINHWEB/Areas/Manager/Delete_Itinerary.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlclxEZWxldGVfSXRpbmVyYXJ5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DAT DAT/Documents/GitHub/LAPTRINHWEB/Areas/Manager/Edit_Guide.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlclxFZGl0X0d1aWRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DAT DAT/Documents/GitHub/LAPTRINHWEB/Areas/Manager/Edit_Itinerary.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlclxFZGl0X0l0aW5lcmFyeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DAT DAT/Documents/GitHub/LAPTRINHWEB/Areas/Manager/itinerary-management.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlclxpdGluZXJhcnktbWFuYWdlbWVudC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DAT DAT/Documents/GitHub/LAPTRINHWEB/Areas/Manager/Manager.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlclxNYW5hZ2VyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DAT DAT/Documents/GitHub/LAPTRINHWEB/Areas/Manager/ManagerLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlclxNYW5hZ2VyTGF5b3V0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DAT DAT/Documents/GitHub/LAPTRINHWEB/Areas/TourGuide/AssignedTours.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVG91ckd1aWRlXEFzc2lnbmVkVG91cnMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DAT DAT/Documents/GitHub/LAPTRINHWEB/Areas/TourGuide/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVG91ckd1aWRlXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DAT DAT/Documents/GitHub/LAPTRINHWEB/Areas/TourGuide/MySchedule.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVG91ckd1aWRlXE15U2NoZWR1bGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/DAT DAT/Documents/GitHub/LAPTRINHWEB/Views/Home/HomePage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxIb21lUGFnZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

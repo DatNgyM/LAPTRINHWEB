@@ -1,0 +1,56 @@
+@page
+@model EditGuideModel
+@{
+    ViewData["Title"] = "Sửa hướng dẫn viên";
+    Layout = "_Layout";
+}
+
+<div class="main-content">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3">
+                <i class="fas fa-user-edit text-primary"></i> 
+                Sửa hướng dẫn viên
+            </h1>
+            <p class="text-muted">Cập nhật thông tin hướng dẫn viên</p>
+        </div>
+        <a asp-page="/GuideManagement" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left"></i> Quay lại
+        </a>
+    </div>
+
+    <form method="post">
+        <div class="card">
+            <div class="card-header">
+                Thông tin hướng dẫn viên
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label asp-for="Guide.FullName" class="form-label">Họ và tên</label>
+                    <input asp-for="Guide.FullName" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Guide.PhoneNumber" class="form-label">Số điện thoại</label>
+                    <input asp-for="Guide.PhoneNumber" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Guide.Email" class="form-label">Email</label>
+                    <input asp-for="Guide.Email" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Guide.Language" class="form-label">Ngôn ngữ</label>
+                    <select asp-for="Guide.Language" class="form-select">
+                        <option value="">Chọn ngôn ngữ</option>
+                        <option value="vietnamese">Tiếng Việt</option>
+                        <option value="english">Tiếng Anh</option>
+                        <option value="japanese">Tiếng Nhật</option>
+                        <option value="korean">Tiếng Hàn</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Cập nhật
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
